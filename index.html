@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>期交所动态监控</title>
+    <title>交易所动态追踪器</title>
     <!-- 引入 Tailwind CSS CDN 以保持样式完全一致 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -12,24 +13,30 @@
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         /* 适配底部安全区 */
         .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+        .hidden-date-panel { display: none; }
     </style>
 </head>
 <body class="bg-[#F5F5F5] font-sans text-gray-900 pb-safe">
     <div class="max-w-md mx-auto shadow-xl overflow-hidden relative min-h-screen bg-[#F5F5F5]">
         
         <!-- Header -->
-        <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 px-4 py-3 flex items-center justify-between">
-            <h1 class="text-[17px] font-semibold tracking-tight">期交所动态</h1>
-            <button class="relative p-1.5 text-gray-600 hover:text-gray-900 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-                <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
-            </button>
+        <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 px-4 py-3 relative flex items-center justify-center">
+            <h1 class="text-[17px] font-semibold tracking-tight text-center">交易所动态追踪器</h1>
         </header>
+
+        <!-- Headlines -->
+        <section class="px-4 py-3 bg-white mb-2">
+            <div class="flex items-center justify-between mb-3">
+                <h2 class="text-xs font-medium text-gray-500 uppercase tracking-wider">头条动态</h2>
+                <span id="headline-scope" class="text-[10px] text-gray-400">重点置顶</span>
+            </div>
+            <div id="headline-container" class="space-y-2"></div>
+        </section>
 
         <!-- Core Metrics -->
         <section class="px-4 py-4 bg-white mb-2">
             <div class="flex items-center justify-between mb-3">
-                <h2 class="text-xs font-medium text-gray-500 uppercase tracking-wider">今日监控概览</h2>
+                <h2 class="text-xs font-medium text-gray-500 uppercase tracking-wider">监控概览</h2>
                 <!-- 原生 JS 倒计时容器 -->
                 <span id="refresh-countdown" class="text-[10px] text-gray-400 flex items-center">
                     <svg class="w-3 h-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -37,18 +44,18 @@
                 </span>
             </div>
             <div class="grid grid-cols-3 gap-2">
-                <div class="bg-[#F8FAFC] rounded-lg p-3 border border-slate-100">
+                <button onclick="focusMetric('total')" class="text-left bg-[#F8FAFC] rounded-lg p-3 border border-slate-100 active:scale-[0.99] transition-transform">
                     <div id="metric-total" class="text-2xl font-semibold text-slate-800 mb-0.5 font-mono tracking-tight">0</div>
                     <div class="text-[11px] text-slate-500">监控动态</div>
-                </div>
-                <div class="bg-[#FEF2F2] rounded-lg p-3 border border-red-50">
+                </button>
+                <button onclick="focusMetric('rule')" class="text-left bg-[#FEF2F2] rounded-lg p-3 border border-red-50 active:scale-[0.99] transition-transform">
                     <div id="metric-rule" class="text-2xl font-semibold text-red-600 mb-0.5 font-mono tracking-tight">0</div>
                     <div class="text-[11px] text-red-500">规则变动</div>
-                </div>
-                <div class="bg-[#F8FAFC] rounded-lg p-3 border border-slate-100">
+                </button>
+                <button onclick="focusMetric('important')" class="text-left bg-[#F8FAFC] rounded-lg p-3 border border-slate-100 active:scale-[0.99] transition-transform">
                     <div id="metric-important" class="text-2xl font-semibold text-slate-800 mb-0.5 font-mono tracking-tight">0</div>
                     <div class="text-[11px] text-slate-500">重点动态</div>
-                </div>
+                </button>
             </div>
         </section>
 
@@ -60,8 +67,34 @@
         <!-- Category Filters -->
         <section class="px-4 py-3 flex space-x-2 overflow-x-auto hide-scrollbar bg-white" id="category-tabs"></section>
 
+        <!-- Range Filters -->
+        <section class="px-4 py-3 bg-white mb-2 border-t border-gray-100">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-xs font-medium text-gray-500 uppercase tracking-wider">时间区间</h2>
+                <span id="range-summary" class="text-[10px] text-gray-400">全部时间</span>
+            </div>
+            <div id="range-tabs" class="flex space-x-2 overflow-x-auto hide-scrollbar"></div>
+            <div id="custom-range-panel" class="hidden-date-panel">
+                <div class="grid grid-cols-2 gap-2 mt-3">
+                <label class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
+                    <div class="text-[10px] text-slate-400 mb-1">开始日期</div>
+                    <input id="custom-start" type="date" class="w-full bg-transparent text-[13px] text-slate-700 outline-none" />
+                </label>
+                <label class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
+                    <div class="text-[10px] text-slate-400 mb-1">结束日期</div>
+                    <input id="custom-end" type="date" class="w-full bg-transparent text-[13px] text-slate-700 outline-none" />
+                </label>
+                </div>
+                <div class="flex items-center justify-between mt-3">
+                    <button id="apply-custom-range" class="text-[12px] font-medium text-white bg-slate-800 px-3 py-2 rounded-md">应用时间</button>
+                    <button id="reset-range" class="text-[12px] font-medium text-slate-500 px-2 py-2">清空</button>
+                </div>
+            </div>
+        </section>
+
         <!-- List -->
-        <section class="bg-white border-t border-gray-100 min-h-[50vh]">
+        <section id="list-section" class="bg-white border-t border-gray-100 min-h-[50vh]">
+            <div id="list-summary" class="px-4 py-3 text-[12px] text-slate-500 border-b border-gray-100">全部 · 全部时间</div>
             <div id="list-container" class="divide-y divide-gray-100"></div>
         </section>
     </div>
@@ -77,6 +110,15 @@
             { id: 'holiday', label: '休市安排' },
             { id: 'regulator', label: '监管措施' },
             { id: 'delivery', label: '交割结算' },
+        ];
+
+        const RANGE_PRESETS = [
+            { id: 'all', label: '全部' },
+            { id: '7d', label: '7天' },
+            { id: '30d', label: '30天' },
+            { id: '90d', label: '90天' },
+            { id: '365d', label: '1年' },
+            { id: 'custom', label: '自定义' },
         ];
 
         const MONITOR_DATA = [
@@ -169,6 +211,53 @@
         // --- 状态管理 ---
         let activeExchange = '全部';
         let activeCategory = 'all';
+        let activeRange = 'all';
+        let customStart = '';
+        let customEnd = '';
+        let importantOnly = false;
+
+        const DATA_ANCHOR = new Date(Math.max(...MONITOR_DATA.map(item => new Date(`${item.date}T00:00:00`).getTime())));
+
+        function parseDate(dateStr) {
+            return new Date(`${dateStr}T00:00:00`);
+        }
+
+        function sortByDateDesc(list) {
+            return [...list].sort((a, b) => parseDate(b.date) - parseDate(a.date) || b.id - a.id);
+        }
+
+        function isWithinRange(item) {
+            const itemDate = parseDate(item.date);
+            if (activeRange === 'all') return true;
+            if (activeRange === 'custom') {
+                if (customStart && itemDate < parseDate(customStart)) return false;
+                if (customEnd && itemDate > parseDate(customEnd)) return false;
+                return true;
+            }
+
+            const daysMap = { '7d': 7, '30d': 30, '90d': 90, '365d': 365 };
+            const days = daysMap[activeRange];
+            if (!days) return true;
+            const start = new Date(DATA_ANCHOR);
+            start.setDate(start.getDate() - (days - 1));
+            return itemDate >= start && itemDate <= DATA_ANCHOR;
+        }
+
+        function getBaseData() {
+            return sortByDateDesc(MONITOR_DATA.filter(item => {
+                if (activeExchange !== '全部' && item.exchange !== activeExchange) return false;
+                if (!isWithinRange(item)) return false;
+                return true;
+            }));
+        }
+
+        function getFilteredData() {
+            return getBaseData().filter(item => {
+                if (activeCategory !== 'all' && item.type !== activeCategory) return false;
+                if (importantOnly && !item.important) return false;
+                return true;
+            });
+        }
 
         // --- 渲染逻辑 ---
         function renderExchanges() {
@@ -196,13 +285,67 @@
             `).join('');
         }
 
+        function renderRanges() {
+            const container = document.getElementById('range-tabs');
+            const customPanel = document.getElementById('custom-range-panel');
+            container.innerHTML = RANGE_PRESETS.map(item => `
+                <button
+                    onclick="setActiveRange('${item.id}')"
+                    class="whitespace-nowrap px-3 py-1.5 rounded-md text-[12px] font-medium transition-colors ${activeRange === item.id ? 'bg-blue-600 text-white' : 'bg-slate-50 text-slate-600 border border-slate-200/60'}"
+                >
+                    ${item.label}
+                </button>
+            `).join('');
+
+            let summary = '全部时间';
+            if (activeRange === 'custom') {
+                summary = customStart || customEnd ? `${customStart || '起始'} 至 ${customEnd || '结束'}` : '自定义时间';
+            } else if (activeRange !== 'all') {
+                const label = RANGE_PRESETS.find(item => item.id === activeRange)?.label || '';
+                summary = `最近${label}`;
+            }
+            document.getElementById('range-summary').textContent = summary;
+            customPanel.style.display = activeRange === 'custom' ? 'block' : 'none';
+        }
+
+        function renderHeadlines() {
+            const container = document.getElementById('headline-container');
+            const data = getBaseData().filter(item => item.important).slice(0, 3);
+            document.getElementById('headline-scope').textContent = `${activeExchange} · ${data.length} 条置顶`;
+
+            if (!data.length) {
+                container.innerHTML = `
+                    <div class="rounded-xl border border-slate-100 bg-slate-50 px-3 py-4 text-[12px] text-slate-400 text-center">
+                        当前筛选区间暂无置顶动态
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = data.map((item, index) => `
+                <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="block rounded-xl border ${index === 0 ? 'border-red-100 bg-[#FFF7F7]' : 'border-slate-100 bg-slate-50'} px-3 py-3 active:bg-slate-100 transition-colors">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-[10px] font-medium px-1.5 py-0.5 rounded-sm ${index === 0 ? 'bg-red-100 text-red-600' : 'bg-slate-200 text-slate-600'}">${index === 0 ? '头条' : '置顶'}</span>
+                            <span class="text-[10px] text-slate-500">${item.exchange}</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400 font-mono">${item.date}</span>
+                    </div>
+                    <div class="text-[14px] leading-snug font-medium text-slate-900">${item.title}</div>
+                </a>
+            `).join('');
+        }
+
         function renderList() {
             const container = document.getElementById('list-container');
-            const filteredData = MONITOR_DATA.filter(item => {
-                if (activeExchange !== '全部' && item.exchange !== activeExchange) return false;
-                if (activeCategory !== 'all' && item.type !== activeCategory) return false;
-                return true;
-            });
+            const summary = document.getElementById('list-summary');
+            const filteredData = getFilteredData();
+            const labels = [];
+            labels.push(activeExchange);
+            labels.push(activeCategory === 'all' ? (importantOnly ? '重点动态' : '全部类型') : CATEGORIES.find(item => item.id === activeCategory)?.label || '全部类型');
+            labels.push(document.getElementById('range-summary').textContent);
+            labels.push(`${filteredData.length} 条`);
+            summary.textContent = labels.join(' · ');
 
             if (filteredData.length > 0) {
                 container.innerHTML = filteredData.map(item => {
@@ -275,25 +418,65 @@
         }
 
         function renderMetrics() {
-            const total = MONITOR_DATA.length;
-            const ruleCount = MONITOR_DATA.filter(item => item.type === 'rule').length;
-            const importantCount = MONITOR_DATA.filter(item => item.important).length;
+            const scopedData = getBaseData();
+            const total = scopedData.length;
+            const ruleCount = scopedData.filter(item => item.type === 'rule').length;
+            const importantCount = scopedData.filter(item => item.important).length;
             document.getElementById('metric-total').textContent = total;
             document.getElementById('metric-rule').textContent = ruleCount;
             document.getElementById('metric-important').textContent = importantCount;
         }
 
+        function renderAll() {
+            renderMetrics();
+            renderHeadlines();
+            renderExchanges();
+            renderCategories();
+            renderRanges();
+            renderList();
+        }
+
+        function scrollToList() {
+            const section = document.getElementById('list-section');
+            if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
         // --- 交互事件 ---
         window.setActiveExchange = function(ex) {
             activeExchange = ex;
-            renderExchanges();
-            renderList();
+            renderAll();
         };
 
         window.setActiveCategory = function(cat) {
             activeCategory = cat;
-            renderCategories();
-            renderList();
+            importantOnly = false;
+            renderAll();
+        };
+
+        window.setActiveRange = function(rangeId) {
+            activeRange = rangeId;
+            if (rangeId !== 'custom') {
+                customStart = '';
+                customEnd = '';
+                document.getElementById('custom-start').value = '';
+                document.getElementById('custom-end').value = '';
+            }
+            renderAll();
+        };
+
+        window.focusMetric = function(metricType) {
+            if (metricType === 'rule') {
+                activeCategory = 'rule';
+                importantOnly = false;
+            } else if (metricType === 'important') {
+                activeCategory = 'all';
+                importantOnly = true;
+            } else {
+                activeCategory = 'all';
+                importantOnly = false;
+            }
+            renderAll();
+            scrollToList();
         };
 
         // --- 原生 JS 倒计时逻辑 ---
@@ -314,11 +497,38 @@
             }, 1000);
         }
 
+        function bindRangeActions() {
+            document.getElementById('apply-custom-range').addEventListener('click', () => {
+                const startValue = document.getElementById('custom-start').value;
+                const endValue = document.getElementById('custom-end').value;
+                customStart = startValue;
+                customEnd = endValue;
+
+                if (customStart && customEnd && parseDate(customStart) > parseDate(customEnd)) {
+                    const temp = customStart;
+                    customStart = customEnd;
+                    customEnd = temp;
+                    document.getElementById('custom-start').value = customStart;
+                    document.getElementById('custom-end').value = customEnd;
+                }
+
+                activeRange = 'custom';
+                renderAll();
+            });
+
+            document.getElementById('reset-range').addEventListener('click', () => {
+                activeRange = 'all';
+                customStart = '';
+                customEnd = '';
+                document.getElementById('custom-start').value = '';
+                document.getElementById('custom-end').value = '';
+                renderAll();
+            });
+        }
+
         // --- 初始化 ---
-        renderMetrics();
-        renderExchanges();
-        renderCategories();
-        renderList();
+        bindRangeActions();
+        renderAll();
         initCountdown();
     </script>
 </body>
