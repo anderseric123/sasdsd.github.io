@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>交易所动态追踪器</title>
+    <title>期货交易所动态追踪器</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .hide-scrollbar::-webkit-scrollbar { display: none; }
@@ -39,9 +39,10 @@
 
         <header class="hero-header sticky top-0 z-50 border-b border-slate-700/40 px-4 pt-6 pb-5 relative overflow-hidden">
             <div class="relative z-10">
-                <div>
-                    <div class="text-[10px] tracking-[0.16em] text-slate-300">金十期货APP独家制作</div>
-                    <h1 class="mt-2 text-[28px] leading-none font-semibold tracking-tight text-white">交易所动态追踪器</h1>
+                <div class="flex flex-col items-center text-center">
+                    <img
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBmaWxsPSJub25lIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSI2NC42MTE0MTIwNDgzMzk4NCIgaGVpZ2h0PSIxMy4wNDQ3NDczNTI2MDAwOTgiIHZpZXdCb3g9IjAgMCA2NC42MTE0MTIwNDgzMzk4NCAxMy4wNDQ3NDczNTI2MDAwOTgiPjxkZWZzPjxjbGlwUGF0aCBpZD0ibWFzdGVyX3N2ZzBfOTczXzIwNzUxIj48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iNjQuNjExNDEyMDQ4MzM5ODQiIGhlaWdodD0iMTMuMDQ0NzQ3MzUyNjAwMDk4IiByeD0iMCIvPjwvY2xpcFBhdGg+PC9kZWZzPjxnIGNsaXAtcGF0aD0idXJsKCNtYXN0ZXJfc3ZnMF85NzNfMjA3NTEpIj48cGF0aCBkPSJNNy4wNTkxMjU0LDBMMS42MzM1MTY4LDIuMTM1NjQ0N0wwLDguNjI5MTU4TDAsOC42NTgwMTcyTDMuNzYyOTIyNSwxMy4wNDQ3NDdMOS4xODg1MzE5LDEwLjkwOTEwMUwxMC44MjIwNDksNC40MTU1ODg5TDEwLjgyMjA0OSw0LjM4NjcyOTJMNy4wNTkxMjU0LDBaTTYuODg0MTA2NiwwLjYwNjA2MTIyTDkuNjI2MDgwNSwzLjgwOTUyNzJMNS43MTczMDksMS42NzM4ODM2TDUuNjU4OTY5OSwxLjY0NTAyMzNMMy41Mjk1NjI3LDEuOTMzNjI0MUw2Ljg4NDEwNjYsMC42MDYwNjEyMlpNMS45ODM1NTYzLDIuNjU1MTI1NEw1LjEwNDczOTcsMi4yMjIyMjQ3TDAuNjcwOTA4NjMsNy44NDk5MzY1TDEuOTgzNTU2MywyLjY1NTEyNTRaTTUuODkyMzI3OCwyLjMzNzY2NDhMMTAuMDkyOCw0LjYxNzYwOTVMNi42Nzk5MTc4LDguNjI5MTU4TDUuODkyMzI3OCwyLjMzNzY2NDhaTTAuODE2NzU4MzksOC4yODI4MzY5TDUuMzY3MjY5LDIuNTEwODI1NEw2LjE1NDg1NzIsOC44MDIzMTY3TDAuODE2NzU4MzksOC4yODI4MzY5Wk02Ljc5NjU5NjEsOS4wMzMxOTg0TDEwLjEyMTk3LDUuMjIzNjcxTDguODM4NDkyNCwxMC4yNzQxODFMNi43OTY1OTYxLDkuMDMzMTk4NFpNMC45MDQyNjgwOSw4Ljg2MDAzNjhMNi40MTczODcsOS4zNzk1MTg1TDguNDg4NDUzOSwxMC42NDkzNjNMMy45OTYyODIxLDEyLjQwOTgyNUwwLjkwNDI2ODA5LDguODYwMDM2OFoiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZmlsbD0iIzAwMDAwMCIgZmlsbC1vcGFjaXR5PSIxIiBzdHlsZT0ibWl4LWJsZW5kLW1vZGU6cGFzc3Rocm91Z2giLz48cGF0aCBkPSJNMTYuNDIyODk2Njc1NTkzNzUsMi4wMjA0ODczMzA4NTkzNzQ3TDE2Ljg2MDQ0NTc5MzU5Mzc1LDIuMDIwNDg3MzMwODU5Mzc0N0MxNy4wOTM4MDUwNzM1OTM3NSwyLjAyMDQ4NzMzMDg1OTM3NDcsMTcuMzI3MTY0NTMzNTkzNzUsMS45MDUwNDcxMzA4NTkzNzUsMTcuNTMxMzU0MTgzNTkzNzUsMS42NzQxNjY1MzA4NTkzNzVMMTguMzc3MjgzMDgzNTkzNzUsMC43NTA2NDQ1NTA4NTkzNzVDMTguNDY0NzkyNDgzNTkzNzUsMC42MzUyMDQyNzM4NTkzNzUxLDE4LjU1MjMwMjU4MzU5Mzc1LDAuNTc3NDg0MTMwODU5Mzc1LDE4LjYzOTgxMjk4MzU5Mzc1LDAuNTc3NDg0MTMwODU5Mzc1TDI1LjIwMzA0OTY4MzU5Mzc1LDAuNTc3NDg0MTMwODU5Mzc1QzI1LjI5MDU2MjU4MzU5Mzc1LDAuNjA2MzQ0MTY2ODU5Mzc1LDI1LjM0ODkwMDc4MzU5Mzc1LDAuNjM1MjA0MjczODU5Mzc1MSwyNS4zNzgwNjk4ODM1OTM3NSwwLjY2NDA2NDI4Nzg1OTM3NUwyNi4zMTE1MDcxODM1OTM3NSwxLjczMTg4NjczMDg1OTM3NUMyNi40NTczNTUxODM1OTM3NDgsMS45MDUwNDcxMzA4NTkzNzUsMjYuNjYxNTQ1MTgzNTkzNzUyLDEuOTYyNzY3MTMwODU5Mzc1LDI2Ljg2NTczNjE4MzU5Mzc1LDEuOTYyNzY3MTMwODU5Mzc1TDI3LjI3NDExNjE4MzU5Mzc0OCwxLjk2Mjc2NzEzMDg1OTM3NUMyNy4zMzI0NTQxODM1OTM3NSwxLjk2Mjc2NzEzMDg1OTM3NSwyNy4zNjE2MjUxODM1OTM3NTIsMi4wMjA0ODczMzA4NTkzNzQ3LDI3LjM2MTYyNTE4MzU5Mzc1MiwyLjA3ODIwNzUzMDg1OTM3NUwyNy4zNjE2MjUxODM1OTM3NTIsMy4yOTAzMjk5MzA4NTkzNzVDMjcuMzYxNjI1MTgzNTkzNzUyLDMuMzQ4MDUwMTMwODU5Mzc1LDI3LjMzMjQ1ODE4MzU5Mzc1LDMuMzc2OTA5OTMwODU5Mzc1LDI3LjI3NDExNjE4MzU5Mzc0OCwzLjM3NjkwOTkzMDg1OTM3NUwyNS43ODY0NDc0ODM1OTM3NSwzLjM3NjkwOTkzMDg1OTM3NUMyNS40NjU1Nzk5ODM1OTM3NSwzLjM3NjkwOTkzMDg1OTM3NSwyNS4yMDMwNDk2ODM1OTM3NSwzLjI2MTQ3MDMzMDg1OTM3NSwyNC45OTg4NjMxODM1OTM3NSwzLjAzMDU4OTMzMDg1OTM3NUwyNC4yMTEyNzEyODM1OTM3NSwyLjIyMjUwNzYzMDg1OTM3NDdDMjQuMTUyOTMyMTgzNTkzNzQ4LDIuMTA3MDY3MzMwODU5Mzc1MywyNC4wNjU0MjI1ODM1OTM3NSwyLjA0OTM0NzEzMDg1OTM3NSwyMy45Nzc5MTA0ODM1OTM3NSwyLjA0OTM0NzEzMDg1OTM3NUwxOS44MDY2MTA3ODM1OTM3NSwyLjA0OTM0NzEzMDg1OTM3NUMxOS42NjA3NjA4ODM1OTM3NSwyLjA3ODIwNzIzMDg1OTM3NSwxOS41MTQ5MTExODM1OTM3NSwyLjE2NDc4NzYzMDg1OTM3NSwxOS4zNjkwNjE0ODM1OTM3NSwyLjI4MDIyNzczMDg1OTM3NUwxOC42MTA2NDM1ODM1OTM3NSwzLjA1OTQ0OTYzMDg1OTM3NUMxOC4zMTg5NDM5ODM1OTM3NSwzLjM0ODA1MDEzMDg1OTM3NSwxNy45Mzk3MzQ5ODM1OTM3NTIsMy40OTIzNTAzMzA4NTkzNzUsMTcuNDczMDE1MTgzNTkzNzUsMy40OTIzNTAzMzA4NTkzNzVMMTYuNDIyODk3NzkzNTkzNzUsMy40OTIzNTAzMzA4NTkzNzVDMTYuMzY0NTU3NjgzNTkzNzUsMy40OTIzNTAzMzA4NTkzNzUsMTYuMzM1Mzg4MTgzNTkzNzUsMy40NjM0OTA1MzA4NTkzNzUsMTYuMzM1Mzg4MTgzNTkzNzUsMy40MDU3NzAzMzA4NTkzNzVMMTYuMzM1Mzg4MTgzNTkzNzUsMi4xMzU5Mjc1MzA4NTkzNzVDMTYuMzM1Mzg3MDcwODQ4NjUsMi4wNzgyMDcyMzA4NTkzNzUsMTYuMzY0NTU2NTY1NTkzNzUsMi4wNDkzNDcxMzA4NTkzNzUsMTYuNDIyODk2Njc1NTkzNzUsMi4wMjA0ODczMzA4NTkzNzQ3WiIgYWx0PSJ金十期货" class="h-5 w-auto object-contain" />
+                    <h1 class="mt-3 text-[28px] leading-none font-semibold tracking-tight text-white text-center">期货交易所动态追踪器</h1>
                 </div>
             </div>
         </header>
@@ -113,6 +114,12 @@
             <div id="list-summary" class="px-4 py-3 text-[12px] text-slate-500 border-b border-gray-100">全部品种 · 全部影响 · 全部时间</div>
             <div id="list-container" class="space-y-2 px-3 py-3"></div>
         </section>
+
+        <footer class="px-4 py-5 bg-[#F3F5F9]">
+            <div class="text-[11px] leading-5 text-slate-400 text-center">
+                免责声明：本页面仅为交易所公开信息整理与历史数据展示，部分解读由AI辅助生成。不构成任何投资建议、交易指引、收益承诺或对未来走势的判断。投资有风险，入市需谨慎。
+            </div>
+        </footer>
     </div>
 
     <script>
