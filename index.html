@@ -71,14 +71,14 @@
             <div id="product-tabs" class="flex overflow-x-auto hide-scrollbar px-4 space-x-4"></div>
         </section>
 
-        <section class="px-4 py-3 flex space-x-2 overflow-x-auto hide-scrollbar bg-white border-b border-gray-100" id="impact-tabs"></section>
+        <section class="px-4 pt-3 pb-2 flex space-x-2 overflow-x-auto hide-scrollbar bg-white" id="impact-tabs"></section>
 
-        <section class="px-4 py-3 flex space-x-2 overflow-x-auto hide-scrollbar bg-white mb-2" id="status-tabs"></section>
+        <section class="px-4 pt-1 pb-3 flex space-x-2 overflow-x-auto hide-scrollbar bg-white mb-2" id="status-tabs"></section>
 
-        <section class="px-4 py-3 bg-white mb-2 border-t border-gray-100">
+        <section class="px-4 py-2.5 bg-white mb-2">
             <div class="flex items-center justify-between">
-                <div id="filter-summary" class="text-[12px] text-slate-500">全部交易所 · 全部时间</div>
-                <button id="filter-toggle" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-slate-200 bg-slate-50 text-[12px] font-medium text-slate-700">
+                <div id="filter-summary" class="text-[11px] text-slate-400">全部交易所 · 全部时间</div>
+                <button id="filter-toggle" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-slate-100 text-[12px] font-medium text-slate-700">
                     筛选
                     <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
                 </button>
@@ -270,8 +270,8 @@
                 watchlistHit: false,
                 impactType: 'margin',
                 impactTypeLabel: '保证金',
-                impactLevel: 'high',
-                impactLevelLabel: '高影响',
+                impactLevel: 'medium',
+                impactLevelLabel: '中影响',
                 status: 'archive',
                 statusLabel: '已归档',
                 publishDate: '2025-09-25',
@@ -296,8 +296,8 @@
                 watchlistHit: false,
                 impactType: 'regulator',
                 impactTypeLabel: '监管',
-                impactLevel: 'high',
-                impactLevelLabel: '高影响',
+                impactLevel: 'medium',
+                impactLevelLabel: '中影响',
                 status: 'active',
                 statusLabel: '已生效',
                 publishDate: '2025-08-08',
@@ -348,8 +348,8 @@
                 watchlistHit: true,
                 impactType: 'rule',
                 impactTypeLabel: '规则变更',
-                impactLevel: 'medium',
-                impactLevelLabel: '中影响',
+                impactLevel: 'low',
+                impactLevelLabel: '低影响',
                 status: 'active',
                 statusLabel: '已生效',
                 publishDate: '2026-01-09',
@@ -596,7 +596,7 @@
         function renderImpactTabs() {
             const container = document.getElementById('impact-tabs');
             container.innerHTML = IMPACT_TYPES.map(item => `
-                <button onclick="setActiveImpactType('${item.id}')" class="whitespace-nowrap px-3 py-1.5 rounded-md text-[12px] font-medium transition-colors ${activeImpactType === item.id ? 'bg-slate-900 text-white' : 'bg-slate-50 text-slate-600 border border-slate-200/70'}">
+                <button onclick="setActiveImpactType('${item.id}')" class="whitespace-nowrap px-3 py-1.5 rounded-full text-[12px] font-medium transition-colors ${activeImpactType === item.id ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600'}">
                     ${item.label}
                 </button>
             `).join('');
@@ -605,7 +605,7 @@
         function renderStatusTabs() {
             const container = document.getElementById('status-tabs');
             container.innerHTML = STATUS_FILTERS.map(item => `
-                <button onclick="setActiveStatus('${item.id}')" class="whitespace-nowrap px-3 py-1.5 rounded-md text-[12px] font-medium transition-colors ${activeStatus === item.id ? 'bg-blue-600 text-white' : 'bg-blue-50 text-blue-700 border border-blue-100'}">
+                <button onclick="setActiveStatus('${item.id}')" class="whitespace-nowrap px-3 py-1.5 rounded-full text-[11px] font-medium transition-colors ${activeStatus === item.id ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-500'}">
                     ${item.label}
                 </button>
             `).join('');
@@ -646,7 +646,7 @@
             const panel = document.getElementById('filter-panel');
             const toggle = document.getElementById('filter-toggle');
             panel.style.display = isFilterPanelOpen ? 'block' : 'none';
-            toggle.innerHTML = `${isFilterPanelOpen ? '收起筛选' : '筛选'} <svg class="w-3.5 h-3.5 ${isFilterPanelOpen ? 'rotate-180' : ''}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>`;
+            toggle.innerHTML = `${isFilterPanelOpen ? '收起' : '筛选'} <svg class="w-3.5 h-3.5 ${isFilterPanelOpen ? 'rotate-180' : ''}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>`;
         }
 
         function renderMetrics() {
@@ -664,11 +664,11 @@
             if (item.impactType === 'time') {
                 return `
                     <div class="mt-3 grid grid-cols-2 gap-2 text-[11px]">
-                        <div class="rounded-lg bg-slate-50 border border-slate-100 px-2.5 py-2">
+                        <div class="rounded-xl bg-orange-50 border border-orange-100 px-2.5 py-2">
                             <div class="text-slate-400">停盘时间</div>
                             <div class="mt-1 text-slate-700 font-medium">${item.stopTime || item.effectiveText}</div>
                         </div>
-                        <div class="rounded-lg bg-slate-50 border border-slate-100 px-2.5 py-2">
+                        <div class="rounded-xl bg-slate-50 border border-slate-100 px-2.5 py-2">
                             <div class="text-slate-400">恢复时间</div>
                             <div class="mt-1 text-slate-700 font-medium">${item.resumeTime || '按交易所安排恢复'}</div>
                         </div>
@@ -678,11 +678,11 @@
             if (item.impactType === 'margin' || item.impactType === 'fee') {
                 return `
                     <div class="mt-3 grid grid-cols-2 gap-2 text-[11px]">
-                        <div class="rounded-lg bg-slate-50 border border-slate-100 px-2.5 py-2">
+                        <div class="rounded-xl bg-orange-50 border border-orange-100 px-2.5 py-2">
                             <div class="text-slate-400">调整前</div>
                             <div class="mt-1 text-slate-700 font-medium">${item.beforeValue || item.compareBefore || '--'}</div>
                         </div>
-                        <div class="rounded-lg bg-slate-50 border border-slate-100 px-2.5 py-2">
+                        <div class="rounded-xl bg-orange-50 border border-orange-100 px-2.5 py-2">
                             <div class="text-slate-400">调整后</div>
                             <div class="mt-1 text-slate-700 font-medium">${item.afterValue || item.compareAfter || '--'}</div>
                         </div>
@@ -692,12 +692,12 @@
             if (item.impactType === 'delivery') {
                 return `
                     <div class="mt-3 grid grid-cols-2 gap-2 text-[11px]">
-                        <div class="rounded-lg bg-slate-50 border border-slate-100 px-2.5 py-2">
-                            <div class="text-slate-400">调整事项</div>
+                        <div class="rounded-xl bg-blue-50 border border-blue-100 px-2.5 py-2">
+                            <div class="text-slate-400">调了什么</div>
                             <div class="mt-1 text-slate-700 font-medium">${item.adjustmentItem || item.coreChange}</div>
                         </div>
-                        <div class="rounded-lg bg-slate-50 border border-slate-100 px-2.5 py-2">
-                            <div class="text-slate-400">影响月份</div>
+                        <div class="rounded-xl bg-slate-50 border border-slate-100 px-2.5 py-2">
+                            <div class="text-slate-400">影响合约</div>
                             <div class="mt-1 text-slate-700 font-medium">${item.impactMonths || '当前挂牌合约'}</div>
                         </div>
                     </div>
@@ -705,13 +705,13 @@
             }
             if (item.impactType === 'regulator') {
                 return `
-                    <div class="mt-3 grid grid-cols-2 gap-2 text-[11px]">
-                        <div class="rounded-lg bg-slate-50 border border-slate-100 px-2.5 py-2">
+                    <div class="mt-3 space-y-2 text-[11px]">
+                        <div class="rounded-xl bg-blue-50 border border-blue-100 px-2.5 py-2">
                             <div class="text-slate-400">约束措施</div>
                             <div class="mt-1 text-slate-700 font-medium">${item.restrictionMeasure || item.coreChange}</div>
                         </div>
-                        <div class="rounded-lg bg-slate-50 border border-slate-100 px-2.5 py-2">
-                            <div class="text-slate-400">生效方式</div>
+                        <div class="rounded-xl bg-slate-50 border border-slate-100 px-2.5 py-2">
+                            <div class="text-slate-400">何时执行</div>
                             <div class="mt-1 text-slate-700 font-medium">${item.enforcementMode || item.effectiveText}</div>
                         </div>
                     </div>
@@ -719,12 +719,12 @@
             }
             return `
                 <div class="mt-3 grid grid-cols-2 gap-2 text-[11px]">
-                    <div class="rounded-lg bg-slate-50 border border-slate-100 px-2.5 py-2">
-                        <div class="text-slate-400">调整事项</div>
+                    <div class="rounded-xl bg-slate-50 border border-slate-100 px-2.5 py-2">
+                        <div class="text-slate-400">调了什么</div>
                         <div class="mt-1 text-slate-700 font-medium">${item.adjustmentItem || item.coreChange}</div>
                     </div>
-                    <div class="rounded-lg bg-slate-50 border border-slate-100 px-2.5 py-2">
-                        <div class="text-slate-400">生效时间</div>
+                    <div class="rounded-xl bg-slate-50 border border-slate-100 px-2.5 py-2">
+                        <div class="text-slate-400">何时执行</div>
                         <div class="mt-1 text-slate-700 font-medium">${item.effectiveText}</div>
                     </div>
                 </div>
@@ -734,14 +734,10 @@
         function renderExpandedFields(item) {
             if (item.impactType === 'time') {
                 return `
-                    <div class="mt-3 grid grid-cols-2 gap-2 text-[11px]">
+                    <div class="mt-3 text-[11px]">
                         <div class="rounded-lg bg-white border border-slate-100 p-2">
-                            <div class="text-slate-400">影响品种</div>
+                            <div class="text-slate-400">涉及品种</div>
                             <div class="mt-1 text-slate-700">${item.products.join('、')}</div>
-                        </div>
-                        <div class="rounded-lg bg-white border border-slate-100 p-2">
-                            <div class="text-slate-400">生效日期</div>
-                            <div class="mt-1 text-slate-700">${item.effectiveDate}</div>
                         </div>
                     </div>
                 `;
@@ -750,11 +746,11 @@
                 return `
                     <div class="mt-3 grid grid-cols-2 gap-2 text-[11px]">
                         <div class="rounded-lg bg-white border border-slate-100 p-2">
-                            <div class="text-slate-400">生效时间</div>
+                            <div class="text-slate-400">何时执行</div>
                             <div class="mt-1 text-slate-700">${item.effectiveText}</div>
                         </div>
                         <div class="rounded-lg bg-white border border-slate-100 p-2">
-                            <div class="text-slate-400">影响品种</div>
+                            <div class="text-slate-400">涉及品种</div>
                             <div class="mt-1 text-slate-700">${item.products.join('、')}</div>
                         </div>
                     </div>
@@ -764,11 +760,11 @@
                 return `
                     <div class="mt-3 grid grid-cols-2 gap-2 text-[11px]">
                         <div class="rounded-lg bg-white border border-slate-100 p-2">
-                            <div class="text-slate-400">涉及品种/品牌</div>
+                            <div class="text-slate-400">涉及品种</div>
                             <div class="mt-1 text-slate-700">${item.products.join('、')}</div>
                         </div>
                         <div class="rounded-lg bg-white border border-slate-100 p-2">
-                            <div class="text-slate-400">生效时间</div>
+                            <div class="text-slate-400">何时执行</div>
                             <div class="mt-1 text-slate-700">${item.effectiveText}</div>
                         </div>
                     </div>
@@ -776,14 +772,10 @@
             }
             if (item.impactType === 'regulator') {
                 return `
-                    <div class="mt-3 grid grid-cols-2 gap-2 text-[11px]">
+                    <div class="mt-3 text-[11px]">
                         <div class="rounded-lg bg-white border border-slate-100 p-2">
                             <div class="text-slate-400">影响对象</div>
                             <div class="mt-1 text-slate-700">${item.impactObjects}</div>
-                        </div>
-                        <div class="rounded-lg bg-white border border-slate-100 p-2">
-                            <div class="text-slate-400">生效时间</div>
-                            <div class="mt-1 text-slate-700">${item.effectiveText}</div>
                         </div>
                     </div>
                 `;
@@ -795,7 +787,7 @@
                         <div class="mt-1 text-slate-700">${item.products.join('、')}</div>
                     </div>
                     <div class="rounded-lg bg-white border border-slate-100 p-2">
-                        <div class="text-slate-400">执行方式</div>
+                        <div class="text-slate-400">何时执行</div>
                         <div class="mt-1 text-slate-700">${item.executionMode || item.effectiveText}</div>
                     </div>
                 </div>
@@ -843,30 +835,32 @@
                             : item.impactType === 'time'
                                 ? 'text-blue-700 bg-blue-50'
                                 : 'text-indigo-700 bg-indigo-50';
-                const statusBarClass = item.status === 'tomorrow'
-                    ? 'bg-orange-500'
-                    : item.status === 'active'
+                const statusBarClass = item.status === 'archive'
+                    ? 'bg-slate-400'
+                    : item.status === 'active' || item.status === 'notice'
                         ? 'bg-blue-600'
-                        : item.status === 'week'
-                            ? 'bg-violet-600'
-                            : item.status === 'archive'
-                                ? 'bg-slate-400'
-                                : 'bg-emerald-600';
+                        : 'bg-orange-500';
                 const diffHtml = item.compareBefore && item.compareAfter ? `
-                    <div class="mt-3 grid grid-cols-3 gap-2 text-[11px]">
-                        <div class="rounded-lg bg-slate-50 border border-slate-100 p-2">
-                            <div class="text-slate-400">变更前</div>
-                            <div class="mt-1 text-slate-700">${item.compareBefore}</div>
+                    <details class="mt-3 rounded-lg bg-white border border-slate-100">
+                        <summary class="list-none cursor-pointer px-3 py-2 text-[12px] font-medium text-slate-700 flex items-center justify-between">
+                            <span>查看调整前后差异</span>
+                            <span class="text-slate-400">3项变化</span>
+                        </summary>
+                        <div class="px-3 pb-3 grid grid-cols-3 gap-2 text-[11px]">
+                            <div class="rounded-lg bg-slate-50 border border-slate-100 p-2">
+                                <div class="text-slate-400">变更前</div>
+                                <div class="mt-1 text-slate-700">${item.compareBefore}</div>
+                            </div>
+                            <div class="rounded-lg bg-slate-50 border border-slate-100 p-2">
+                                <div class="text-slate-400">变更后</div>
+                                <div class="mt-1 text-slate-700">${item.compareAfter}</div>
+                            </div>
+                            <div class="rounded-lg bg-slate-50 border border-slate-100 p-2">
+                                <div class="text-slate-400">差异</div>
+                                <div class="mt-1 text-slate-700">${item.difference}</div>
+                            </div>
                         </div>
-                        <div class="rounded-lg bg-slate-50 border border-slate-100 p-2">
-                            <div class="text-slate-400">变更后</div>
-                            <div class="mt-1 text-slate-700">${item.compareAfter}</div>
-                        </div>
-                        <div class="rounded-lg bg-slate-50 border border-slate-100 p-2">
-                            <div class="text-slate-400">差异</div>
-                            <div class="mt-1 text-slate-700">${item.difference}</div>
-                        </div>
-                    </div>
+                    </details>
                 ` : '';
 
                 return `
@@ -894,7 +888,7 @@
                         </summary>
                         <div class="px-4 pb-4 border-t border-slate-100 bg-slate-50/70">
                             <div class="pt-3">
-                                <div class="text-[11px] text-slate-400">核心变化</div>
+                                <div class="text-[11px] text-slate-400">本次调整</div>
                                 <div class="mt-1 text-[13px] leading-5 text-slate-700">${item.coreChange}</div>
                                 ${renderExpandedFields(item)}
                                 ${diffHtml}
