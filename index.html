@@ -5,112 +5,147 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>交易所动态追踪器</title>
-    <!-- 引入 Tailwind CSS CDN 以保持样式完全一致 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* 隐藏滚动条但保留滚动功能 */
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        /* 适配底部安全区 */
         .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
         .hidden-date-panel { display: none; }
+        .hidden-filter-panel { display: none; }
+        .hero-header {
+            background:
+                linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(30, 41, 59, 0.92)),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='220' viewBox='0 0 480 220'%3E%3Cg fill='none' stroke='rgba(255,255,255,0.1)' stroke-width='1'%3E%3Cpath d='M0 34h480M0 78h480M0 122h480M0 166h480'/%3E%3Cpath d='M32 0v220M104 0v220M176 0v220M248 0v220M320 0v220M392 0v220M464 0v220'/%3E%3C/g%3E%3Cg fill='none' stroke='rgba(96,165,250,0.28)' stroke-width='1.4'%3E%3Cpath d='M0 150 C66 120 126 170 196 132 S336 88 480 142'/%3E%3Cpath d='M0 176 C78 138 160 194 236 154 S360 118 480 170'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-header::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 16% 18%, rgba(59, 130, 246, 0.26), transparent 28%),
+                radial-gradient(circle at 84% 20%, rgba(250, 204, 21, 0.16), transparent 22%);
+            pointer-events: none;
+        }
+        .glass-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
     </style>
 </head>
-<body class="bg-[#F5F5F5] font-sans text-gray-900 pb-safe">
-    <div class="max-w-md mx-auto shadow-xl overflow-hidden relative min-h-screen bg-[#F5F5F5]">
-        
-        <!-- Header -->
-        <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 px-4 py-3 relative flex items-center justify-center">
-            <h1 class="text-[17px] font-semibold tracking-tight text-center">交易所动态追踪器</h1>
+<body class="bg-[#F3F5F9] font-sans text-gray-900 pb-safe">
+    <div class="max-w-md mx-auto shadow-xl overflow-hidden relative min-h-screen bg-[#F3F5F9]">
+
+        <header class="hero-header sticky top-0 z-50 border-b border-slate-700/40 px-4 pt-6 pb-5 relative overflow-hidden">
+            <div class="relative z-10">
+                <div>
+                    <div class="text-[10px] tracking-[0.16em] text-slate-300">金十期货APP独家制作</div>
+                    <h1 class="mt-2 text-[28px] leading-none font-semibold tracking-tight text-white">交易所动态追踪器</h1>
+                </div>
+            </div>
         </header>
 
-        <!-- Headlines -->
-        <section class="px-4 py-3 bg-white mb-2">
+        <section class="px-4 pt-4 pb-3 bg-white mb-2">
             <div class="flex items-center justify-between mb-3">
-                <h2 class="text-xs font-medium text-gray-500 uppercase tracking-wider">头条动态</h2>
-                <span id="headline-scope" class="text-[10px] text-gray-400">重点置顶</span>
-            </div>
-            <div id="headline-container" class="space-y-2"></div>
-        </section>
-
-        <!-- Core Metrics -->
-        <section class="px-4 py-4 bg-white mb-2">
-            <div class="flex items-center justify-between mb-3">
-                <h2 class="text-xs font-medium text-gray-500 uppercase tracking-wider">监控概览</h2>
-                <!-- 原生 JS 倒计时容器 -->
-                <span id="refresh-countdown" class="text-[10px] text-gray-400 flex items-center">
-                    <svg class="w-3 h-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    60s 后刷新
-                </span>
+                <h2 class="text-xs font-medium text-gray-500 uppercase tracking-wider">行动指标</h2>
+                <span id="metric-scope" class="text-[10px] text-gray-400">全部范围</span>
             </div>
             <div class="grid grid-cols-3 gap-2">
-                <button onclick="focusMetric('total')" class="text-left bg-[#F8FAFC] rounded-lg p-3 border border-slate-100 active:scale-[0.99] transition-transform">
-                    <div id="metric-total" class="text-2xl font-semibold text-slate-800 mb-0.5 font-mono tracking-tight">0</div>
-                    <div class="text-[11px] text-slate-500">监控动态</div>
+                <button onclick="focusMetric('high')" class="text-left bg-[#FEF2F2] rounded-xl p-3 border border-red-100 active:scale-[0.99] transition-transform">
+                    <div id="metric-high" class="text-[23px] font-semibold text-red-600 mb-0.5 font-mono tracking-tight">0</div>
+                    <div class="text-[10px] text-red-500">高影响</div>
                 </button>
-                <button onclick="focusMetric('rule')" class="text-left bg-[#FEF2F2] rounded-lg p-3 border border-red-50 active:scale-[0.99] transition-transform">
-                    <div id="metric-rule" class="text-2xl font-semibold text-red-600 mb-0.5 font-mono tracking-tight">0</div>
-                    <div class="text-[11px] text-red-500">规则变动</div>
+                <button onclick="focusMetric('active')" class="text-left bg-[#EFF6FF] rounded-xl p-3 border border-blue-100 active:scale-[0.99] transition-transform">
+                    <div id="metric-active" class="text-[23px] font-semibold text-blue-700 mb-0.5 font-mono tracking-tight">0</div>
+                    <div class="text-[10px] text-blue-600">已生效</div>
                 </button>
-                <button onclick="focusMetric('important')" class="text-left bg-[#F8FAFC] rounded-lg p-3 border border-slate-100 active:scale-[0.99] transition-transform">
-                    <div id="metric-important" class="text-2xl font-semibold text-slate-800 mb-0.5 font-mono tracking-tight">0</div>
-                    <div class="text-[11px] text-slate-500">重点动态</div>
+                <button onclick="focusMetric('tomorrow')" class="text-left bg-[#FFF7ED] rounded-xl p-3 border border-orange-100 active:scale-[0.99] transition-transform">
+                    <div id="metric-tomorrow" class="text-[23px] font-semibold text-orange-600 mb-0.5 font-mono tracking-tight">0</div>
+                    <div class="text-[10px] text-orange-500">明日生效</div>
                 </button>
             </div>
         </section>
 
-        <!-- Exchange Tabs -->
-        <section class="bg-white sticky top-[53px] z-40 border-b border-gray-100">
-            <div id="exchange-tabs" class="flex overflow-x-auto hide-scrollbar px-4 space-x-5"></div>
+        <section class="bg-white sticky top-[112px] z-40 border-b border-gray-100">
+            <div id="product-tabs" class="flex overflow-x-auto hide-scrollbar px-4 space-x-4"></div>
         </section>
 
-        <!-- Category Filters -->
-        <section class="px-4 py-3 flex space-x-2 overflow-x-auto hide-scrollbar bg-white" id="category-tabs"></section>
+        <section class="px-4 py-3 flex space-x-2 overflow-x-auto hide-scrollbar bg-white border-b border-gray-100" id="impact-tabs"></section>
 
-        <!-- Range Filters -->
+        <section class="px-4 py-3 flex space-x-2 overflow-x-auto hide-scrollbar bg-white mb-2" id="status-tabs"></section>
+
         <section class="px-4 py-3 bg-white mb-2 border-t border-gray-100">
-            <div class="flex items-center justify-between mb-2">
-                <h2 class="text-xs font-medium text-gray-500 uppercase tracking-wider">时间区间</h2>
-                <span id="range-summary" class="text-[10px] text-gray-400">全部时间</span>
+            <div class="flex items-center justify-between">
+                <div id="filter-summary" class="text-[12px] text-slate-500">全部交易所 · 全部时间</div>
+                <button id="filter-toggle" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-slate-200 bg-slate-50 text-[12px] font-medium text-slate-700">
+                    筛选
+                    <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                </button>
             </div>
-            <div id="range-tabs" class="flex space-x-2 overflow-x-auto hide-scrollbar"></div>
-            <div id="custom-range-panel" class="hidden-date-panel">
-                <div class="grid grid-cols-2 gap-2 mt-3">
-                <label class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
-                    <div class="text-[10px] text-slate-400 mb-1">开始日期</div>
-                    <input id="custom-start" type="date" class="w-full bg-transparent text-[13px] text-slate-700 outline-none" />
-                </label>
-                <label class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
-                    <div class="text-[10px] text-slate-400 mb-1">结束日期</div>
-                    <input id="custom-end" type="date" class="w-full bg-transparent text-[13px] text-slate-700 outline-none" />
-                </label>
+            <div id="filter-panel" class="hidden-filter-panel mt-3 pt-3 border-t border-slate-100">
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="text-xs font-medium text-gray-500 uppercase tracking-wider">交易所与时间</h2>
+                    <span id="range-summary" class="text-[10px] text-gray-400">全部时间</span>
                 </div>
-                <div class="flex items-center justify-between mt-3">
-                    <button id="apply-custom-range" class="text-[12px] font-medium text-white bg-slate-800 px-3 py-2 rounded-md">应用时间</button>
-                    <button id="reset-range" class="text-[12px] font-medium text-slate-500 px-2 py-2">清空</button>
+                <div id="exchange-tabs" class="flex space-x-2 overflow-x-auto hide-scrollbar mb-3"></div>
+                <div id="range-tabs" class="flex space-x-2 overflow-x-auto hide-scrollbar"></div>
+                <div id="custom-range-panel" class="hidden-date-panel">
+                    <div class="grid grid-cols-2 gap-2 mt-3">
+                        <label class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
+                            <div class="text-[10px] text-slate-400 mb-1">开始日期</div>
+                            <input id="custom-start" type="date" class="w-full bg-transparent text-[13px] text-slate-700 outline-none" />
+                        </label>
+                        <label class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
+                            <div class="text-[10px] text-slate-400 mb-1">结束日期</div>
+                            <input id="custom-end" type="date" class="w-full bg-transparent text-[13px] text-slate-700 outline-none" />
+                        </label>
+                    </div>
+                    <div class="flex items-center justify-between mt-3">
+                        <button id="apply-custom-range" class="text-[12px] font-medium text-white bg-slate-800 px-3 py-2 rounded-md">应用时间</button>
+                        <button id="reset-range" class="text-[12px] font-medium text-slate-500 px-2 py-2">清空</button>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- List -->
         <section id="list-section" class="bg-white border-t border-gray-100 min-h-[50vh]">
-            <div id="list-summary" class="px-4 py-3 text-[12px] text-slate-500 border-b border-gray-100">全部 · 全部时间</div>
-            <div id="list-container" class="divide-y divide-gray-100"></div>
+            <div id="list-summary" class="px-4 py-3 text-[12px] text-slate-500 border-b border-gray-100">全部品种 · 全部影响 · 全部时间</div>
+            <div id="list-container" class="space-y-2 px-3 py-3"></div>
         </section>
     </div>
 
     <script>
-        // --- 数据定义 ---
-        const EXCHANGES = ['全部', '大商所', '上期所', '中金所', '广期所', '上期能源'];
-
-        const CATEGORIES = [
-            { id: 'all', label: '全部' },
-            { id: 'notice', label: '公告通知' },
-            { id: 'rule', label: '规则变动' },
-            { id: 'holiday', label: '休市安排' },
-            { id: 'regulator', label: '监管措施' },
-            { id: 'delivery', label: '交割结算' },
+        const PRODUCT_GROUPS = [
+            { id: 'all', label: '全部品种' },
+            { id: 'black', label: '黑色' },
+            { id: 'energy', label: '能化' },
+            { id: 'metals', label: '有色' },
+            { id: 'agri', label: '农产品' },
+            { id: 'financial', label: '金融期货' },
+            { id: 'options', label: '期权' }
         ];
+
+        const IMPACT_TYPES = [
+            { id: 'all', label: '全部影响' },
+            { id: 'time', label: '交易时间' },
+            { id: 'margin', label: '保证金' },
+            { id: 'fee', label: '手续费' },
+            { id: 'delivery', label: '交割' },
+            { id: 'regulator', label: '监管' },
+            { id: 'rule', label: '规则变更' }
+        ];
+
+        const STATUS_FILTERS = [
+            { id: 'all', label: '全部状态' },
+            { id: 'active', label: '生效中' },
+            { id: 'tomorrow', label: '明日生效' },
+            { id: 'week', label: '本周生效' },
+            { id: 'notice', label: '仅通知类' },
+            { id: 'archive', label: '已归档' }
+        ];
+
+        const EXCHANGES = ['全部', '大商所', '上期所', '中金所', '广期所', '上期能源'];
 
         const RANGE_PRESETS = [
             { id: 'all', label: '全部' },
@@ -118,125 +153,412 @@
             { id: '30d', label: '30天' },
             { id: '90d', label: '90天' },
             { id: '365d', label: '1年' },
-            { id: 'custom', label: '自定义' },
+            { id: 'custom', label: '自定义' }
         ];
 
-        const MONITOR_DATA = [
+        const TRACKER_DATA = [
             {
-                id: 1, exchange: '上期所', title: '关于开展部分期货、期权品种做市商招募工作的通知',
-                summary: '上期所发布部分期货、期权品种做市商招募通知，事项范围及报名安排以公告原文为准。',
-                products: ['做市商'], date: '2026-04-01', effectiveTime: '以官网公告为准',
-                type: 'notice', typeLabel: '公告通知', url: 'https://www.shfe.com.cn/publicnotice/notice/202604/t20260401_831013.html', important: true,
+                id: 1,
+                exchange: '上期所',
+                title: '关于2026年清明节期间有关工作安排的通知',
+                productGroup: 'energy',
+                products: ['原油', '螺纹钢', '橡胶'],
+                watchlistHit: true,
+                impactType: 'time',
+                impactTypeLabel: '交易时间',
+                impactLevel: 'high',
+                impactLevelLabel: '高影响',
+                status: 'tomorrow',
+                statusLabel: '明日生效',
+                publishDate: '2026-04-02',
+                effectiveDate: '2026-04-03',
+                effectiveText: '4月3日夜盘起',
+                impactObjects: '上期所相关期货及期权合约',
+                userInterpretation: '4月3日夜盘停开，相关合约当晚无法交易。',
+                coreChange: '夜盘暂停，日盘正常，节后恢复常规安排。',
+                stopTime: '4月3日夜盘停开',
+                resumeTime: '节后首个夜盘恢复',
+                compareBefore: '常规夜盘交易',
+                compareAfter: '清明节前一日晚盘暂停',
+                difference: '交易时段临时减少',
+                url: 'https://www.shfe.com.cn/publicnotice/notice/202603/t20260331_830986.html'
             },
             {
-                id: 2, exchange: '上期所', title: '关于2026年清明节期间有关工作安排的通知',
-                summary: '上期所发布2026年清明节期间交易安排，涵盖休市、夜盘及节后开市时间。',
-                products: ['全品种'], date: '2026-03-31', effectiveTime: '清明节前后',
-                type: 'holiday', typeLabel: '休市安排', url: 'https://www.shfe.com.cn/publicnotice/notice/202603/t20260331_830986.html', important: true,
+                id: 2,
+                exchange: '上期能源',
+                title: '关于2026年清明节期间有关工作安排的通知',
+                productGroup: 'energy',
+                products: ['原油', '低硫燃料油', '国际铜', '集运欧线'],
+                watchlistHit: true,
+                impactType: 'time',
+                impactTypeLabel: '交易时间',
+                impactLevel: 'high',
+                impactLevelLabel: '高影响',
+                status: 'tomorrow',
+                statusLabel: '明日生效',
+                publishDate: '2026-04-02',
+                effectiveDate: '2026-04-03',
+                effectiveText: '4月3日夜盘起',
+                impactObjects: '上期能源相关合约',
+                userInterpretation: '4月3日夜盘停开，原油系和集运欧线当晚无法交易。',
+                coreChange: '清明节前暂停夜盘，节后恢复。',
+                stopTime: '4月3日夜盘停开',
+                resumeTime: '节后首个夜盘恢复',
+                compareBefore: '常规夜盘交易',
+                compareAfter: '节前夜盘暂停',
+                difference: '夜盘时段暂停',
+                url: 'https://www.ine.cn/publicnotice/notice/202603/t20260331_830985.html'
             },
             {
-                id: 3, exchange: '上期所', title: '关于对部分客户采取限制开仓监管措施的公告',
-                summary: '上期所披露限制开仓监管措施，涉及对象、品种及执行安排以公告内容为准。',
-                products: ['监管'], date: '2026-03-31', effectiveTime: '公告发布后',
-                type: 'regulator', typeLabel: '监管措施', url: 'https://www.shfe.com.cn/publicnotice/notice/202603/t20260331_831001.html', important: true,
+                id: 3,
+                exchange: '上期能源',
+                title: '关于原油期货丰富可交割油种的公告',
+                productGroup: 'energy',
+                products: ['原油'],
+                watchlistHit: true,
+                impactType: 'delivery',
+                impactTypeLabel: '交割',
+                impactLevel: 'high',
+                impactLevelLabel: '高影响',
+                status: 'active',
+                statusLabel: '已生效',
+                publishDate: '2026-03-27',
+                effectiveDate: '2026-03-27',
+                effectiveText: '已执行',
+                impactObjects: '原油期货可交割油种范围',
+                userInterpretation: '可交割油种扩容后，原油合约交割口径已经变化。',
+                coreChange: '新增可交割油种并更新对应交割标准。',
+                adjustmentItem: '可交割油种范围调整',
+                impactMonths: '当前挂牌合约',
+                compareBefore: '可交割油种范围较窄',
+                compareAfter: '可交割油种范围扩大',
+                difference: '交割标的增加',
+                url: 'https://www.ine.cn/publicnotice/notice/202603/t20260327_830954.html'
             },
             {
-                id: 4, exchange: '上期所', title: '章程及交易规则',
-                summary: '上期所章程及交易规则汇总页，收录交易规则及相关制度文本。',
-                products: ['规则'], date: '2026-03-31', effectiveTime: '持续有效',
-                type: 'rule', typeLabel: '规则变动', url: 'https://www.shfe.com.cn/regulation/exchangerules/rules/', important: false,
+                id: 4,
+                exchange: '大商所',
+                title: '焦炭、焦煤、铁矿石相关业务细则更新',
+                productGroup: 'black',
+                products: ['焦炭', '焦煤', '铁矿石'],
+                watchlistHit: true,
+                impactType: 'rule',
+                impactTypeLabel: '规则变更',
+                impactLevel: 'medium',
+                impactLevelLabel: '中影响',
+                status: 'active',
+                statusLabel: '已生效',
+                publishDate: '2025-01-24',
+                effectiveDate: '2025-01-24',
+                effectiveText: '规则执行中',
+                impactObjects: '焦炭、焦煤、铁矿石相关合约及业务细则',
+                userInterpretation: '黑色系细则更新后，相关合约执行口径已按新文本切换。',
+                coreChange: '对交割、限仓及业务细则文本进行更新。',
+                adjustmentItem: '业务细则修订',
+                executionMode: '按新版细则执行',
+                compareBefore: '旧版业务细则',
+                compareAfter: '2025版修订文本',
+                difference: '规则文本更新',
+                url: 'https://www.dce.com.cn/dalianshangpin/fgfz/6142914/6142926/6263837/%E5%A4%A7%E8%BF%9E%E5%95%86%E5%93%81%E4%BA%A4%E6%98%93%E6%89%80%E7%84%A6%E7%82%AD%E6%9C%9F%E8%B4%A7%E4%B8%9A%E5%8A%A1%E7%BB%86%E5%88%99%EF%BC%88%E6%A0%B9%E6%8D%AE2025%E5%B9%B41%E6%9C%8824%E6%97%A5%E3%80%942025%E3%80%956%E5%8F%B7%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9%EF%BC%89.pdf'
             },
             {
-                id: 5, exchange: '上期能源', title: '关于2026年清明节期间有关工作安排的通知',
-                summary: '上期能源发布2026年清明节期间交易安排，内容涉及休市与开市时间。',
-                products: ['原油', '集运'], date: '2026-03-31', effectiveTime: '清明节前后',
-                type: 'holiday', typeLabel: '休市安排', url: 'https://www.ine.cn/publicnotice/notice/202603/t20260331_830985.html', important: true,
+                id: 5,
+                exchange: '广期所',
+                title: '关于2025年国庆节、中秋节假期前后调整相关期货合约涨跌停板幅度和交易保证金标准的通知',
+                productGroup: 'metals',
+                products: ['工业硅', '碳酸锂'],
+                watchlistHit: false,
+                impactType: 'margin',
+                impactTypeLabel: '保证金',
+                impactLevel: 'high',
+                impactLevelLabel: '高影响',
+                status: 'archive',
+                statusLabel: '已归档',
+                publishDate: '2025-09-25',
+                effectiveDate: '2025-09-30',
+                effectiveText: '节前后执行',
+                impactObjects: '工业硅、碳酸锂相关合约',
+                userInterpretation: '节前后交易参数调整，工业硅、碳酸锂资金占用将变化。',
+                coreChange: '节假日前后同步调整保证金标准与涨跌停板幅度。',
+                beforeValue: '常规保证金和涨跌停设置',
+                afterValue: '节假日专项参数',
+                compareBefore: '常规保证金和涨跌停设置',
+                compareAfter: '节假日专项参数',
+                difference: '风险参数临时提高',
+                url: 'https://www.gfex.com.cn/gfex/tzts/list_yw.shtml'
             },
             {
-                id: 6, exchange: '上期能源', title: '关于原油期货丰富可交割油种的公告',
-                summary: '上期能源公告涉及原油期货可交割油种扩容，交割范围调整以原文表述为准。',
-                products: ['原油'], date: '2026-03-27', effectiveTime: '按公告执行',
-                type: 'rule', typeLabel: '规则变动', url: 'https://www.ine.cn/publicnotice/notice/202603/t20260327_830954.html', important: true,
+                id: 6,
+                exchange: '广期所',
+                title: '广期所出台自律管理规则 全面加强程序化交易监管',
+                productGroup: 'metals',
+                products: ['工业硅', '碳酸锂', '多晶硅'],
+                watchlistHit: false,
+                impactType: 'regulator',
+                impactTypeLabel: '监管',
+                impactLevel: 'high',
+                impactLevelLabel: '高影响',
+                status: 'active',
+                statusLabel: '已生效',
+                publishDate: '2025-08-08',
+                effectiveDate: '2025-08-08',
+                effectiveText: '规则执行中',
+                impactObjects: '程序化交易账户及相关品种',
+                userInterpretation: '程序化交易监管加码后，相关账户约束标准已经收紧。',
+                coreChange: '新增程序化交易监管相关自律管理规则。',
+                restrictionMeasure: '程序化交易监管规则落地',
+                enforcementMode: '按自律规则执行',
+                compareBefore: '程序化交易管理要求较少',
+                compareAfter: '自律监管规则明确',
+                difference: '监管口径强化',
+                url: 'https://www.gfex.com.cn/'
             },
             {
-                id: 7, exchange: '上期能源', title: '关于对部分客户采取限制开仓监管措施的公告',
-                summary: '上期能源披露限制开仓监管措施，涉及客户范围及执行时间见公告原文。',
-                products: ['监管'], date: '2026-03-31', effectiveTime: '公告发布后',
-                type: 'regulator', typeLabel: '监管措施', url: 'https://www.ine.cn/publicnotice/notice/202603/t20260331_831002.html', important: true,
+                id: 7,
+                exchange: '中金所',
+                title: '关于增加5年期国债期货合约可交割国债的通知',
+                productGroup: 'financial',
+                products: ['5年期国债'],
+                watchlistHit: true,
+                impactType: 'delivery',
+                impactTypeLabel: '交割',
+                impactLevel: 'medium',
+                impactLevelLabel: '中影响',
+                status: 'active',
+                statusLabel: '已生效',
+                publishDate: '2026-01-28',
+                effectiveDate: '2026-01-28',
+                effectiveText: '通知发布后',
+                impactObjects: '5年期国债期货可交割国债范围',
+                userInterpretation: '新增交割券后，5年期国债期货交割范围已经扩容。',
+                coreChange: '新增可交割国债名单。',
+                adjustmentItem: '新增可交割国债',
+                impactMonths: '当前挂牌合约',
+                compareBefore: '原有可交割国债范围',
+                compareAfter: '新增交割券后范围扩大',
+                difference: '可交割券增加',
+                url: 'https://www.cffex.com.cn/jystz/'
             },
             {
-                id: 8, exchange: '中金所', title: '关于2026年部分节假日休市安排的通知',
-                summary: '中金所发布2026年部分节假日休市安排，覆盖全年主要休市时段。',
-                products: ['股指', '国债'], date: '2025-12-17', effectiveTime: '2026全年',
-                type: 'holiday', typeLabel: '休市安排', url: 'https://www.cffex.com.cn/jystz/20251217/46425.html', important: false,
+                id: 8,
+                exchange: '中金所',
+                title: '交易所规则',
+                productGroup: 'financial',
+                products: ['股指', '国债'],
+                watchlistHit: true,
+                impactType: 'rule',
+                impactTypeLabel: '规则变更',
+                impactLevel: 'medium',
+                impactLevelLabel: '中影响',
+                status: 'active',
+                statusLabel: '已生效',
+                publishDate: '2026-01-09',
+                effectiveDate: '2026-01-09',
+                effectiveText: '持续执行',
+                impactObjects: '中金所规则体系',
+                userInterpretation: '中金所最新交易与结算规则口径，已统一到规则汇总页。',
+                coreChange: '规则总入口更新，规则体系集中展示。',
+                adjustmentItem: '规则目录更新',
+                executionMode: '按最新规则汇总执行',
+                compareBefore: '历史规则版本',
+                compareAfter: '最新规则汇总',
+                difference: '规则口径更新',
+                url: 'https://www.cffex.com.cn/jysgz/'
             },
             {
-                id: 9, exchange: '中金所', title: '交易所规则',
-                summary: '中金所交易所规则汇总页，包含交易规则、结算细则及风控制度。',
-                products: ['规则'], date: '2026-01-09', effectiveTime: '持续有效',
-                type: 'rule', typeLabel: '规则变动', url: 'https://www.cffex.com.cn/jysgz/', important: false,
+                id: 9,
+                exchange: '大商所',
+                title: '关于2026年清明节期间交易时间安排的通知',
+                productGroup: 'agri',
+                products: ['豆粕', '豆油', '玉米'],
+                watchlistHit: true,
+                impactType: 'time',
+                impactTypeLabel: '交易时间',
+                impactLevel: 'high',
+                impactLevelLabel: '高影响',
+                status: 'week',
+                statusLabel: '本周生效',
+                publishDate: '2026-03-26',
+                effectiveDate: '2026-04-03',
+                effectiveText: '本周五夜盘起',
+                impactObjects: '大商所相关期货品种',
+                userInterpretation: '本周五夜盘停开，豆系和玉米等合约当晚无法交易。',
+                coreChange: '节前夜盘暂停，节后恢复常规交易。',
+                stopTime: '本周五夜盘停开',
+                resumeTime: '节后首个夜盘恢复',
+                compareBefore: '常规交易时段',
+                compareAfter: '节假日专项时段',
+                difference: '夜盘时段暂停',
+                url: 'https://www.dce.com.cn/'
             },
             {
-                id: 10, exchange: '中金所', title: '关于增加5年期国债期货合约可交割国债的通知',
-                summary: '中金所发布5年期国债期货合约可交割国债调整通知，交割券范围见通知原文。',
-                products: ['5年期国债'], date: '2026-01-28', effectiveTime: '按通知执行',
-                type: 'delivery', typeLabel: '交割结算', url: 'https://www.cffex.com.cn/jystz/', important: false,
+                id: 10,
+                exchange: '上期所',
+                title: '关于开展部分期货、期权品种做市商招募工作的通知',
+                productGroup: 'options',
+                products: ['期权', '做市商'],
+                watchlistHit: false,
+                impactType: 'rule',
+                impactTypeLabel: '规则变更',
+                impactLevel: 'low',
+                impactLevelLabel: '低影响',
+                status: 'notice',
+                statusLabel: '仅通知类',
+                publishDate: '2026-04-01',
+                effectiveDate: '2026-04-01',
+                effectiveText: '按公告执行',
+                impactObjects: '做市商招募范围内品种',
+                userInterpretation: '这是一条业务通知，当前未看到交易参数即时调整。',
+                coreChange: '发布做市商招募安排。',
+                adjustmentItem: '业务通知发布',
+                executionMode: '按公告安排执行',
+                compareBefore: '无',
+                compareAfter: '新增招募安排',
+                difference: '业务通知',
+                url: 'https://www.shfe.com.cn/publicnotice/notice/202604/t20260401_831013.html'
             },
             {
-                id: 11, exchange: '广期所', title: '关于2025年国庆节、中秋节假期前后调整相关期货合约涨跌停板幅度和交易保证金标准的通知',
-                summary: '广期所发布节假日前后交易参数调整通知，涉及涨跌停板幅度及保证金标准。',
-                products: ['工业硅', '碳酸锂'], date: '2025-09-25', effectiveTime: '节前后',
-                type: 'notice', typeLabel: '公告通知', url: 'https://www.gfex.com.cn/gfex/tzts/list_yw.shtml', important: false,
+                id: 11,
+                exchange: '上期所',
+                title: '关于对部分客户采取限制开仓监管措施的公告',
+                productGroup: 'all',
+                products: ['异常交易账户'],
+                watchlistHit: false,
+                impactType: 'regulator',
+                impactTypeLabel: '监管',
+                impactLevel: 'high',
+                impactLevelLabel: '高影响',
+                status: 'active',
+                statusLabel: '已生效',
+                publishDate: '2026-03-31',
+                effectiveDate: '2026-03-31',
+                effectiveText: '公告发布后',
+                impactObjects: '涉及账户及相关合约',
+                userInterpretation: '部分客户将被限制开仓，相关合约监管已经收紧。',
+                coreChange: '对部分客户采取限制开仓措施。',
+                restrictionMeasure: '限制开仓',
+                enforcementMode: '公告发布后立即执行',
+                compareBefore: '正常开仓权限',
+                compareAfter: '受限开仓权限',
+                difference: '监管限制收紧',
+                url: 'https://www.shfe.com.cn/publicnotice/notice/202603/t20260331_831001.html'
             },
             {
-                id: 12, exchange: '广期所', title: '广期所出台自律管理规则 全面加强程序化交易监管',
-                summary: '广期所发布程序化交易监管相关自律管理规则，规则适用范围以官网披露为准。',
-                products: ['程序化交易'], date: '2025-08-08', effectiveTime: '规则发布后',
-                type: 'rule', typeLabel: '规则变动', url: 'https://www.gfex.com.cn/', important: true,
+                id: 12,
+                exchange: '上期能源',
+                title: '关于对部分客户采取限制开仓监管措施的公告',
+                productGroup: 'energy',
+                products: ['原油', '低硫燃料油'],
+                watchlistHit: true,
+                impactType: 'regulator',
+                impactTypeLabel: '监管',
+                impactLevel: 'high',
+                impactLevelLabel: '高影响',
+                status: 'active',
+                statusLabel: '已生效',
+                publishDate: '2026-03-31',
+                effectiveDate: '2026-03-31',
+                effectiveText: '公告发布后',
+                impactObjects: '涉及客户及相关能源合约',
+                userInterpretation: '部分客户将被限制开仓，原油系合约监管收紧。',
+                coreChange: '对部分客户实施限制开仓监管。',
+                restrictionMeasure: '限制开仓',
+                enforcementMode: '公告发布后立即执行',
+                compareBefore: '正常开仓权限',
+                compareAfter: '受限开仓权限',
+                difference: '监管限制收紧',
+                url: 'https://www.ine.cn/publicnotice/notice/202603/t20260331_831002.html'
             },
             {
-                id: 13, exchange: '大商所', title: '关于2026年清明节期间交易时间安排的通知',
-                summary: '大商所发布2026年清明节期间交易时间安排，涉及休市及夜盘安排。',
-                products: ['全品种'], date: '2026-03-26', effectiveTime: '清明节前后',
-                type: 'holiday', typeLabel: '休市安排', url: 'https://www.dce.com.cn/', important: true,
+                id: 13,
+                exchange: '中金所',
+                title: '关于2026年部分节假日休市安排的通知',
+                productGroup: 'financial',
+                products: ['股指', '国债'],
+                watchlistHit: true,
+                impactType: 'time',
+                impactTypeLabel: '交易时间',
+                impactLevel: 'low',
+                impactLevelLabel: '低影响',
+                status: 'archive',
+                statusLabel: '已归档',
+                publishDate: '2025-12-17',
+                effectiveDate: '2026-01-01',
+                effectiveText: '全年安排',
+                impactObjects: '中金所全年休市安排',
+                userInterpretation: '全年休市安排已经明确，属于日历型通知。',
+                coreChange: '公布全年节假日休市安排。',
+                stopTime: '按节假日休市安排执行',
+                resumeTime: '各节后首日恢复',
+                compareBefore: '无',
+                compareAfter: '新增2026年安排',
+                difference: '年度日历更新',
+                url: 'https://www.cffex.com.cn/jystz/20251217/46425.html'
             },
             {
-                id: 14, exchange: '大商所', title: '焦炭、焦煤、铁矿石相关业务细则更新',
-                summary: '大商所更新焦炭、焦煤、铁矿石相关业务细则，修改内容及施行合约见规则文件。',
-                products: ['焦炭', '焦煤', '铁矿石'], date: '2025-01-24', effectiveTime: 'J2604 等合约起',
-                type: 'rule', typeLabel: '规则变动', url: 'https://www.dce.com.cn/dalianshangpin/fgfz/6142914/6142926/6263837/%E5%A4%A7%E8%BF%9E%E5%95%86%E5%93%81%E4%BA%A4%E6%98%93%E6%89%80%E7%84%A6%E7%82%AD%E6%9C%9F%E8%B4%A7%E4%B8%9A%E5%8A%A1%E7%BB%86%E5%88%99%EF%BC%88%E6%A0%B9%E6%8D%AE2025%E5%B9%B41%E6%9C%8824%E6%97%A5%E3%80%942025%E3%80%956%E5%8F%B7%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9%EF%BC%89.pdf', important: true,
+                id: 14,
+                exchange: '上期所',
+                title: '章程及交易规则',
+                productGroup: 'all',
+                products: ['全品种'],
+                watchlistHit: false,
+                impactType: 'rule',
+                impactTypeLabel: '规则变更',
+                impactLevel: 'medium',
+                impactLevelLabel: '中影响',
+                status: 'notice',
+                statusLabel: '仅通知类',
+                publishDate: '2026-03-31',
+                effectiveDate: '2026-03-31',
+                effectiveText: '持续执行',
+                impactObjects: '上期所规则体系',
+                userInterpretation: '上期所最新规则目录已经更新，执行口径以新版汇总页为准。',
+                coreChange: '规则目录更新。',
+                adjustmentItem: '规则目录更新',
+                executionMode: '按最新规则目录执行',
+                compareBefore: '历史规则汇总',
+                compareAfter: '最新规则目录',
+                difference: '规则目录更新',
+                url: 'https://www.shfe.com.cn/regulation/exchangerules/rules/'
             }
         ];
 
-        // --- 状态管理 ---
+        let activeProductGroup = 'all';
+        let activeImpactType = 'all';
+        let activeStatus = 'all';
         let activeExchange = '全部';
-        let activeCategory = 'all';
         let activeRange = 'all';
+        let activeImpactLevel = 'all';
+        let isFilterPanelOpen = false;
         let customStart = '';
         let customEnd = '';
-        let importantOnly = false;
 
-        const DATA_ANCHOR = new Date(Math.max(...MONITOR_DATA.map(item => new Date(`${item.date}T00:00:00`).getTime())));
+        const DATA_ANCHOR = new Date('2026-04-02T00:00:00');
 
         function parseDate(dateStr) {
             return new Date(`${dateStr}T00:00:00`);
         }
 
         function sortByDateDesc(list) {
-            return [...list].sort((a, b) => parseDate(b.date) - parseDate(a.date) || b.id - a.id);
+            return [...list].sort((a, b) => {
+                const levelOrder = { high: 3, medium: 2, low: 1 };
+                const aWeight = levelOrder[a.impactLevel] || 0;
+                const bWeight = levelOrder[b.impactLevel] || 0;
+                if (aWeight !== bWeight) return bWeight - aWeight;
+                return parseDate(b.publishDate) - parseDate(a.publishDate) || b.id - a.id;
+            });
         }
 
         function isWithinRange(item) {
-            const itemDate = parseDate(item.date);
+            const itemDate = parseDate(item.publishDate);
             if (activeRange === 'all') return true;
             if (activeRange === 'custom') {
                 if (customStart && itemDate < parseDate(customStart)) return false;
                 if (customEnd && itemDate > parseDate(customEnd)) return false;
                 return true;
             }
-
-            const daysMap = { '7d': 7, '30d': 30, '90d': 90, '365d': 365 };
-            const days = daysMap[activeRange];
+            const map = { '7d': 7, '30d': 30, '90d': 90, '365d': 365 };
+            const days = map[activeRange];
             if (!days) return true;
             const start = new Date(DATA_ANCHOR);
             start.setDate(start.getDate() - (days - 1));
@@ -244,7 +566,8 @@
         }
 
         function getBaseData() {
-            return sortByDateDesc(MONITOR_DATA.filter(item => {
+            return sortByDateDesc(TRACKER_DATA.filter(item => {
+                if (activeProductGroup !== 'all' && item.productGroup !== activeProductGroup) return false;
                 if (activeExchange !== '全部' && item.exchange !== activeExchange) return false;
                 if (!isWithinRange(item)) return false;
                 return true;
@@ -253,34 +576,46 @@
 
         function getFilteredData() {
             return getBaseData().filter(item => {
-                if (activeCategory !== 'all' && item.type !== activeCategory) return false;
-                if (importantOnly && !item.important) return false;
+                if (activeImpactType !== 'all' && item.impactType !== activeImpactType) return false;
+                if (activeStatus !== 'all' && item.status !== activeStatus) return false;
+                if (activeImpactLevel !== 'all' && item.impactLevel !== activeImpactLevel) return false;
                 return true;
             });
         }
 
-        // --- 渲染逻辑 ---
-        function renderExchanges() {
-            const container = document.getElementById('exchange-tabs');
-            container.innerHTML = EXCHANGES.map(ex => `
-                <button
-                    onclick="setActiveExchange('${ex}')"
-                    class="whitespace-nowrap text-[14px] font-medium transition-colors py-3 relative ${activeExchange === ex ? 'text-blue-600' : 'text-gray-500'}"
-                >
-                    ${ex}
-                    ${activeExchange === ex ? '<span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-blue-600 rounded-t-full"></span>' : ''}
+        function renderProductTabs() {
+            const container = document.getElementById('product-tabs');
+            container.innerHTML = PRODUCT_GROUPS.map(item => `
+                <button onclick="setActiveProductGroup('${item.id}')" class="whitespace-nowrap text-[13px] font-medium transition-colors py-3 relative ${activeProductGroup === item.id ? 'text-blue-600' : 'text-gray-500'}">
+                    ${item.label}
+                    ${activeProductGroup === item.id ? '<span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-5 h-0.5 bg-blue-600 rounded-t-full"></span>' : ''}
                 </button>
             `).join('');
         }
 
-        function renderCategories() {
-            const container = document.getElementById('category-tabs');
-            container.innerHTML = CATEGORIES.map(cat => `
-                <button
-                    onclick="setActiveCategory('${cat.id}')"
-                    class="whitespace-nowrap px-3 py-1.5 rounded-md text-[12px] font-medium transition-colors ${activeCategory === cat.id ? 'bg-slate-800 text-white' : 'bg-slate-50 text-slate-600 border border-slate-200/60'}"
-                >
-                    ${cat.label}
+        function renderImpactTabs() {
+            const container = document.getElementById('impact-tabs');
+            container.innerHTML = IMPACT_TYPES.map(item => `
+                <button onclick="setActiveImpactType('${item.id}')" class="whitespace-nowrap px-3 py-1.5 rounded-md text-[12px] font-medium transition-colors ${activeImpactType === item.id ? 'bg-slate-900 text-white' : 'bg-slate-50 text-slate-600 border border-slate-200/70'}">
+                    ${item.label}
+                </button>
+            `).join('');
+        }
+
+        function renderStatusTabs() {
+            const container = document.getElementById('status-tabs');
+            container.innerHTML = STATUS_FILTERS.map(item => `
+                <button onclick="setActiveStatus('${item.id}')" class="whitespace-nowrap px-3 py-1.5 rounded-md text-[12px] font-medium transition-colors ${activeStatus === item.id ? 'bg-blue-600 text-white' : 'bg-blue-50 text-blue-700 border border-blue-100'}">
+                    ${item.label}
+                </button>
+            `).join('');
+        }
+
+        function renderExchangeTabs() {
+            const container = document.getElementById('exchange-tabs');
+            container.innerHTML = EXCHANGES.map(item => `
+                <button onclick="setActiveExchange('${item}')" class="whitespace-nowrap px-3 py-1.5 rounded-md text-[12px] font-medium transition-colors ${activeExchange === item ? 'bg-slate-800 text-white' : 'bg-slate-50 text-slate-600 border border-slate-200/70'}">
+                    ${item}
                 </button>
             `).join('');
         }
@@ -289,10 +624,7 @@
             const container = document.getElementById('range-tabs');
             const customPanel = document.getElementById('custom-range-panel');
             container.innerHTML = RANGE_PRESETS.map(item => `
-                <button
-                    onclick="setActiveRange('${item.id}')"
-                    class="whitespace-nowrap px-3 py-1.5 rounded-md text-[12px] font-medium transition-colors ${activeRange === item.id ? 'bg-blue-600 text-white' : 'bg-slate-50 text-slate-600 border border-slate-200/60'}"
-                >
+                <button onclick="setActiveRange('${item.id}')" class="whitespace-nowrap px-3 py-1.5 rounded-md text-[12px] font-medium transition-colors ${activeRange === item.id ? 'bg-orange-600 text-white' : 'bg-slate-50 text-slate-600 border border-slate-200/70'}">
                     ${item.label}
                 </button>
             `).join('');
@@ -301,138 +633,292 @@
             if (activeRange === 'custom') {
                 summary = customStart || customEnd ? `${customStart || '起始'} 至 ${customEnd || '结束'}` : '自定义时间';
             } else if (activeRange !== 'all') {
-                const label = RANGE_PRESETS.find(item => item.id === activeRange)?.label || '';
-                summary = `最近${label}`;
+                summary = `最近${RANGE_PRESETS.find(item => item.id === activeRange)?.label || ''}`;
             }
             document.getElementById('range-summary').textContent = summary;
             customPanel.style.display = activeRange === 'custom' ? 'block' : 'none';
         }
 
-        function renderHeadlines() {
-            const container = document.getElementById('headline-container');
-            const data = getBaseData().filter(item => item.important).slice(0, 3);
-            document.getElementById('headline-scope').textContent = `${activeExchange} · ${data.length} 条置顶`;
+        function renderFilterSummary() {
+            const exchangeLabel = activeExchange === '全部' ? '全部交易所' : activeExchange;
+            const rangeLabel = document.getElementById('range-summary').textContent;
+            document.getElementById('filter-summary').textContent = `${exchangeLabel} · ${rangeLabel}`;
+            const panel = document.getElementById('filter-panel');
+            const toggle = document.getElementById('filter-toggle');
+            panel.style.display = isFilterPanelOpen ? 'block' : 'none';
+            toggle.innerHTML = `${isFilterPanelOpen ? '收起筛选' : '筛选'} <svg class="w-3.5 h-3.5 ${isFilterPanelOpen ? 'rotate-180' : ''}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>`;
+        }
 
-            if (!data.length) {
-                container.innerHTML = `
-                    <div class="rounded-xl border border-slate-100 bg-slate-50 px-3 py-4 text-[12px] text-slate-400 text-center">
-                        当前筛选区间暂无置顶动态
+        function renderMetrics() {
+            const scopedData = getBaseData();
+            const highCount = scopedData.filter(item => item.impactLevel === 'high').length;
+            const activeCount = scopedData.filter(item => item.status === 'active').length;
+            const tomorrowCount = scopedData.filter(item => item.status === 'tomorrow').length;
+            document.getElementById('metric-high').textContent = highCount;
+            document.getElementById('metric-active').textContent = activeCount;
+            document.getElementById('metric-tomorrow').textContent = tomorrowCount;
+            document.getElementById('metric-scope').textContent = `${PRODUCT_GROUPS.find(item => item.id === activeProductGroup)?.label || '全部品种'} · ${scopedData.length} 条`;
+        }
+
+        function renderPrimaryFields(item) {
+            if (item.impactType === 'time') {
+                return `
+                    <div class="mt-3 grid grid-cols-2 gap-2 text-[11px]">
+                        <div class="rounded-lg bg-slate-50 border border-slate-100 px-2.5 py-2">
+                            <div class="text-slate-400">停盘时间</div>
+                            <div class="mt-1 text-slate-700 font-medium">${item.stopTime || item.effectiveText}</div>
+                        </div>
+                        <div class="rounded-lg bg-slate-50 border border-slate-100 px-2.5 py-2">
+                            <div class="text-slate-400">恢复时间</div>
+                            <div class="mt-1 text-slate-700 font-medium">${item.resumeTime || '按交易所安排恢复'}</div>
+                        </div>
                     </div>
                 `;
-                return;
             }
-
-            container.innerHTML = data.map((item, index) => `
-                <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="block rounded-xl border ${index === 0 ? 'border-red-100 bg-[#FFF7F7]' : 'border-slate-100 bg-slate-50'} px-3 py-3 active:bg-slate-100 transition-colors">
-                    <div class="flex items-center justify-between mb-1.5">
-                        <div class="flex items-center space-x-2">
-                            <span class="text-[10px] font-medium px-1.5 py-0.5 rounded-sm ${index === 0 ? 'bg-red-100 text-red-600' : 'bg-slate-200 text-slate-600'}">${index === 0 ? '头条' : '置顶'}</span>
-                            <span class="text-[10px] text-slate-500">${item.exchange}</span>
+            if (item.impactType === 'margin' || item.impactType === 'fee') {
+                return `
+                    <div class="mt-3 grid grid-cols-2 gap-2 text-[11px]">
+                        <div class="rounded-lg bg-slate-50 border border-slate-100 px-2.5 py-2">
+                            <div class="text-slate-400">调整前</div>
+                            <div class="mt-1 text-slate-700 font-medium">${item.beforeValue || item.compareBefore || '--'}</div>
                         </div>
-                        <span class="text-[10px] text-slate-400 font-mono">${item.date}</span>
+                        <div class="rounded-lg bg-slate-50 border border-slate-100 px-2.5 py-2">
+                            <div class="text-slate-400">调整后</div>
+                            <div class="mt-1 text-slate-700 font-medium">${item.afterValue || item.compareAfter || '--'}</div>
+                        </div>
                     </div>
-                    <div class="text-[14px] leading-snug font-medium text-slate-900">${item.title}</div>
-                </a>
-            `).join('');
+                `;
+            }
+            if (item.impactType === 'delivery') {
+                return `
+                    <div class="mt-3 grid grid-cols-2 gap-2 text-[11px]">
+                        <div class="rounded-lg bg-slate-50 border border-slate-100 px-2.5 py-2">
+                            <div class="text-slate-400">调整事项</div>
+                            <div class="mt-1 text-slate-700 font-medium">${item.adjustmentItem || item.coreChange}</div>
+                        </div>
+                        <div class="rounded-lg bg-slate-50 border border-slate-100 px-2.5 py-2">
+                            <div class="text-slate-400">影响月份</div>
+                            <div class="mt-1 text-slate-700 font-medium">${item.impactMonths || '当前挂牌合约'}</div>
+                        </div>
+                    </div>
+                `;
+            }
+            if (item.impactType === 'regulator') {
+                return `
+                    <div class="mt-3 grid grid-cols-2 gap-2 text-[11px]">
+                        <div class="rounded-lg bg-slate-50 border border-slate-100 px-2.5 py-2">
+                            <div class="text-slate-400">约束措施</div>
+                            <div class="mt-1 text-slate-700 font-medium">${item.restrictionMeasure || item.coreChange}</div>
+                        </div>
+                        <div class="rounded-lg bg-slate-50 border border-slate-100 px-2.5 py-2">
+                            <div class="text-slate-400">生效方式</div>
+                            <div class="mt-1 text-slate-700 font-medium">${item.enforcementMode || item.effectiveText}</div>
+                        </div>
+                    </div>
+                `;
+            }
+            return `
+                <div class="mt-3 grid grid-cols-2 gap-2 text-[11px]">
+                    <div class="rounded-lg bg-slate-50 border border-slate-100 px-2.5 py-2">
+                        <div class="text-slate-400">调整事项</div>
+                        <div class="mt-1 text-slate-700 font-medium">${item.adjustmentItem || item.coreChange}</div>
+                    </div>
+                    <div class="rounded-lg bg-slate-50 border border-slate-100 px-2.5 py-2">
+                        <div class="text-slate-400">生效时间</div>
+                        <div class="mt-1 text-slate-700 font-medium">${item.effectiveText}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderExpandedFields(item) {
+            if (item.impactType === 'time') {
+                return `
+                    <div class="mt-3 grid grid-cols-2 gap-2 text-[11px]">
+                        <div class="rounded-lg bg-white border border-slate-100 p-2">
+                            <div class="text-slate-400">影响品种</div>
+                            <div class="mt-1 text-slate-700">${item.products.join('、')}</div>
+                        </div>
+                        <div class="rounded-lg bg-white border border-slate-100 p-2">
+                            <div class="text-slate-400">生效日期</div>
+                            <div class="mt-1 text-slate-700">${item.effectiveDate}</div>
+                        </div>
+                    </div>
+                `;
+            }
+            if (item.impactType === 'margin' || item.impactType === 'fee') {
+                return `
+                    <div class="mt-3 grid grid-cols-2 gap-2 text-[11px]">
+                        <div class="rounded-lg bg-white border border-slate-100 p-2">
+                            <div class="text-slate-400">生效时间</div>
+                            <div class="mt-1 text-slate-700">${item.effectiveText}</div>
+                        </div>
+                        <div class="rounded-lg bg-white border border-slate-100 p-2">
+                            <div class="text-slate-400">影响品种</div>
+                            <div class="mt-1 text-slate-700">${item.products.join('、')}</div>
+                        </div>
+                    </div>
+                `;
+            }
+            if (item.impactType === 'delivery') {
+                return `
+                    <div class="mt-3 grid grid-cols-2 gap-2 text-[11px]">
+                        <div class="rounded-lg bg-white border border-slate-100 p-2">
+                            <div class="text-slate-400">涉及品种/品牌</div>
+                            <div class="mt-1 text-slate-700">${item.products.join('、')}</div>
+                        </div>
+                        <div class="rounded-lg bg-white border border-slate-100 p-2">
+                            <div class="text-slate-400">生效时间</div>
+                            <div class="mt-1 text-slate-700">${item.effectiveText}</div>
+                        </div>
+                    </div>
+                `;
+            }
+            if (item.impactType === 'regulator') {
+                return `
+                    <div class="mt-3 grid grid-cols-2 gap-2 text-[11px]">
+                        <div class="rounded-lg bg-white border border-slate-100 p-2">
+                            <div class="text-slate-400">影响对象</div>
+                            <div class="mt-1 text-slate-700">${item.impactObjects}</div>
+                        </div>
+                        <div class="rounded-lg bg-white border border-slate-100 p-2">
+                            <div class="text-slate-400">生效时间</div>
+                            <div class="mt-1 text-slate-700">${item.effectiveText}</div>
+                        </div>
+                    </div>
+                `;
+            }
+            return `
+                <div class="mt-3 grid grid-cols-2 gap-2 text-[11px]">
+                    <div class="rounded-lg bg-white border border-slate-100 p-2">
+                        <div class="text-slate-400">涉及品种</div>
+                        <div class="mt-1 text-slate-700">${item.products.join('、')}</div>
+                    </div>
+                    <div class="rounded-lg bg-white border border-slate-100 p-2">
+                        <div class="text-slate-400">执行方式</div>
+                        <div class="mt-1 text-slate-700">${item.executionMode || item.effectiveText}</div>
+                    </div>
+                </div>
+            `;
         }
 
         function renderList() {
             const container = document.getElementById('list-container');
             const summary = document.getElementById('list-summary');
             const filteredData = getFilteredData();
-            const labels = [];
-            labels.push(activeExchange);
-            labels.push(activeCategory === 'all' ? (importantOnly ? '重点动态' : '全部类型') : CATEGORIES.find(item => item.id === activeCategory)?.label || '全部类型');
-            labels.push(document.getElementById('range-summary').textContent);
-            labels.push(`${filteredData.length} 条`);
+            const labels = [
+                PRODUCT_GROUPS.find(item => item.id === activeProductGroup)?.label || '全部品种',
+                IMPACT_TYPES.find(item => item.id === activeImpactType)?.label || '全部影响',
+                activeImpactLevel === 'all' ? '全部等级' : ({ high: '高影响', medium: '中影响', low: '低影响' }[activeImpactLevel] || '全部等级'),
+                STATUS_FILTERS.find(item => item.id === activeStatus)?.label || '全部状态',
+                document.getElementById('range-summary').textContent,
+                `${filteredData.length} 条`
+            ];
             summary.textContent = labels.join(' · ');
 
-            if (filteredData.length > 0) {
-                container.innerHTML = filteredData.map(item => {
-                    const typeClass = item.type === 'rule' ? 'text-red-700 bg-red-50' :
-                                      item.type === 'regulator' ? 'text-amber-700 bg-amber-50' :
-                                      item.type === 'delivery' ? 'text-emerald-700 bg-emerald-50' :
-                                      item.type === 'holiday' ? 'text-indigo-700 bg-indigo-50' :
-                                      'text-blue-700 bg-blue-50';
-                    
-                    const importantTag = item.important ? `
-                        <span class="flex items-center text-[10px] font-medium px-1.5 py-0.5 rounded-sm bg-red-50 text-red-600 border border-red-100/50">
-                            <svg class="w-3 h-3 mr-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                            重要
-                        </span>
-                    ` : '';
-
-                    const productsHtml = item.products.map(p => `
-                        <span class="text-[10px] px-1.5 py-0.5 rounded border border-slate-200 text-slate-500 bg-white">${p}</span>
-                    `).join('');
-
-                    return `
-                        <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="block px-4 py-4 hover:bg-slate-50 active:bg-slate-50 transition-colors group">
-                            <div class="flex items-start justify-between mb-2">
-                                <div class="flex items-center space-x-2">
-                                    <span class="text-[11px] font-medium px-1.5 py-0.5 rounded-sm bg-slate-100 text-slate-600">${item.exchange}</span>
-                                    <span class="text-[11px] px-1.5 py-0.5 rounded-sm font-medium ${typeClass}">${item.typeLabel}</span>
-                                    ${importantTag}
-                                </div>
-                                <span class="text-[11px] text-slate-400 font-mono">发布: ${item.date}</span>
-                            </div>
-                            
-                            <h3 class="text-[15px] leading-snug font-medium text-slate-900 mb-2.5 group-hover:text-blue-600 transition-colors line-clamp-2">
-                                ${item.title}
-                            </h3>
-
-                            <div class="flex items-center justify-between mb-3">
-                                <div class="flex items-center space-x-1.5">
-                                    ${productsHtml}
-                                </div>
-                                <div class="flex items-center text-[11px] font-medium text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded-sm border border-indigo-100/50">
-                                    <svg class="w-3 h-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                    生效: ${item.effectiveTime}
-                                </div>
-                            </div>
-
-                            <div class="text-[13px] text-slate-600 leading-relaxed mb-3 bg-[#F8FAFC] p-2.5 rounded-md border border-slate-100 flex items-start">
-                                <svg class="w-3.5 h-3.5 text-amber-500 mr-1.5 mt-0.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                                <span>${item.summary}</span>
-                            </div>
-                            
-                            <div class="flex items-center justify-end">
-                                <div class="flex items-center text-[11px] text-slate-400 group-hover:text-blue-600 transition-colors">
-                                    查看原文 
-                                    <svg class="w-3.5 h-3.5 ml-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-                                </div>
-                            </div>
-                        </a>
-                    `;
-                }).join('');
-            } else {
+            if (!filteredData.length) {
                 container.innerHTML = `
                     <div class="py-16 flex flex-col items-center justify-center text-slate-400">
                         <div class="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center mb-3">
                             <svg class="w-5 h-5 text-slate-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                         </div>
-                        <span class="text-[13px]">暂无相关动态</span>
+                        <span class="text-[13px]">当前筛选下暂无影响动态</span>
                     </div>
                 `;
+                return;
             }
-        }
 
-        function renderMetrics() {
-            const scopedData = getBaseData();
-            const total = scopedData.length;
-            const ruleCount = scopedData.filter(item => item.type === 'rule').length;
-            const importantCount = scopedData.filter(item => item.important).length;
-            document.getElementById('metric-total').textContent = total;
-            document.getElementById('metric-rule').textContent = ruleCount;
-            document.getElementById('metric-important').textContent = importantCount;
+            container.innerHTML = filteredData.map(item => {
+                const levelClass = item.impactLevel === 'high'
+                    ? 'text-red-600 bg-red-50 border-red-100'
+                    : item.impactLevel === 'medium'
+                        ? 'text-amber-700 bg-amber-50 border-amber-100'
+                        : 'text-slate-600 bg-slate-100 border-slate-200';
+                const typeClass = item.impactType === 'margin' || item.impactType === 'fee'
+                    ? 'text-orange-700 bg-orange-50'
+                    : item.impactType === 'delivery'
+                        ? 'text-emerald-700 bg-emerald-50'
+                        : item.impactType === 'regulator'
+                            ? 'text-red-700 bg-red-50'
+                            : item.impactType === 'time'
+                                ? 'text-blue-700 bg-blue-50'
+                                : 'text-indigo-700 bg-indigo-50';
+                const statusBarClass = item.status === 'tomorrow'
+                    ? 'bg-orange-500'
+                    : item.status === 'active'
+                        ? 'bg-blue-600'
+                        : item.status === 'week'
+                            ? 'bg-violet-600'
+                            : item.status === 'archive'
+                                ? 'bg-slate-400'
+                                : 'bg-emerald-600';
+                const diffHtml = item.compareBefore && item.compareAfter ? `
+                    <div class="mt-3 grid grid-cols-3 gap-2 text-[11px]">
+                        <div class="rounded-lg bg-slate-50 border border-slate-100 p-2">
+                            <div class="text-slate-400">变更前</div>
+                            <div class="mt-1 text-slate-700">${item.compareBefore}</div>
+                        </div>
+                        <div class="rounded-lg bg-slate-50 border border-slate-100 p-2">
+                            <div class="text-slate-400">变更后</div>
+                            <div class="mt-1 text-slate-700">${item.compareAfter}</div>
+                        </div>
+                        <div class="rounded-lg bg-slate-50 border border-slate-100 p-2">
+                            <div class="text-slate-400">差异</div>
+                            <div class="mt-1 text-slate-700">${item.difference}</div>
+                        </div>
+                    </div>
+                ` : '';
+
+                return `
+                    <details class="group rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-[0_8px_20px_rgba(15,23,42,0.04)]">
+                        <summary class="list-none cursor-pointer">
+                            <div class="h-1.5 ${statusBarClass}"></div>
+                            <div class="px-4 py-3">
+                                <div class="flex items-center justify-between gap-2 mb-2">
+                                <div class="flex items-center gap-1.5 flex-wrap">
+                                        <span class="text-[10px] px-1.5 py-0.5 rounded-sm bg-slate-100 text-slate-600">${item.exchange}</span>
+                                        <span class="text-[10px] px-1.5 py-0.5 rounded-sm ${typeClass}">${item.impactTypeLabel}</span>
+                                        <span class="text-[10px] px-1.5 py-0.5 rounded-sm border ${levelClass}">${item.impactLevelLabel}</span>
+                                    </div>
+                                    <span class="text-[10px] text-slate-400 font-mono">${item.statusLabel}</span>
+                                </div>
+                                <h3 class="text-[15px] leading-snug font-medium text-slate-900">${item.title}</h3>
+                                ${renderPrimaryFields(item)}
+                                <div class="mt-2 text-[11px] text-slate-400">影响品种：${item.products.slice(0, 3).join('、')}</div>
+                                <div class="mt-3 text-[13px] leading-5 text-slate-600">${item.userInterpretation}</div>
+                                <div class="mt-3 flex items-center justify-between text-[11px] text-slate-400">
+                                    <span>${item.publishDate}</span>
+                                    <span class="text-blue-600">展开查看</span>
+                                </div>
+                            </div>
+                        </summary>
+                        <div class="px-4 pb-4 border-t border-slate-100 bg-slate-50/70">
+                            <div class="pt-3">
+                                <div class="text-[11px] text-slate-400">核心变化</div>
+                                <div class="mt-1 text-[13px] leading-5 text-slate-700">${item.coreChange}</div>
+                                ${renderExpandedFields(item)}
+                                ${diffHtml}
+                                <div class="mt-3 flex items-center justify-end">
+                                    <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-[12px] text-blue-600 font-medium">
+                                        官网原文
+                                        <svg class="w-3.5 h-3.5 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                `;
+            }).join('');
         }
 
         function renderAll() {
             renderMetrics();
-            renderHeadlines();
-            renderExchanges();
-            renderCategories();
+            renderProductTabs();
+            renderImpactTabs();
+            renderStatusTabs();
+            renderExchangeTabs();
             renderRanges();
+            renderFilterSummary();
             renderList();
         }
 
@@ -441,15 +927,26 @@
             if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // --- 交互事件 ---
-        window.setActiveExchange = function(ex) {
-            activeExchange = ex;
+        window.setActiveProductGroup = function(id) {
+            activeProductGroup = id;
+            activeImpactLevel = 'all';
             renderAll();
         };
 
-        window.setActiveCategory = function(cat) {
-            activeCategory = cat;
-            importantOnly = false;
+        window.setActiveImpactType = function(id) {
+            activeImpactType = id;
+            activeImpactLevel = 'all';
+            renderAll();
+        };
+
+        window.setActiveStatus = function(id) {
+            activeStatus = id;
+            activeImpactLevel = 'all';
+            renderAll();
+        };
+
+        window.setActiveExchange = function(exchange) {
+            activeExchange = exchange;
             renderAll();
         };
 
@@ -465,45 +962,43 @@
         };
 
         window.focusMetric = function(metricType) {
-            if (metricType === 'rule') {
-                activeCategory = 'rule';
-                importantOnly = false;
-            } else if (metricType === 'important') {
-                activeCategory = 'all';
-                importantOnly = true;
+            if (metricType === 'high') {
+                activeImpactLevel = 'high';
+                activeStatus = 'all';
+                activeImpactType = 'all';
+                renderAll();
+            } else if (metricType === 'active') {
+                activeImpactLevel = 'all';
+                activeStatus = 'active';
+                activeImpactType = 'all';
+                renderAll();
+            } else if (metricType === 'tomorrow') {
+                activeImpactLevel = 'all';
+                activeStatus = 'tomorrow';
+                activeImpactType = 'all';
+                renderAll();
             } else {
-                activeCategory = 'all';
-                importantOnly = false;
+                activeImpactLevel = 'all';
+                activeStatus = 'all';
+                renderAll();
             }
-            renderAll();
             scrollToList();
         };
 
-        // --- 原生 JS 倒计时逻辑 ---
         function initCountdown() {
-            let countdown = 60;
-            const countdownEl = document.getElementById('refresh-countdown');
-            
-            setInterval(() => {
-                countdown--;
-                if (countdown <= 0) {
-                    countdown = 60;
-                    // 这里可以加入真实的刷新逻辑，例如 fetch 新数据
-                }
-                countdownEl.innerHTML = `
-                    <svg class="w-3 h-3 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    ${countdown}s 后刷新
-                `;
-            }, 1000);
+            return;
         }
 
         function bindRangeActions() {
+            document.getElementById('filter-toggle').addEventListener('click', () => {
+                isFilterPanelOpen = !isFilterPanelOpen;
+                renderFilterSummary();
+            });
             document.getElementById('apply-custom-range').addEventListener('click', () => {
                 const startValue = document.getElementById('custom-start').value;
                 const endValue = document.getElementById('custom-end').value;
                 customStart = startValue;
                 customEnd = endValue;
-
                 if (customStart && customEnd && parseDate(customStart) > parseDate(customEnd)) {
                     const temp = customStart;
                     customStart = customEnd;
@@ -511,8 +1006,8 @@
                     document.getElementById('custom-start').value = customStart;
                     document.getElementById('custom-end').value = customEnd;
                 }
-
                 activeRange = 'custom';
+                isFilterPanelOpen = false;
                 renderAll();
             });
 
@@ -522,11 +1017,11 @@
                 customEnd = '';
                 document.getElementById('custom-start').value = '';
                 document.getElementById('custom-end').value = '';
+                isFilterPanelOpen = false;
                 renderAll();
             });
         }
 
-        // --- 初始化 ---
         bindRangeActions();
         renderAll();
         initCountdown();
