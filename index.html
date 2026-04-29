@@ -5,6 +5,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>金十期货热图库｜金十期货</title>
+  <link rel="preconnect" href="https://img.jin10.com" />
+  <link rel="preconnect" href="https://flash-scdn.jin10.com" />
+  <link rel="preconnect" href="https://cdn-news.jin10.com" />
   <style>
     :root {
       --brand: #ff5a00;
@@ -284,6 +287,7 @@
       height: 100%;
       object-fit: cover;
       object-position: top center;
+      will-change: transform;
       display: block;
     }
 
@@ -402,6 +406,7 @@
       height: 100%;
       object-fit: cover;
       object-position: top center;
+      will-change: transform;
       display: block;
     }
 
@@ -734,20 +739,6 @@
 
     const cards = [
       {
-        title: "棕榈油",
-        desc: "产区观察，先看供给侧的变化",
-        category: "产区",
-        image: "https://flash-scdn.jin10.com/fe6930fb-c657-4a77-883d-469dceffe101.png",
-        longImage: "https://flash-scdn.jin10.com/fe6930fb-c657-4a77-883d-469dceffe101.png"
-      },
-      {
-        title: "印尼镍矿",
-        desc: "矿端动向，决定后续的节奏",
-        category: "产区",
-        image: "https://flash-scdn.jin10.com/5f0b6f9c-be7f-4962-b659-3672117f8bc3.png",
-        longImage: "https://flash-scdn.jin10.com/5f0b6f9c-be7f-4962-b659-3672117f8bc3.png"
-      },
-      {
         title: "碳酸锂",
         desc: "产区与供需的交汇点",
         category: "产区",
@@ -1003,7 +994,7 @@
 
     function imageWithFallback(item, className = "") {
       return `
-        <img src="${item.image}" alt="${item.title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <img src="${item.image}" alt="${item.title}" loading="eager" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
         <div class="thumb-fallback" style="display:none;">${item.title}</div>
       `;
     }
@@ -1101,9 +1092,18 @@
 
     document.addEventListener("DOMContentLoaded", initAppEnvironment);
 
+    function preloadGalleryImages() {
+      cardItems.forEach(item => {
+        const img = new Image();
+        img.decoding = "async";
+        img.src = item.image;
+      });
+    }
+
     renderTabs();
     renderCarousel();
     renderGrid();
+    preloadGalleryImages();
   </script>
 </body>
 </html>
