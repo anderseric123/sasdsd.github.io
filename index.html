@@ -4,80 +4,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>期货人日常图鉴｜金十期货</title>
+  <title>金十期货热图库｜金十期货</title>
   <style>
     :root {
       --brand: #ff5a00;
-      --brand-deep: #e94a00;
-      --brand-soft: #fff3ea;
-      --gold: #d4a62a;
-      --gold2: #f4d47b;
-      --text: #151515;
+      --brand2: #ff7a1a;
+      --text: #161616;
       --sub: #666;
-      --muted: #9b9b9b;
+      --muted: #999;
       --line: #eeeeee;
-      --bg: #f6f7f9;
+      --bg: #f7f8fa;
       --card: #ffffff;
-      --page: #ffffff;
-      --panel: rgba(255,255,255,.96);
-      --panel-strong: #ffffff;
-      --hero-bg: linear-gradient(135deg, #ffffff 0%, #f7f9fc 100%);
-      --hero-glow-1: rgba(255, 90, 0, 0.14);
-      --hero-glow-2: rgba(255, 168, 88, .10);
-      --topbar-border: #f3f3f3;
-      --topbar-tag-bg: linear-gradient(135deg, #fff7ef 0%, #ffe0c8 100%);
-      --topbar-tag-border: rgba(255, 90, 0, .16);
-      --topbar-tag-text: #b84a00;
-      --topbar-dot-shadow: rgba(255, 90, 0, .12);
-      --chip-bg: rgba(255, 243, 234, .86);
-      --chip-text: #b94b00;
-      --section-bg: #ffffff;
-      --card-alt: #ffffff;
-      --toggle-bg: rgba(255,255,255,.88);
-      --toggle-border: rgba(255, 90, 0, .16);
-      --toggle-text: #b84a00;
-      --toggle-active-bg: #ff5a00;
-      --toggle-active-text: #ffffff;
-      --shadow: 0 10px 28px rgba(22, 22, 22, .06);
-      --modal-shadow: 0 20px 48px rgba(0,0,0,.22);
     }
 
-    body[data-theme="dark"] {
-      --text: #eceff3;
-      --sub: #b6bcc6;
-      --muted: #808999;
-      --line: #2c3139;
-      --bg: #0f1115;
-      --card: #171b22;
-      --page: #11151b;
-      --panel: rgba(18, 22, 29, .92);
-      --panel-strong: #171b22;
-      --hero-bg: linear-gradient(135deg, #171c24 0%, #0f1319 100%);
-      --hero-glow-1: rgba(255, 90, 0, 0.20);
-      --hero-glow-2: rgba(255, 168, 88, .08);
-      --topbar-border: #242a33;
-      --topbar-tag-bg: linear-gradient(135deg, #2a211b 0%, #35241a 100%);
-      --topbar-tag-border: rgba(255, 138, 72, .24);
-      --topbar-tag-text: #ffb07a;
-      --topbar-dot-shadow: rgba(255, 90, 0, .18);
-      --chip-bg: rgba(255, 90, 0, .12);
-      --chip-text: #ffc39e;
-      --section-bg: #11151b;
-      --card-alt: #171b22;
-      --toggle-bg: rgba(255,255,255,.06);
-      --toggle-border: rgba(255,255,255,.12);
-      --toggle-text: #ffd4bf;
-      --toggle-active-bg: #ff6a1a;
-      --toggle-active-text: #ffffff;
-      --modal-shadow: 0 28px 64px rgba(0,0,0,.55);
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
-
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
-      background: var(--bg);
+      background: #eef0f3;
       color: var(--text);
     }
 
@@ -85,68 +33,34 @@
       max-width: 430px;
       margin: 0 auto;
       min-height: 100vh;
-      background: var(--page);
+      background: #fff;
       overflow: hidden;
       border-radius: 14px 14px 0 0;
-      padding-bottom: 118px;
+      padding-bottom: 96px;
     }
 
     .topbar {
-      height: 62px;
+      height: 64px;
       padding: 12px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: var(--panel);
-      border-bottom: 1px solid var(--topbar-border);
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      backdrop-filter: blur(10px);
+      background: #fff;
+      border-bottom: 1px solid #f3f3f3;
     }
 
     .logo {
+      height: 24px;
       display: flex;
       align-items: center;
-      height: 36px;
+      gap: 0;
     }
 
     .logo img {
       display: block;
-      height: 28px;
+      height: 20px;
       width: auto;
     }
-
-    body[data-theme="dark"] .logo img {
-      filter: brightness(0) invert(1);
-    }
-
-    .theme-toggle {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 30px;
-      height: 30px;
-      padding: 0;
-      border-radius: 999px;
-      border: 1px solid var(--toggle-border);
-      background: var(--toggle-bg);
-      color: var(--toggle-text);
-      font-size: 15px;
-      font-weight: 900;
-      line-height: 1;
-      cursor: pointer;
-      box-shadow: 0 8px 18px rgba(0,0,0,.06);
-      transition: transform .18s ease, background .18s ease, color .18s ease, box-shadow .18s ease;
-    }
-
-    .theme-toggle.active {
-      background: var(--toggle-active-bg);
-      color: var(--toggle-active-text);
-      box-shadow: 0 10px 22px rgba(255, 90, 0, .18);
-    }
-
-    .theme-toggle:active { transform: scale(.98); }
 
     .topbar-tag {
       display: inline-flex;
@@ -154,9 +68,9 @@
       gap: 7px;
       padding: 7px 12px;
       border-radius: 999px;
-      background: var(--topbar-tag-bg);
-      border: 1px solid var(--topbar-tag-border);
-      color: var(--topbar-tag-text);
+      background: linear-gradient(135deg, #fff7ef 0%, #ffe0c8 100%);
+      border: 1px solid rgba(255, 90, 0, .14);
+      color: #b84a00;
       font-size: 12px;
       font-weight: 900;
       letter-spacing: .8px;
@@ -170,18 +84,22 @@
       height: 8px;
       border-radius: 50%;
       background: var(--brand);
-      box-shadow: 0 0 0 4px var(--topbar-dot-shadow);
+      box-shadow: 0 0 0 4px rgba(255, 90, 0, .12);
       flex: 0 0 auto;
+    }
+
+    .topbar-tag span {
+      display: inline-block;
+      transform: translateY(-0.5px);
     }
 
     .hero {
       position: relative;
-      min-height: 284px;
-      padding: 36px 20px 18px;
+      height: 252px;
+      padding: 34px 20px 20px;
       background:
-        radial-gradient(circle at 82% 42%, var(--hero-glow-1), transparent 27%),
-        radial-gradient(circle at 15% 100%, var(--hero-glow-2), transparent 32%),
-        var(--hero-bg);
+        radial-gradient(circle at 85% 46%, rgba(255, 122, 26, 0.12), transparent 30%),
+        linear-gradient(135deg, #ffffff 0%, #f7f9fc 100%);
       overflow: hidden;
     }
 
@@ -190,434 +108,137 @@
       z-index: 2;
       margin: 0;
       font-size: 34px;
-      line-height: 1.14;
+      line-height: 1.16;
       font-weight: 950;
       letter-spacing: -1.5px;
     }
 
-    .hero h1 span { color: var(--brand); }
+    .hero h1 span {
+      color: var(--brand);
+    }
 
     .hero .desc {
       position: relative;
       z-index: 2;
-      width: 69%;
-      margin: 15px 0 0;
+      width: 68%;
+      margin: 16px 0 0;
       font-size: 15px;
-      line-height: 1.62;
-      color: var(--text);
-      font-weight: 600;
+      line-height: 1.65;
+      color: #222;
+      font-weight: 500;
     }
 
     .hero .slogan {
       position: relative;
       z-index: 2;
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      margin-top: 16px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: var(--chip-bg);
-      color: var(--chip-text);
-      font-size: 13px;
-      font-weight: 900;
-      border: 1px solid rgba(255,90,0,.12);
+      margin-top: 18px;
+      font-size: 15px;
+      color: #a5a5a5;
+      font-weight: 700;
     }
-
-    .hero .slogan::before { content: "⚡"; }
 
     .hero-visual {
       position: absolute;
-      right: -2px;
-      top: 72px;
-      width: 176px;
-      height: 176px;
-      z-index: 1;
-      pointer-events: none;
+      right: 6px;
+      top: 70px;
+      width: 160px;
+      height: 150px;
+      opacity: 0.95;
     }
 
-    .info-radar {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-
-    .info-radar::before {
-      content: "";
+    .glass-card {
       position: absolute;
-      right: 16px;
-      top: 34px;
-      width: 126px;
-      height: 126px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255, 90, 0, .12) 0%, rgba(255, 90, 0, .06) 44%, transparent 68%);
-      filter: blur(.2px);
-    }
-
-    .main-panel {
-      position: absolute;
-      right: 12px;
-      top: 28px;
-      width: 124px;
-      height: 96px;
-      border-radius: 21px;
-      background: rgba(255,255,255,.84);
-      border: 1px solid rgba(255,255,255,.92);
-      box-shadow: 0 18px 42px rgba(32, 64, 128, .14);
+      right: 0;
+      top: 0;
+      width: 118px;
+      height: 90px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.72);
+      box-shadow: 0 16px 36px rgba(32, 64, 128, 0.12);
+      border: 1px solid rgba(255,255,255,0.85);
       transform: rotate(2deg);
-      overflow: hidden;
     }
 
-    .panel-tags {
+    .bars {
       position: absolute;
-      left: 12px;
-      top: 12px;
+      right: 22px;
+      bottom: 18px;
       display: flex;
-      gap: 5px;
-      z-index: 2;
+      align-items: flex-end;
+      gap: 6px;
     }
 
-    .panel-tags span {
-      height: 18px;
-      padding: 0 6px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: #fff1e7;
-      color: var(--brand-deep);
-      font-size: 10px;
-      font-weight: 950;
-      line-height: 1;
+    .bar {
+      width: 10px;
+      border-radius: 8px 8px 0 0;
+      background: var(--brand);
     }
 
-    .radar-line {
-      position: absolute;
-      left: 16px;
-      right: 16px;
-      bottom: 21px;
-      height: 46px;
-    }
+    .bar:nth-child(1) { height: 28px; opacity: .45; }
+    .bar:nth-child(2) { height: 46px; opacity: .65; }
+    .bar:nth-child(3) { height: 64px; opacity: .9; }
 
-    .radar-line svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-      overflow: visible;
-    }
-
-    .radar-bars {
+    .trend {
       position: absolute;
       right: 18px;
-      bottom: 19px;
-      display: flex;
-      align-items: flex-end;
-      gap: 5px;
-      opacity: .68;
-    }
-
-    .radar-bars i {
-      display: block;
-      width: 9px;
-      border-radius: 8px 8px 0 0;
-      background: linear-gradient(180deg, #ff7a1a 0%, #ffb27a 100%);
-    }
-
-    .radar-bars i:nth-child(1) { height: 22px; opacity: .55; }
-    .radar-bars i:nth-child(2) { height: 35px; opacity: .72; }
-    .radar-bars i:nth-child(3) { height: 52px; opacity: .95; }
-
-    .float-chip {
-      position: absolute;
-      z-index: 3;
-      min-width: 48px;
-      height: 28px;
-      padding: 0 9px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      background: rgba(255,255,255,.92);
-      border: 1px solid rgba(255,90,0,.12);
-      box-shadow: 0 10px 22px rgba(29, 45, 68, .10);
-      color: #5d351c;
-      font-size: 11px;
-      font-weight: 950;
-      white-space: nowrap;
-    }
-
-    .float-chip::before {
-      content: "";
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--brand);
-      box-shadow: 0 0 0 4px rgba(255,90,0,.10);
-      flex: 0 0 auto;
-    }
-
-    .chip-weather { left: 0px; top: 22px; transform: rotate(-6deg); }
-    .chip-news { right: 0px; top: 0px; transform: rotate(5deg); }
-    .chip-stock { left: 6px; bottom: 34px; transform: rotate(4deg); }
-    .chip-calendar { right: 15px; bottom: 10px; transform: rotate(-5deg); }
-
-    .night-dot {
-      position: absolute;
-      right: 34px;
-      top: 118px;
-      z-index: 2;
-      width: 34px;
+      top: 28px;
+      width: 72px;
       height: 34px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #fff5e8 0%, #ffd6b6 100%);
-      box-shadow: 0 12px 24px rgba(255, 90, 0, .12);
+      border-bottom: 3px solid var(--brand);
+      border-right: 3px solid var(--brand);
+      transform: skew(-18deg) rotate(-12deg);
+      border-radius: 2px;
     }
 
-    .night-dot::after {
+    .magnifier {
+      position: absolute;
+      left: 4px;
+      bottom: 6px;
+      width: 72px;
+      height: 72px;
+      border: 8px solid rgba(115, 148, 190, .28);
+      border-radius: 50%;
+      background: rgba(255,255,255,.38);
+    }
+
+    .magnifier::after {
       content: "";
       position: absolute;
-      right: 8px;
-      top: 7px;
-      width: 15px;
-      height: 15px;
-      border-radius: 50%;
-      box-shadow: -5px 0 0 #ff7a1a;
-      opacity: .9;
-    }
-
-    .scroll-cue {
-      position: relative;
-      z-index: 2;
-      margin-top: 18px;
-      color: #a0a0a0;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .section {
-      padding: 18px 16px 0;
-      background: var(--section-bg);
-    }
-
-    .section-title-row {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
-
-    .section-title {
-      margin: 0;
-      font-size: 19px;
-      line-height: 1.2;
-      font-weight: 950;
-      letter-spacing: -.4px;
-    }
-
-    .section-sub {
-      margin: 4px 0 0;
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 600;
-    }
-
-    .section-kicker {
-      color: var(--brand);
-      font-size: 12px;
-      font-weight: 900;
-      white-space: nowrap;
-    }
-
-    .featured-strip {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding: 2px 0 12px;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none;
-    }
-
-    .featured-strip::-webkit-scrollbar { display: none; }
-
-    .featured-card {
-      flex: 0 0 226px;
-      height: 146px;
-      border-radius: 16px;
-      overflow: hidden;
-      position: relative;
-      background: var(--card-alt);
-      scroll-snap-align: start;
-      box-shadow: var(--shadow);
-      cursor: pointer;
-    }
-
-    .featured-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-      display: block;
-    }
-
-    .featured-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.04) 44%, rgba(0,0,0,.66) 100%);
-    }
-
-    .featured-badge {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-      z-index: 2;
-      padding: 4px 8px;
+      width: 48px;
+      height: 8px;
+      background: rgba(115, 148, 190, .38);
       border-radius: 999px;
-      background: rgba(255,90,0,.92);
-      color: #fff;
-      font-size: 11px;
-      font-weight: 900;
-      box-shadow: 0 4px 12px rgba(0,0,0,.12);
-    }
-
-    .featured-title {
-      position: absolute;
-      left: 12px;
-      right: 12px;
-      bottom: 11px;
-      z-index: 2;
-      color: #fff;
-      font-size: 17px;
-      font-weight: 950;
-      text-shadow: 0 2px 10px rgba(0,0,0,.32);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .recommend {
-      margin: 6px 16px 0;
-      min-height: 70px;
-      border: 1px solid rgba(255,90,0,.12);
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      overflow: hidden;
-      background: var(--card-alt);
-      box-shadow: 0 8px 22px rgba(255,90,0,.06);
-    }
-
-    .recommend-label {
-      align-self: stretch;
-      padding: 0 14px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 2px;
-      background: var(--chip-bg);
-      color: var(--text);
-      font-size: 13px;
-      font-weight: 950;
-      border-right: 1px solid #f4e0d6;
-      white-space: nowrap;
-    }
-
-    .recommend-label span { color: var(--brand); font-size: 22px; line-height: 1; }
-
-    .recommend-text {
-      flex: 1;
-      padding: 0 12px;
-      font-size: 13px;
-      line-height: 1.48;
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .signal-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .signal-card {
-      border-radius: 16px;
-      padding: 13px 12px 12px;
-      background: var(--card-alt);
-      border: 1px solid var(--line);
-      box-shadow: 0 6px 18px rgba(0,0,0,.035);
-    }
-
-    .signal-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      background: var(--brand-soft);
-      color: var(--brand);
-      font-size: 18px;
-      margin-bottom: 8px;
-    }
-
-    .signal-title {
-      font-size: 15px;
-      font-weight: 950;
-      margin-bottom: 5px;
-      color: var(--text);
-    }
-
-    .signal-desc {
-      font-size: 12px;
-      line-height: 1.42;
-      color: var(--sub);
-      font-weight: 600;
+      right: -36px;
+      bottom: -18px;
+      transform: rotate(45deg);
     }
 
     .tabs-wrap {
-      padding: 18px 16px 8px;
-      background: var(--section-bg);
-    }
-
-    .tabs-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .tabs-title strong {
-      font-size: 19px;
-      font-weight: 950;
-    }
-
-    .tabs-title span {
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 700;
+      padding: 0 16px 12px;
+      background: #fff;
     }
 
     .tabs {
       display: flex;
-      gap: 9px;
+      gap: 10px;
       overflow-x: auto;
-      padding: 0 0 4px;
+      padding: 10px 0;
       scrollbar-width: none;
     }
 
-    .tabs::-webkit-scrollbar { display: none; }
+    .tabs::-webkit-scrollbar {
+      display: none;
+    }
 
     .tab {
       flex: 0 0 auto;
-      padding: 8px 15px;
+      padding: 7px 18px;
       border-radius: 999px;
-      font-size: 14px;
-      font-weight: 800;
-      border: 1px solid var(--line);
-      background: var(--card-alt);
-      color: var(--text);
+      font-size: 15px;
+      font-weight: 700;
+      border: 1px solid #ddd;
+      background: #fff;
+      color: #222;
       cursor: pointer;
       white-space: nowrap;
     }
@@ -626,50 +247,162 @@
       background: var(--brand);
       color: #fff;
       border-color: var(--brand);
-      box-shadow: 0 7px 16px rgba(255,90,0,.23);
+      box-shadow: 0 6px 16px rgba(255,90,0,.22);
+    }
+
+    .carousel {
+      padding: 0 0 10px 16px;
+      background: #fff;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-right: 16px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .carousel-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .mini-card {
+      flex: 0 0 142px;
+      height: 78px;
+      border-radius: 13px;
+      overflow: hidden;
+      position: relative;
+      scroll-snap-align: start;
+      background: linear-gradient(135deg, #333, #111);
+      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+    }
+
+    .mini-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+
+    .mini-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.58));
+    }
+
+    .mini-title {
+      position: absolute;
+      left: 10px;
+      bottom: 8px;
+      z-index: 2;
+      color: #fff;
+      font-size: 15px;
+      line-height: 1.15;
+      font-weight: 900;
+      width: 112px;
+      text-shadow: 0 2px 8px rgba(0,0,0,.25);
+    }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 0 14px;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #d5d5d5;
+    }
+
+    .dot.active {
+      width: 23px;
+      background: var(--brand);
+    }
+
+    .recommend {
+      margin: 0 16px 14px;
+      min-height: 54px;
+      border: 1px solid #f0f0f0;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 6px 16px rgba(0,0,0,.025);
+    }
+
+    .recommend-label {
+      height: 100%;
+      padding: 0 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff3ec;
+      color: #222;
+      font-size: 15px;
+      font-weight: 900;
+      border-right: 1px solid #f4e0d6;
+    }
+
+    .recommend-label span {
+      color: var(--brand);
+      font-size: 22px;
+    }
+
+    .recommend-text {
+      flex: 1;
+      padding: 0 12px;
+      font-size: 13px;
+      line-height: 1.35;
+      color: #333;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      white-space: normal;
+    }
+
+    .recommend-shield {
+      padding-right: 14px;
+      color: #ddd;
+      font-size: 20px;
     }
 
     .grid {
-      padding: 0 16px 18px;
+      padding: 0 16px 16px;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 14px 12px;
-      background: var(--section-bg);
     }
 
     .card {
-      background: var(--card-alt);
-      border-radius: 16px;
+      background: #fff;
+      border-radius: 14px;
       overflow: hidden;
-      border: 1px solid var(--line);
-      box-shadow: 0 6px 18px rgba(0,0,0,.038);
-      cursor: pointer;
-      transition: transform .16s ease, box-shadow .16s ease;
+      border: 1px solid #f0f0f0;
+      box-shadow: 0 5px 16px rgba(0,0,0,.035);
     }
 
-    .card:active { transform: scale(.985); }
-
     .thumb {
-      height: 96px;
+      height: 94px;
       background: linear-gradient(135deg, #f4f4f4, #e8e8e8);
       overflow: hidden;
       position: relative;
     }
 
-    .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
-
-    .thumb::after {
-      content: "查看长图";
-      position: absolute;
-      right: 8px;
-      bottom: 8px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.56);
-      color: #fff;
-      font-size: 10px;
-      font-weight: 800;
-      backdrop-filter: blur(4px);
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
     }
 
     .thumb-fallback {
@@ -685,44 +418,39 @@
       background: linear-gradient(135deg, #222, #555);
     }
 
-    .card-body { padding: 11px 10px 12px; min-height: 92px; position: relative; }
-
-    .card-title { font-size: 15px; font-weight: 950; line-height: 1.35; margin-bottom: 6px; color: #202020; }
-    body[data-theme="dark"] .card-title { color: var(--text); }
-
-    .card-desc { font-size: 12px; line-height: 1.45; color: #8a8a8a; min-height: 34px; font-weight: 600; }
-    body[data-theme="dark"] .card-desc { color: var(--sub); }
-
-    .view-link {
-      margin-top: 7px;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      color: var(--brand);
-      font-size: 12px;
-      font-weight: 900;
+    .card-body {
+      padding: 10px 10px 12px;
+      min-height: 98px;
+      position: relative;
     }
 
-    .view-link::after { content: "›"; font-size: 16px; line-height: 1; }
-
-    .load-more {
-      grid-column: 1 / -1;
-      height: 42px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,90,0,.16);
-      background: var(--chip-bg);
-      color: var(--brand-deep);
-      font-size: 14px;
+    .card-title {
+      font-size: 15px;
       font-weight: 900;
+      line-height: 1.35;
+      margin-bottom: 6px;
+      color: #202020;
+    }
+
+    .card-desc {
+      font-size: 12px;
+      line-height: 1.45;
+      color: #909090;
+      padding-right: 2px;
+      min-height: 34px;
+    }
+
+    .view-btn {
+      margin-top: 8px;
+      float: right;
+      border: 0;
+      background: var(--brand);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 999px;
       cursor: pointer;
-    }
-
-    .risk {
-      text-align: center;
-      color: var(--muted);
-      font-size: 12px;
-      padding: 0 16px 18px;
-      line-height: 1.5;
     }
 
     .bottom-actions {
@@ -732,28 +460,24 @@
       transform: translateX(-50%);
       width: min(100%, 430px);
       z-index: 40;
-      background: var(--panel);
+      background: rgba(255,255,255,.96);
       backdrop-filter: blur(12px);
-      border-top: 1px solid var(--line);
+      border-top: 1px solid #e8e8e8;
       box-shadow: 0 -5px 20px -5px rgba(0,0,0,.12);
-      padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+      padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
     }
 
-    .bottom-copy {
-      text-align: center;
-      font-size: 11px;
-      color: var(--sub);
-      font-weight: 700;
-      margin-bottom: 8px;
+    .bottom-actions-inner {
+      display: flex;
+      gap: 12px;
+      align-items: center;
     }
-
-    .bottom-actions-inner { display: flex; gap: 12px; align-items: center; }
 
     .share-page-btn,
     .download-btn {
       flex: 1;
       height: 44px;
-      border-radius: 13px;
+      border-radius: 12px;
       border: 0;
       display: flex;
       align-items: center;
@@ -770,22 +494,53 @@
       border: 1px solid rgba(245,195,91,.35);
       gap: 8px;
       font-size: 14px;
-      font-weight: 800;
+      font-weight: 700;
     }
 
     .download-btn {
       background: linear-gradient(90deg, #d4a62a 0%, #f4d47b 50%, #d4a62a 100%);
       color: #111827;
-      font-weight: 950;
+      font-weight: 900;
       box-shadow: 0 10px 22px rgba(212,166,42,.22);
       flex-direction: column;
       gap: 1px;
     }
 
-    .download-btn .primary { font-size: 14px; line-height: 1; }
-    .download-btn .secondary { font-size: 10px; line-height: 1; opacity: .78; transform: scale(.92); }
+    .download-btn .primary {
+      font-size: 14px;
+      line-height: 1;
+    }
 
-    .share-page-btn:active, .download-btn:active { transform: scale(.98); }
+    .download-btn .secondary {
+      font-size: 10px;
+      line-height: 1;
+      opacity: .78;
+      transform: scale(.92);
+    }
+
+    .share-page-btn:active,
+    .download-btn:active {
+      transform: scale(.98);
+    }
+
+    .share-icon {
+      width: 18px;
+      height: 18px;
+      display: inline-block;
+    }
+
+    .share-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .risk {
+      text-align: center;
+      color: #b8b8b8;
+      font-size: 12px;
+      padding: 0 0 18px;
+    }
 
     .modal {
       position: fixed;
@@ -797,7 +552,9 @@
       justify-content: center;
     }
 
-    .modal.show { display: flex; }
+    .modal.show {
+      display: flex;
+    }
 
     .modal-inner {
       width: 100%;
@@ -806,194 +563,158 @@
       position: relative;
       display: flex;
       flex-direction: column;
-      background: var(--panel-strong);
-      box-shadow: var(--modal-shadow);
     }
 
     .modal-top {
-      min-height: 64px;
+      height: 52px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      padding: 10px 16px 8px;
-      color: var(--text);
+      padding: 0 16px;
+      color: #fff;
       flex: 0 0 auto;
     }
 
-    .modal-title-wrap {
-      min-width: 0;
-      flex: 1;
-    }
-
-    .modal-title { font-size: 15px; font-weight: 900; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 12px; }
-
-    .modal-hint {
-      margin-top: 4px;
-      color: var(--sub);
-      font-size: 12px;
-      font-weight: 700;
-      line-height: 1.2;
+    .modal-title {
+      font-size: 15px;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-right: 12px;
     }
 
     .close {
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      border: 1px solid var(--line);
-      color: var(--text);
-      background: var(--card-alt);
+      border: 1px solid rgba(255,255,255,.35);
+      color: #fff;
+      background: transparent;
       font-size: 22px;
       cursor: pointer;
     }
 
-    .modal-scroll { flex: 1; overflow-y: auto; padding: 0 16px 92px; background: var(--section-bg); }
+    .modal-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0 16px 16px;
+    }
+
     .modal-scroll img {
       width: 100%;
       border-radius: 12px;
       display: block;
-      background: var(--card-alt);
-      -webkit-touch-callout: default;
-      user-select: auto;
-    }
-
-    .modal-actions {
-      position: fixed;
-      left: 50%;
-      bottom: 0;
-      transform: translateX(-50%);
-      width: min(100%, 430px);
-      z-index: 1000;
-      padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
-      background: linear-gradient(180deg, rgba(18,18,18,0) 0%, rgba(18,18,18,.92) 30%, rgba(18,18,18,.98) 100%);
-      display: none;
-    }
-
-    .modal.show .modal-actions {
-      display: block;
-    }
-
-    .open-original-btn {
-      height: 44px;
-      border-radius: 999px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      background: var(--card-alt);
-      color: var(--text);
-      font-size: 14px;
-      font-weight: 950;
-      box-shadow: 0 10px 26px rgba(0,0,0,.22);
-    }
-
-    .open-original-btn:active {
-      transform: scale(.985);
+      background: #fff;
     }
 
     .modal-fallback {
       min-height: 720px;
       border-radius: 14px;
-      background: var(--card-alt);
+      background: #fff;
       padding: 40px 24px;
-      color: var(--text);
+      color: #111;
       font-size: 28px;
       font-weight: 950;
       line-height: 1.25;
     }
 
     @media (max-width: 380px) {
-      .hero h1 { font-size: 30px; }
-      .hero .desc { width: 70%; font-size: 14px; }
-      .hero-visual { width: 158px; right: -8px; }
-      .grid { gap: 12px 10px; }
-      .thumb { height: 88px; }
-      .featured-card { flex-basis: 204px; height: 136px; }
+      .hero h1 {
+        font-size: 30px;
+      }
+      .hero .desc {
+        width: 70%;
+        font-size: 14px;
+      }
+      .hero-visual {
+        width: 142px;
+        right: -4px;
+      }
+      .grid {
+        gap: 12px 10px;
+      }
+      .thumb {
+        height: 86px;
+      }
+      .open-btn {
+        padding: 10px 16px;
+      }
+      .phone {
+        right: 92px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="page">
     <header class="topbar">
-      <div class="logo" aria-label="金十期货"><img src="file:///Users/anders/Downloads/内外盘折算/容器__1_(1).svg" alt="金十期货"></div>
-      <div class="topbar-tag" id="topbarTag"><span>期货人的日常</span></div>
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换夜间模式">☾</button>
+      <div class="logo">
+        <img src="file:///Users/anders/Downloads/内外盘折算/容器__1_(1).svg" alt="金十期货">
+      </div>
+      <div class="topbar-tag" id="topbarTag"><span>金十期货热图库</span></div>
     </header>
 
     <section class="hero">
-      <h1>这些瞬间，<br><span>期货人都懂</span></h1>
-      <p class="desc">别人刷天气、热搜和新闻，期货人看的是数据、事件、库存和产业链。</p>
-      <p class="scroll-cue">下滑看看你中了几条 ↓</p>
+      <h1>板块热图，<br><span>一眼看懂</span></h1>
+      <p class="desc">产区、产业链、成本、对外依存度，再加上一点期货人的趣图，一屏看懂市场脉络。</p>
+      <p class="slogan">图看结构，快看变化。</p>
 
       <div class="hero-visual" aria-hidden="true">
-        <div class="info-radar">
-          <div class="float-chip chip-weather">天气</div>
-          <div class="float-chip chip-news">快讯</div>
-          <div class="main-panel">
-            <div class="panel-tags"><span>日历</span><span>夜盘</span></div>
-            <div class="radar-line">
-              <svg viewBox="0 0 90 48" fill="none" aria-hidden="true">
-                <path d="M2 34 C18 31, 26 26, 38 28 C51 31, 58 12, 72 16 C80 18, 84 10, 88 6" stroke="#ff5a00" stroke-width="3" stroke-linecap="round"/>
-                <circle cx="38" cy="28" r="3.2" fill="#ff5a00"/>
-                <circle cx="72" cy="16" r="3.2" fill="#ff5a00"/>
-              </svg>
-            </div>
-            <div class="radar-bars"><i></i><i></i><i></i></div>
+        <div class="glass-card">
+          <div class="trend"></div>
+          <div class="bars">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
           </div>
-          <div class="float-chip chip-stock">库存</div>
-          <div class="float-chip chip-calendar">日历</div>
-          <div class="night-dot"></div>
         </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-title-row">
-        <div>
-          <h2 class="section-title">本期最有共鸣</h2>
-        </div>
-        <div class="section-kicker">TOP精选</div>
-      </div>
-      <div class="featured-strip" id="featured"></div>
-    </section>
-
-    <section class="recommend">
-      <div class="recommend-label"><span>★</span>编辑推荐</div>
-      <div class="recommend-text">段子只是入口，数据才是重点。天气、库存、政策、外盘一有变化，期货人先看影响链条。</div>
-    </section>
-
-    <section class="section">
-      <div class="section-title-row">
-        <div>
-          <h2 class="section-title">期货人到底在看什么？</h2>
-          <p class="section-sub">天气、库存、新闻、日历，背后都是影响链条。</p>
-        </div>
-      </div>
-      <div class="signal-grid">
-        <div class="signal-card"><div class="signal-icon">☁</div><div class="signal-title">看天气</div><div class="signal-desc">不是关心下不下雨，是关心产区、运输与作物进度。</div></div>
-        <div class="signal-card"><div class="signal-icon">▦</div><div class="signal-title">看库存</div><div class="signal-desc">不是只看增减，而是看供需变化和预期差。</div></div>
-        <div class="signal-card"><div class="signal-icon">⚡</div><div class="signal-title">看新闻</div><div class="signal-desc">不是吃瓜，是判断事件可能影响哪些品种链条。</div></div>
-        <div class="signal-card"><div class="signal-icon">📅</div><div class="signal-title">看日历</div><div class="signal-desc">不是怕错过，是怕关键数据突然刷新市场关注点。</div></div>
+        <div class="magnifier"></div>
       </div>
     </section>
 
     <section class="tabs-wrap">
-      <div class="tabs-title"><strong>全部长图</strong><span id="countText">共 12 张</span></div>
       <div class="tabs" id="tabs"></div>
+    </section>
+
+    <section class="carousel">
+      <div class="carousel-track" id="carousel"></div>
+      <div class="dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </section>
+
+    <section class="recommend">
+      <div class="recommend-label"><span>★</span>编辑推荐</div>
+      <div class="recommend-text">不只看趣图，也看板块图。产区、产业链、成本和对外依存度，都是交易前的线索。</div>
+      <div class="recommend-shield">♧</div>
     </section>
 
     <main class="grid" id="grid"></main>
 
-    <div class="risk">内容仅作市场信息展示，不构成投资建议。页面图片及说明用于期货资讯场景传播，不涉及任何品种方向判断。</div>
+    <div class="risk">内容仅作市场信息展示，不构成投资建议。</div>
   </div>
 
   <div class="bottom-actions">
-    <div class="bottom-copy">看完段子，别忘了看数据</div>
     <div class="bottom-actions-inner">
-      <button class="share-page-btn" id="sharePageBtn" type="button">分享专题</button>
+      <button class="share-page-btn" id="sharePageBtn" type="button">
+        <span class="share-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M15 8a3 3 0 1 0-2.83-4H12a3 3 0 0 0 0 6c.36 0 .71-.06 1.03-.17l2.32 2.33A3 3 0 0 0 15 13a3 3 0 1 0 2.83 4H18a3 3 0 0 0 0-6c-.36 0-.71.06-1.03.17l-2.32-2.33A3 3 0 0 0 15 8Z" fill="currentColor"/>
+            <circle cx="12" cy="5" r="1.6" fill="currentColor"/>
+            <circle cx="18" cy="12" r="1.6" fill="currentColor"/>
+            <circle cx="6" cy="19" r="1.6" fill="currentColor"/>
+          </svg>
+        </span>
+        分享专题
+      </button>
+
       <a id="download-btn" class="download-btn" href="https://qihuo.jin10.com/app/index.html" target="_blank" rel="noreferrer">
-        <span class="primary">打开金十期货APP</span>
-        <span class="secondary">看快讯 / 日历 / 库存 / 专题</span>
+        <span class="primary">下载金十期货APP</span>
+        <span class="secondary">看更多热图库</span>
       </a>
     </div>
   </div>
@@ -1001,80 +722,274 @@
   <div class="modal" id="modal">
     <div class="modal-inner">
       <div class="modal-top">
-        <div class="modal-title-wrap">
-          <div class="modal-title" id="modalTitle">查看长图</div>
-          <div class="modal-hint">长按图片保存，转发给懂的人</div>
-        </div>
+        <div class="modal-title" id="modalTitle">查看长图</div>
         <button class="close" id="closeModal">×</button>
       </div>
       <div class="modal-scroll" id="modalContent"></div>
-      <div class="modal-actions">
-        <a class="open-original-btn" id="openOriginalBtn" href="#" target="_blank" rel="noreferrer">打开原图</a>
-      </div>
     </div>
   </div>
 
   <script>
-    const categories = ["全部", "盯盘日常", "夜盘名场面", "数据焦虑", "资讯反应", "天气库存"];
+    const categories = ["全部", "产区", "产业链", "成本", "对外依存度", "趣图"];
 
     const cards = [
-      { title: "上班摸鱼", desc: "白天上班，脑子先飞去看盘", category: "盯盘日常", image: "https://img.jin10.com/news/26/04/dwfZZc8Ssf45dPOGDbCmt.jpg/lite", longImage: "https://img.jin10.com/news/26/04/dwfZZc8Ssf45dPOGDbCmt.jpg/lite", featured: true },
-      { title: "夜盘精神状态", desc: "夜深了，行情还在继续刷新", category: "夜盘名场面", image: "https://img.jin10.com/news/26/04/c5sYYo3tvncAknm21W0mo.jpg", longImage: "https://img.jin10.com/news/26/04/c5sYYo3tvncAknm21W0mo.jpg", featured: true },
-      { title: "期货人看天气", desc: "别人看温度，期货人看变量", category: "天气库存", image: "https://img.jin10.com/news/26/04/f5WVjB-V7LR4Cm706BbAz.jpg/lite", longImage: "https://img.jin10.com/news/26/04/f5WVjB-V7LR4Cm706BbAz.jpg/lite", featured: true },
-      { title: "期货人看新闻", desc: "一条新闻进来，先看影响链条", category: "资讯反应", image: "https://img.jin10.com/news/26/04/z4BOphTwpoA5V2h-g3C7f.jpg/lite", longImage: "https://img.jin10.com/news/26/04/z4BOphTwpoA5V2h-g3C7f.jpg/lite", featured: true },
-      { title: "最怕五句话", desc: "一句比一句让人心里发紧", category: "数据焦虑", image: "https://img.jin10.com/news/26/04/ZUJPaW_G21B4xOG2cehqE.jpg/lite", longImage: "https://img.jin10.com/news/26/04/ZUJPaW_G21B4xOG2cehqE.jpg/lite" },
-      { title: "期货人看热搜", desc: "别人吃瓜，期货人找影响链", category: "资讯反应", image: "https://img.jin10.com/news/26/04/ij7HWGDg_knRJRKUOGjIp.jpg", longImage: "https://img.jin10.com/news/26/04/ij7HWGDg_knRJRKUOGjIp.jpg" },
-      { title: "期货人第一反应", desc: "先问发生了什么，期货人先问影响谁", category: "资讯反应", image: "https://img.jin10.com/news/26/04/TO-QHT-LdCyXg4uRE7i-p.jpg", longImage: "https://img.jin10.com/news/26/04/TO-QHT-LdCyXg4uRE7i-p.jpg" },
-      { title: "一条新闻", desc: "看似普通，里面可能藏着大波动", category: "资讯反应", image: "https://img.jin10.com/news/26/04/nMw_nVYu54cebI6l9WBFk.jpg/lite", longImage: "https://img.jin10.com/news/26/04/nMw_nVYu54cebI6l9WBFk.jpg/lite" },
-      { title: "库存数据", desc: "增减不是重点，预期差才是重点", category: "天气库存", image: "https://img.jin10.com/news/26/04/mLrVlk3r943CtkejQWY59.jpg", longImage: "https://img.jin10.com/news/26/04/mLrVlk3r943CtkejQWY59.jpg" },
-      { title: "期货品种", desc: "不同品种，说话方式都不一样", category: "盯盘日常", image: "https://img.jin10.com/news/26/04/2GFFZmJZj1gEL29U25zzL.jpg", longImage: "https://img.jin10.com/news/26/04/2GFFZmJZj1gEL29U25zzL.jpg" },
-      { title: "离不开快讯", desc: "快讯不是热闹，是信息敏感度", category: "数据焦虑", image: "https://img.jin10.com/news/26/04/Ps09pfLZKfgH09OwQ7CfZ.jpg", longImage: "https://img.jin10.com/news/26/04/Ps09pfLZKfgH09OwQ7CfZ.jpg" },
-      { title: "非农夜", desc: "夜里最怕的，不是消息少，是消息太猛", category: "夜盘名场面", image: "https://img.jin10.com/news/26/04/RWSS7IjqkQihR0g17hjnI.jpg", longImage: "https://img.jin10.com/news/26/04/RWSS7IjqkQihR0g17hjnI.jpg" }
+      {
+        title: "棕榈油",
+        desc: "产区观察，先看供给侧的变化",
+        category: "产区",
+        image: "https://flash-scdn.jin10.com/fe6930fb-c657-4a77-883d-469dceffe101.png",
+        longImage: "https://flash-scdn.jin10.com/fe6930fb-c657-4a77-883d-469dceffe101.png"
+      },
+      {
+        title: "印尼镍矿",
+        desc: "矿端动向，决定后续的节奏",
+        category: "产区",
+        image: "https://flash-scdn.jin10.com/5f0b6f9c-be7f-4962-b659-3672117f8bc3.png",
+        longImage: "https://flash-scdn.jin10.com/5f0b6f9c-be7f-4962-b659-3672117f8bc3.png"
+      },
+      {
+        title: "碳酸锂",
+        desc: "产区与供需的交汇点",
+        category: "产区",
+        image: "https://img.jin10.com/news/25/06/IJo_SdelP65n0tHtWuSmf.png",
+        longImage: "https://img.jin10.com/news/25/06/IJo_SdelP65n0tHtWuSmf.png"
+      },
+      {
+        title: "多晶硅",
+        desc: "产业链上游，牵动下游预期",
+        category: "产业链",
+        image: "https://img.jin10.com/news/24/11/zaogdagKcYm1kJ5Q3qwbw.jpg",
+        longImage: "https://img.jin10.com/news/24/11/zaogdagKcYm1kJ5Q3qwbw.jpg"
+      },
+      {
+        title: "硅铁产业链",
+        desc: "链条一动，相关品种都会跟着看",
+        category: "产业链",
+        image: "https://flash-scdn.jin10.com/4208b54b-0103-4b55-85c3-b581e64c4f91.jpg",
+        longImage: "https://flash-scdn.jin10.com/4208b54b-0103-4b55-85c3-b581e64c4f91.jpg"
+      },
+      {
+        title: "瓶片产业链",
+        desc: "看产业链，就能看出传导路径",
+        category: "产业链",
+        image: "https://flash-scdn.jin10.com/af63d828-4094-4189-b9ee-ad74ccfaf6ed.jpg",
+        longImage: "https://flash-scdn.jin10.com/af63d828-4094-4189-b9ee-ad74ccfaf6ed.jpg"
+      },
+      {
+        title: "硫酸的角色",
+        desc: "一个环节的变化，往往会影响整条线",
+        category: "产业链",
+        image: "https://flash-scdn.jin10.com/d906dbb4-3e9a-43f6-a2de-5cb6f88e80ec.jpg",
+        longImage: "https://flash-scdn.jin10.com/d906dbb4-3e9a-43f6-a2de-5cb6f88e80ec.jpg"
+      },
+      {
+        title: "钢铁行业产业链",
+        desc: "从原料到成材，链条关系一眼能看懂",
+        category: "产业链",
+        image: "https://cdn-news.jin10.com/47272655-397b-4184-bc45-768803092d90.jpg",
+        longImage: "https://cdn-news.jin10.com/47272655-397b-4184-bc45-768803092d90.jpg"
+      },
+      {
+        title: "碳酸锂",
+        desc: "产业链变化，往往先体现在预期上",
+        category: "产业链",
+        image: "https://flash-scdn.jin10.com/7bef59be-eec5-4691-ada8-fcec92a11349.png",
+        longImage: "https://flash-scdn.jin10.com/7bef59be-eec5-4691-ada8-fcec92a11349.png"
+      },
+      {
+        title: "伊朗甲醇分布",
+        desc: "区域供给分布，影响后续节奏",
+        category: "产业链",
+        image: "https://img.jin10.com/news/26/03/PhMJ0DGQBjYZVRFyyt_iC.jpg",
+        longImage: "https://img.jin10.com/news/26/03/PhMJ0DGQBjYZVRFyyt_iC.jpg"
+      },
+      {
+        title: "生猪",
+        desc: "成本端一动，市场就会跟着算账",
+        category: "成本",
+        image: "https://img.jin10.com/news/26/01/1H5naSxt-EW7pWHyfWsy9.jpg",
+        longImage: "https://img.jin10.com/news/26/01/1H5naSxt-EW7pWHyfWsy9.jpg"
+      },
+      {
+        title: "电解铝",
+        desc: "成本线变化，影响利润空间",
+        category: "成本",
+        image: "https://img.jin10.com/news/25/12/PF83t0gid7QCLOlet3GG6.jpg",
+        longImage: "https://img.jin10.com/news/25/12/PF83t0gid7QCLOlet3GG6.jpg"
+      },
+      {
+        title: "多晶硅",
+        desc: "成本压力，最终会传导到价格上",
+        category: "成本",
+        image: "https://img.jin10.com/news/25/12/cdM5SsuEobGm4RVIIgLbL.jpg",
+        longImage: "https://img.jin10.com/news/25/12/cdM5SsuEobGm4RVIIgLbL.jpg"
+      },
+      {
+        title: "工业品耗电大比拼",
+        desc: "耗电差异，本身就是成本差异",
+        category: "成本",
+        image: "https://flash-scdn.jin10.com/9e979f37-cff4-4db0-a3b7-befa70099eb0.jpg",
+        longImage: "https://flash-scdn.jin10.com/9e979f37-cff4-4db0-a3b7-befa70099eb0.jpg"
+      },
+      {
+        title: "硫磺成本传导机制",
+        desc: "从成本端看，传导路径很关键",
+        category: "成本",
+        image: "https://flash-scdn.jin10.com/4069fb16-54c9-4671-8320-039dbada6a88.jpg",
+        longImage: "https://flash-scdn.jin10.com/4069fb16-54c9-4671-8320-039dbada6a88.jpg"
+      },
+      {
+        title: "尿素全年作息时间表",
+        desc: "节奏和季节性，都会影响交易思路",
+        category: "成本",
+        image: "https://flash-scdn.jin10.com/064e5612-b99c-48c6-8f78-d9e94e116511.jpg",
+        longImage: "https://flash-scdn.jin10.com/064e5612-b99c-48c6-8f78-d9e94e116511.jpg"
+      },
+      {
+        title: "金属",
+        desc: "对外依存度越高，越要看外部扰动",
+        category: "对外依存度",
+        image: "https://img.jin10.com/news/25/09/-sxykzxNuwBGxmwjeOTPw.jpg",
+        longImage: "https://img.jin10.com/news/25/09/-sxykzxNuwBGxmwjeOTPw.jpg"
+      },
+      {
+        title: "几内亚铝土矿",
+        desc: "资源分布，就是供给侧的底层信息",
+        category: "对外依存度",
+        image: "https://img.jin10.com/news/26/03/ddvgw3IbnY6I634_9t-TI.jpg",
+        longImage: "https://img.jin10.com/news/26/03/ddvgw3IbnY6I634_9t-TI.jpg"
+      },
+      {
+        title: "刚果（金）有色金属分布",
+        desc: "看分布，往往是在看全球供给格局",
+        category: "对外依存度",
+        image: "https://img.jin10.com/news/25/03/7CKog0bdyg4PqZdjbUsnp.jpg",
+        longImage: "https://img.jin10.com/news/25/03/7CKog0bdyg4PqZdjbUsnp.jpg"
+      },
+      {
+        title: "农产品",
+        desc: "进口依赖变化，会直接影响节奏",
+        category: "对外依存度",
+        image: "https://img.jin10.com/news/25/09/rUPPRosbChx3vEfix00n8.jpg",
+        longImage: "https://img.jin10.com/news/25/09/rUPPRosbChx3vEfix00n8.jpg"
+      },
+      {
+        title: "能源化工",
+        desc: "外部扰动一来，波动通常更明显",
+        category: "对外依存度",
+        image: "https://img.jin10.com/news/25/09/3i6fe2h7dRENfwgNDvuyD.jpg",
+        longImage: "https://img.jin10.com/news/25/09/3i6fe2h7dRENfwgNDvuyD.jpg"
+      },
+      {
+        title: "上班摸鱼",
+        desc: "白天上班，脑子先飞去看盘",
+        category: "趣图",
+        image: "https://img.jin10.com/news/26/04/dwfZZc8Ssf45dPOGDbCmt.jpg/lite",
+        longImage: "https://img.jin10.com/news/26/04/dwfZZc8Ssf45dPOGDbCmt.jpg/lite"
+      },
+      {
+        title: "夜盘",
+        desc: "夜深了，行情还在继续刷新",
+        category: "趣图",
+        image: "https://img.jin10.com/news/26/04/c5sYYo3tvncAknm21W0mo.jpg",
+        longImage: "https://img.jin10.com/news/26/04/c5sYYo3tvncAknm21W0mo.jpg"
+      },
+      {
+        title: "最怕五句话",
+        desc: "一句比一句让人心里发紧",
+        category: "趣图",
+        image: "https://img.jin10.com/news/26/04/ZUJPaW_G21B4xOG2cehqE.jpg/lite",
+        longImage: "https://img.jin10.com/news/26/04/ZUJPaW_G21B4xOG2cehqE.jpg/lite"
+      },
+      {
+        title: "普通人看天气",
+        desc: "别人看温度，期货人看变量",
+        category: "趣图",
+        image: "https://img.jin10.com/news/26/04/f5WVjB-V7LR4Cm706BbAz.jpg/lite",
+        longImage: "https://img.jin10.com/news/26/04/f5WVjB-V7LR4Cm706BbAz.jpg/lite"
+      },
+      {
+        title: "普通人热搜",
+        desc: "别人吃瓜，期货人找影响链",
+        category: "趣图",
+        image: "https://img.jin10.com/news/26/04/ij7HWGDg_knRJRKUOGjIp.jpg",
+        longImage: "https://img.jin10.com/news/26/04/ij7HWGDg_knRJRKUOGjIp.jpg"
+      },
+      {
+        title: "普通人看新闻",
+        desc: "一条新闻进来，先看是不是有交易机会",
+        category: "趣图",
+        image: "https://img.jin10.com/news/26/04/z4BOphTwpoA5V2h-g3C7f.jpg/lite",
+        longImage: "https://img.jin10.com/news/26/04/z4BOphTwpoA5V2h-g3C7f.jpg/lite"
+      },
+      {
+        title: "普通人第一反应",
+        desc: "先问发生了什么，期货人先问影响谁",
+        category: "趣图",
+        image: "https://img.jin10.com/news/26/04/TO-QHT-LdCyXg4uRE7i-p.jpg",
+        longImage: "https://img.jin10.com/news/26/04/TO-QHT-LdCyXg4uRE7i-p.jpg"
+      },
+      {
+        title: "一条新闻",
+        desc: "看似普通，里面可能藏着大波动",
+        category: "趣图",
+        image: "https://img.jin10.com/news/26/04/nMw_nVYu54cebI6l9WBFk.jpg/lite",
+        longImage: "https://img.jin10.com/news/26/04/nMw_nVYu54cebI6l9WBFk.jpg/lite"
+      },
+      {
+        title: "库存数据",
+        desc: "增减不是重点，预期差才是重点",
+        category: "趣图",
+        image: "https://img.jin10.com/news/26/04/mLrVlk3r943CtkejQWY59.jpg",
+        longImage: "https://img.jin10.com/news/26/04/mLrVlk3r943CtkejQWY59.jpg"
+      },
+      {
+        title: "期货品种",
+        desc: "不同品种，说话方式都不一样",
+        category: "趣图",
+        image: "https://img.jin10.com/news/26/04/2GFFZmJZj1gEL29U25zzL.jpg",
+        longImage: "https://img.jin10.com/news/26/04/2GFFZmJZj1gEL29U25zzL.jpg"
+      },
+      {
+        title: "离不开快讯",
+        desc: "快讯不是热闹，是先手",
+        category: "趣图",
+        image: "https://img.jin10.com/news/26/04/Ps09pfLZKfgH09OwQ7CfZ.jpg",
+        longImage: "https://img.jin10.com/news/26/04/Ps09pfLZKfgH09OwQ7CfZ.jpg"
+      },
+      {
+        title: "非农",
+        desc: "夜里最怕的，不是消息少，是消息太猛",
+        category: "趣图",
+        image: "https://img.jin10.com/news/26/04/RWSS7IjqkQihR0g17hjnI.jpg",
+        longImage: "https://img.jin10.com/news/26/04/RWSS7IjqkQihR0g17hjnI.jpg"
+      }
     ];
 
+    const cardItems = cards.map((item, index) => ({
+      ...item,
+      uid: `${item.category}-${index}`,
+    }));
+
     let currentCategory = "全部";
-    let expanded = false;
-    const initialLimit = 8;
 
     const tabsEl = document.getElementById("tabs");
     const gridEl = document.getElementById("grid");
-    const featuredEl = document.getElementById("featured");
-    const countText = document.getElementById("countText");
+    const carouselEl = document.getElementById("carousel");
     const modal = document.getElementById("modal");
     const modalTitle = document.getElementById("modalTitle");
     const modalContent = document.getElementById("modalContent");
-    const openOriginalBtn = document.getElementById("openOriginalBtn");
-    const themeToggle = document.getElementById("themeToggle");
-    const themeKey = "jin10-futures-theme";
-
-    function applyTheme(theme) {
-      document.body.dataset.theme = theme;
-      if (themeToggle) {
-        const isDark = theme === "dark";
-        themeToggle.textContent = isDark ? "☀" : "☾";
-        themeToggle.classList.toggle("active", isDark);
-        themeToggle.setAttribute("aria-label", isDark ? "切换日间模式" : "切换夜间模式");
-      }
-      try {
-        localStorage.setItem(themeKey, theme);
-      } catch (e) {}
-    }
-
-    function getInitialTheme() {
-      try {
-        const saved = localStorage.getItem(themeKey);
-        if (saved === "dark" || saved === "light") return saved;
-      } catch (e) {}
-      if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
-      return "light";
-    }
 
     function renderTabs() {
-      tabsEl.innerHTML = categories.map(cat => `<button class="tab ${cat === currentCategory ? "active" : ""}" data-cat="${cat}">${cat}</button>`).join("");
+      tabsEl.innerHTML = categories.map(cat => `
+        <button class="tab ${cat === currentCategory ? "active" : ""}" data-cat="${cat}">
+          ${cat}
+        </button>
+      `).join("");
+
       document.querySelectorAll(".tab").forEach(btn => {
         btn.addEventListener("click", () => {
           currentCategory = btn.dataset.cat;
-          expanded = false;
           renderTabs();
           renderGrid();
         });
@@ -1082,76 +997,112 @@
     }
 
     function filteredCards() {
-      if (currentCategory === "全部") return cards;
-      return cards.filter(item => item.category === currentCategory);
+      if (currentCategory === "全部") return cardItems;
+      return cardItems.filter(item => item.category === currentCategory);
     }
 
-    function imageWithFallback(item, source = "image") {
-      const src = source === "longImage" ? item.longImage : item.image;
-      return `<img src="${src}" alt="${item.title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="thumb-fallback" style="display:none;">${item.title}</div>`;
+    function imageWithFallback(item, className = "") {
+      return `
+        <img src="${item.image}" alt="${item.title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="thumb-fallback" style="display:none;">${item.title}</div>
+      `;
     }
 
-    function renderFeatured() {
-      const featured = cards.filter(item => item.featured).slice(0, 4);
-      featuredEl.innerHTML = featured.map((item, index) => `<article class="featured-card" onclick="openModal('${item.title}')">${imageWithFallback(item, "longImage")}<div class="featured-badge">TOP ${index + 1}</div><div class="featured-title">${item.title}</div></article>`).join("");
+    function renderCarousel() {
+      const featured = cardItems.slice(0, 6);
+      carouselEl.innerHTML = featured.map(item => `
+        <div class="mini-card" onclick="openModal('${item.uid}')">
+          ${imageWithFallback(item)}
+          <div class="mini-title">${item.title}</div>
+        </div>
+      `).join("");
     }
 
     function renderGrid() {
       const list = filteredCards();
-      countText.textContent = `共 ${list.length} 张`;
-      const showList = expanded ? list : list.slice(0, initialLimit);
-      gridEl.innerHTML = showList.map(item => `<article class="card" onclick="openModal('${item.title}')"><div class="thumb">${imageWithFallback(item, "longImage")}</div><div class="card-body"><div class="card-title">${item.title}</div><div class="card-desc">${item.desc}</div><div class="view-link">展开长图</div></div></article>`).join("");
-      if (list.length > initialLimit && !expanded) {
-        const btn = document.createElement("button");
-        btn.className = "load-more";
-        btn.textContent = `查看更多 ${list.length - initialLimit} 张`;
-        btn.addEventListener("click", () => { expanded = true; renderGrid(); });
-        gridEl.appendChild(btn);
-      }
+      gridEl.innerHTML = list.map(item => `
+        <article class="card">
+          <div class="thumb">
+            ${imageWithFallback(item)}
+          </div>
+          <div class="card-body">
+            <div class="card-title">${item.title}</div>
+            <div class="card-desc">${item.desc}</div>
+            <button class="view-btn" onclick="openModal('${item.uid}')">查看长图</button>
+          </div>
+        </article>
+      `).join("");
     }
 
-    function openModal(title) {
-      const item = cards.find(card => card.title === title);
+    function openModal(uid) {
+      const item = cardItems.find(card => card.uid === uid);
       if (!item) return;
+
       modalTitle.textContent = item.title;
-      if (openOriginalBtn) openOriginalBtn.href = item.longImage;
-      modalContent.innerHTML = `<img class="modal-image" src="${item.longImage}" alt="${item.title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"><div class="modal-fallback" style="display:none;">${item.title}<br><br>段子看个乐，盯盘还得看真数据。</div>`;
+      modalContent.innerHTML = `
+        <img src="${item.longImage}" alt="${item.title}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div class="modal-fallback" style="display:none;">
+          ${item.title}<br><br>
+          段子归段子，数据要认真看。
+        </div>
+      `;
       modal.classList.add("show");
       document.body.style.overflow = "hidden";
     }
 
-    document.getElementById("closeModal").addEventListener("click", () => { modal.classList.remove("show"); document.body.style.overflow = ""; });
-    modal.addEventListener("click", e => { if (e.target === modal) { modal.classList.remove("show"); document.body.style.overflow = ""; } });
+    document.getElementById("closeModal").addEventListener("click", () => {
+      modal.classList.remove("show");
+      document.body.style.overflow = "";
+    });
+
+    modal.addEventListener("click", e => {
+      if (e.target === modal) {
+        modal.classList.remove("show");
+        document.body.style.overflow = "";
+      }
+    });
 
     function handleSharePage() {
       if (typeof window.Jin10JSBridge !== "undefined") {
-        try { const bridge = new window.Jin10JSBridge(); if (bridge.isApp) bridge.dispatch("appShare", { url: location.href }); } catch (e) {}
+        try {
+          const bridge = new window.Jin10JSBridge();
+          if (bridge.isApp) {
+            bridge.dispatch("appShare", { url: location.href });
+          }
+        } catch (e) {}
       }
     }
 
     function initAppEnvironment() {
       const downloadBtn = document.getElementById("download-btn");
       const shareBtn = document.getElementById("sharePageBtn");
+
       if (typeof window.Jin10JSBridge !== "undefined") {
         try {
           const bridge = new window.Jin10JSBridge();
-          if (bridge.isApp) { if (shareBtn) shareBtn.style.display = "flex"; if (downloadBtn) downloadBtn.style.display = "none"; }
-        } catch (e) { if (downloadBtn) downloadBtn.style.display = "flex"; }
+
+          if (bridge.isApp) {
+            if (shareBtn) shareBtn.style.display = "flex";
+            if (downloadBtn) downloadBtn.style.display = "none";
+          }
+        } catch (e) {
+          if (downloadBtn) downloadBtn.style.display = "flex";
+        }
       }
-      if (downloadBtn && downloadBtn.style.display !== "none") downloadBtn.style.display = "flex";
-      if (shareBtn) shareBtn.addEventListener("click", handleSharePage);
-      applyTheme(getInitialTheme());
-      if (themeToggle) {
-        themeToggle.addEventListener("click", () => {
-          const nextTheme = document.body.dataset.theme === "dark" ? "light" : "dark";
-          applyTheme(nextTheme);
-        });
+
+      if (downloadBtn && downloadBtn.style.display !== "none") {
+        downloadBtn.style.display = "flex";
+      }
+
+      if (shareBtn) {
+        shareBtn.addEventListener("click", handleSharePage);
       }
     }
 
     document.addEventListener("DOMContentLoaded", initAppEnvironment);
+
     renderTabs();
-    renderFeatured();
+    renderCarousel();
     renderGrid();
   </script>
 </body>
