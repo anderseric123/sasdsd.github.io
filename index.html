@@ -496,6 +496,7 @@
       overflow: hidden;
       border: 1px solid #f0f0f0;
       box-shadow: 0 5px 16px rgba(0,0,0,.035);
+      cursor: pointer;
     }
 
     .thumb {
@@ -1402,14 +1403,14 @@
       const renderList = isAllCategory ? list.slice(0, allVisibleCount) : list;
 
       gridEl.innerHTML = renderList.map(item => `
-        <article class="card">
+        <article class="card" onclick="openModal('${item.uid}')">
           <div class="thumb">
             ${imageWithFallback(item)}
           </div>
           <div class="card-body">
             <div class="card-title">${item.title}</div>
             <div class="card-desc">${item.desc}</div>
-            <button class="view-btn" onclick="openModal('${item.uid}')">查看长图 →</button>
+            <button class="view-btn" type="button">></button>
           </div>
         </article>
       `).join("");
