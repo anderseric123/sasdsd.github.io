@@ -285,22 +285,6 @@
       color: #222;
       cursor: pointer;
       white-space: nowrap;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .tab-icon {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      background: #f3f4f6;
-      color: #5f6770;
-      border: 1px solid #ececec;
     }
 
     .tab.active {
@@ -308,12 +292,6 @@
       color: #fff;
       border-color: var(--brand);
       box-shadow: 0 6px 16px rgba(255,90,0,.22);
-    }
-
-    .tab.active .tab-icon {
-      background: rgba(255,255,255,.18);
-      color: #fff;
-      border-color: rgba(255,255,255,.4);
     }
 
     .today-hot {
@@ -395,13 +373,6 @@
       background: #fff4ed;
       color: #d55500;
       font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .today-hot-move {
-      font-size: 11px;
-      font-weight: 800;
-      color: #0e9f6e;
       white-space: nowrap;
     }
 
@@ -895,7 +866,7 @@
   </div>
 
   <script>
-    const categories = ["全部", "今日热图", "产业链", "产区", "成本利润", "供需库存", "外盘联动", "趣图"];
+    const categories = ["全部", "产业链", "产区", "成本利润", "供需库存", "外盘联动", "趣图"];
 
     const cards = [
       {
@@ -1196,18 +1167,6 @@
       "钢铁", "甲醇", "镍", "能源", "农产品", "天气", "非农", "库存"
     ];
 
-    const categoryIcons = {
-      "全部": "◎",
-      "今日热图": "🔥",
-      "产业链": "链",
-      "产区": "图",
-      "成本利润": "¥",
-      "供需库存": "库",
-      "外盘联动": "盘",
-      "政策天气": "天",
-      "趣图": "趣",
-    };
-
     const questionTitleOverrides = {
       "碳酸锂产区": "碳酸锂产区变化，价格会先反应哪一段？",
       "多晶硅产业链": "多晶硅链条里，哪一环最容易先出预期差？",
@@ -1321,7 +1280,7 @@
     function renderTabs() {
       tabsEl.innerHTML = categories.map(cat => `
         <button class="tab ${cat === currentCategory ? "active" : ""}" data-cat="${cat}">
-          <span class="tab-icon">${categoryIcons[cat] || "•"}</span>${cat}
+          ${cat}
         </button>
       `).join("");
 
@@ -1341,9 +1300,7 @@
     function filteredCards() {
       let list = cardItems;
 
-      if (currentCategory === "今日热图") {
-        list = list.filter(item => item.isTodayHot);
-      } else if (currentCategory !== "全部") {
+      if (currentCategory !== "全部") {
         list = list.filter(item => item.category === currentCategory);
       }
 
@@ -1391,7 +1348,6 @@
           <div class="today-hot-item-title">${item.title}</div>
           <div class="today-hot-meta">
             <span class="today-hot-chip">${item.category}</span>
-            <span class="today-hot-move">${item.marketMove}</span>
           </div>
         </article>
       `).join("");
@@ -1410,7 +1366,6 @@
           <div class="card-body">
             <div class="card-title">${item.title}</div>
             <div class="card-desc">${item.desc}</div>
-            <button class="view-btn" type="button">></button>
           </div>
         </article>
       `).join("");
