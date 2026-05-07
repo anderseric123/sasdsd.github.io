@@ -96,12 +96,36 @@
       transform: translateY(-0.5px);
     }
 
+    .search-wrap {
+      padding: 10px 16px 8px;
+      background: #fff;
+      border-bottom: 1px solid #f4f4f4;
+    }
+
+    .search-input {
+      width: 100%;
+      height: 40px;
+      border-radius: 12px;
+      border: 1px solid #ececec;
+      background: #fafafa;
+      padding: 0 14px;
+      font-size: 14px;
+      color: #1f1f1f;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: rgba(255, 90, 0, .45);
+      box-shadow: 0 0 0 3px rgba(255, 90, 0, .12);
+      background: #fff;
+    }
+
     .hero {
       position: relative;
       height: 252px;
       padding: 34px 20px 20px;
       background:
-        radial-gradient(circle at 85% 46%, rgba(255, 122, 26, 0.12), transparent 30%),
+        radial-gradient(circle at 85% 46%, rgba(255, 122, 26, 0.07), transparent 34%),
         linear-gradient(135deg, #ffffff 0%, #f7f9fc 100%);
       overflow: hidden;
     }
@@ -142,78 +166,95 @@
 
     .hero-visual {
       position: absolute;
-      right: 6px;
-      top: 70px;
-      width: 160px;
-      height: 150px;
-      opacity: 0.95;
+      right: 10px;
+      top: 74px;
+      width: 150px;
+      height: 140px;
+      opacity: 0.82;
     }
 
-    .glass-card {
+    .atlas-board {
       position: absolute;
-      right: 0;
-      top: 0;
-      width: 118px;
-      height: 90px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.72);
-      box-shadow: 0 16px 36px rgba(32, 64, 128, 0.12);
-      border: 1px solid rgba(255,255,255,0.85);
-      transform: rotate(2deg);
+      inset: 0;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(238,238,238,0.95);
+      box-shadow: 0 10px 24px rgba(40, 64, 120, 0.09);
     }
 
-    .bars {
+    .atlas-map {
       position: absolute;
-      right: 22px;
-      bottom: 18px;
-      display: flex;
-      align-items: flex-end;
-      gap: 6px;
+      left: 14px;
+      top: 14px;
+      width: 68px;
+      height: 42px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #edf2f7, #e2e8f0);
+      clip-path: polygon(4% 28%, 23% 8%, 49% 16%, 75% 2%, 96% 31%, 84% 84%, 38% 95%, 11% 72%);
     }
 
-    .bar {
-      width: 10px;
-      border-radius: 8px 8px 0 0;
-      background: var(--brand);
-    }
-
-    .bar:nth-child(1) { height: 28px; opacity: .45; }
-    .bar:nth-child(2) { height: 46px; opacity: .65; }
-    .bar:nth-child(3) { height: 64px; opacity: .9; }
-
-    .trend {
+    .chain-link {
       position: absolute;
-      right: 18px;
-      top: 28px;
-      width: 72px;
-      height: 34px;
-      border-bottom: 3px solid var(--brand);
-      border-right: 3px solid var(--brand);
-      transform: skew(-18deg) rotate(-12deg);
-      border-radius: 2px;
+      height: 2px;
+      background: rgba(255, 90, 0, .33);
+      transform-origin: left center;
+      border-radius: 99px;
     }
 
-    .magnifier {
+    .chain-link.l1 { left: 35px; top: 44px; width: 52px; transform: rotate(-12deg); }
+    .chain-link.l2 { left: 44px; top: 57px; width: 46px; transform: rotate(16deg); }
+    .chain-link.l3 { left: 58px; top: 35px; width: 38px; transform: rotate(30deg); }
+
+    .chain-node {
       position: absolute;
-      left: 4px;
-      bottom: 6px;
-      width: 72px;
-      height: 72px;
-      border: 8px solid rgba(115, 148, 190, .28);
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
-      background: rgba(255,255,255,.38);
+      background: var(--brand);
+      box-shadow: 0 0 0 3px rgba(255, 90, 0, .14);
     }
 
-    .magnifier::after {
+    .chain-node.n1 { left: 28px; top: 39px; }
+    .chain-node.n2 { left: 81px; top: 28px; }
+    .chain-node.n3 { left: 89px; top: 58px; }
+    .chain-node.n4 { left: 104px; top: 45px; }
+
+    .kline {
+      position: absolute;
+      right: 12px;
+      bottom: 14px;
+      width: 62px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid #f1f1f1;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .kline::before {
       content: "";
       position: absolute;
-      width: 48px;
-      height: 8px;
-      background: rgba(115, 148, 190, .38);
+      left: 7px;
+      right: 7px;
+      top: 8px;
+      bottom: 8px;
+      background:
+        linear-gradient(135deg, transparent 42%, #fb923c 42% 48%, transparent 48% 100%),
+        linear-gradient(160deg, transparent 30%, #60a5fa 30% 36%, transparent 36% 100%);
+      opacity: .85;
+    }
+
+    .commodity-chip {
+      position: absolute;
+      left: 14px;
+      bottom: 16px;
+      font-size: 10px;
+      color: #6b7280;
+      background: #fff;
+      border: 1px solid #ececec;
       border-radius: 999px;
-      right: -36px;
-      bottom: -18px;
-      transform: rotate(45deg);
+      padding: 3px 8px;
+      font-weight: 700;
     }
 
     .tabs-wrap {
@@ -235,15 +276,31 @@
 
     .tab {
       flex: 0 0 auto;
-      padding: 7px 18px;
+      padding: 7px 13px;
       border-radius: 999px;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
       border: 1px solid #ddd;
       background: #fff;
       color: #222;
       cursor: pointer;
       white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tab-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      background: #f3f4f6;
+      color: #5f6770;
+      border: 1px solid #ececec;
     }
 
     .tab.active {
@@ -253,90 +310,116 @@
       box-shadow: 0 6px 16px rgba(255,90,0,.22);
     }
 
-    .carousel {
-      padding: 0 0 10px 16px;
-      background: #fff;
-    }
-
-    .carousel-track {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding-right: 16px;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none;
-    }
-
-    .carousel-track::-webkit-scrollbar {
-      display: none;
-    }
-
-    .mini-card {
-      flex: 0 0 142px;
-      height: 78px;
-      border-radius: 13px;
-      overflow: hidden;
-      position: relative;
-      scroll-snap-align: start;
-      background: linear-gradient(135deg, #333, #111);
-      box-shadow: 0 8px 20px rgba(0,0,0,.08);
-    }
-
-    .mini-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-      will-change: transform;
-      display: block;
-    }
-
-    .mini-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.58));
-    }
-
-    .mini-title {
-      position: absolute;
-      left: 10px;
-      bottom: 8px;
-      z-index: 2;
+    .tab.active .tab-icon {
+      background: rgba(255,255,255,.18);
       color: #fff;
-      font-size: 15px;
-      line-height: 1.15;
-      font-weight: 900;
-      width: 112px;
-      text-shadow: 0 2px 8px rgba(0,0,0,.25);
+      border-color: rgba(255,255,255,.4);
     }
 
-    .dots {
+    .today-hot {
+      margin: 0 16px 14px;
+      border: 1px solid #f0f0f0;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 6px 16px rgba(0,0,0,.025);
+      overflow: hidden;
+    }
+
+    .today-hot-head {
       display: flex;
-      justify-content: center;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      background: linear-gradient(135deg, #fff8f2 0%, #fff0e4 100%);
+      border-bottom: 1px solid #f6e6d9;
+    }
+
+    .today-hot-title {
+      font-size: 15px;
+      font-weight: 900;
+      color: #222;
+      display: inline-flex;
       gap: 8px;
-      padding: 12px 0 14px;
+      align-items: center;
     }
 
-    .dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #d5d5d5;
-    }
-
-    .dot.active {
-      width: 23px;
+    .today-hot-title .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
       background: var(--brand);
+      box-shadow: 0 0 0 4px rgba(255, 90, 0, .14);
+    }
+
+    .today-hot-time {
+      font-size: 12px;
+      color: #8a8a8a;
+      font-weight: 600;
+    }
+
+    .today-hot-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 12px;
+    }
+
+    .today-hot-item {
+      border: 1px solid #f1f1f1;
+      border-radius: 12px;
+      background: #fff;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .today-hot-item-title {
+      font-size: 13px;
+      line-height: 1.35;
+      font-weight: 800;
+      color: #232323;
+      min-height: 36px;
+    }
+
+    .today-hot-meta {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .today-hot-chip {
+      font-size: 11px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: #fff4ed;
+      color: #d55500;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .today-hot-move {
+      font-size: 11px;
+      font-weight: 800;
+      color: #0e9f6e;
+      white-space: nowrap;
+    }
+
+    .today-hot-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: #9a9a9a;
+      font-size: 12px;
+      padding: 10px 0;
     }
 
     .recommend {
       margin: 0 16px 14px;
-      min-height: 54px;
+      min-height: 66px;
       border: 1px solid #f0f0f0;
       border-radius: 15px;
       display: flex;
-      align-items: center;
+      align-items: stretch;
       overflow: hidden;
       background: #fff;
       box-shadow: 0 6px 16px rgba(0,0,0,.025);
@@ -362,7 +445,7 @@
 
     .recommend-text {
       flex: 1;
-      padding: 0 12px;
+      padding: 8px 12px;
       font-size: 13px;
       line-height: 1.35;
       color: #333;
@@ -386,6 +469,27 @@
       gap: 14px 12px;
     }
 
+    .load-more-wrap {
+      padding: 0 16px 18px;
+      display: none;
+    }
+
+    .load-more-wrap.show {
+      display: block;
+    }
+
+    .load-more-btn {
+      width: 100%;
+      height: 42px;
+      border: 1px solid rgba(255, 90, 0, .22);
+      border-radius: 12px;
+      background: linear-gradient(135deg, #fff7ef 0%, #ffe7d5 100%);
+      color: #d14d00;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
     .card {
       background: #fff;
       border-radius: 14px;
@@ -395,7 +499,7 @@
     }
 
     .thumb {
-      height: 94px;
+      height: 124px;
       background: linear-gradient(135deg, #f4f4f4, #e8e8e8);
       overflow: hidden;
       position: relative;
@@ -425,36 +529,41 @@
 
     .card-body {
       padding: 10px 10px 12px;
-      min-height: 98px;
+      min-height: 86px;
       position: relative;
     }
 
     .card-title {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 900;
-      line-height: 1.35;
+      line-height: 1.4;
       margin-bottom: 6px;
       color: #202020;
+      min-height: 40px;
     }
 
     .card-desc {
-      font-size: 12px;
-      line-height: 1.45;
+      font-size: 11px;
+      line-height: 1.4;
       color: #909090;
       padding-right: 2px;
-      min-height: 34px;
+      min-height: 30px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .view-btn {
-      margin-top: 8px;
+      margin-top: 6px;
       float: right;
       border: 0;
-      background: var(--brand);
-      color: #fff;
+      background: transparent;
+      color: #6b7280;
       font-size: 12px;
-      font-weight: 800;
-      padding: 6px 12px;
-      border-radius: 999px;
+      font-weight: 700;
+      padding: 2px 0;
+      border-radius: 0;
       cursor: pointer;
     }
 
@@ -624,6 +733,57 @@
       line-height: 1.25;
     }
 
+    .detail-block {
+      margin-top: 12px;
+      border-radius: 12px;
+      border: 1px solid #ededed;
+      background: #fff;
+      padding: 10px 12px;
+    }
+
+    .detail-label {
+      font-size: 12px;
+      color: #9a9a9a;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .detail-text {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #2a2a2a;
+    }
+
+    .related-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .related-btn {
+      border: 1px solid #f0d7c6;
+      border-radius: 999px;
+      background: #fff7f0;
+      color: #d45500;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
+    .detail-share-btn {
+      width: 100%;
+      height: 42px;
+      border: 0;
+      border-radius: 12px;
+      background: linear-gradient(90deg, #ff7a1a 0%, #ff5a00 100%);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 900;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
     @media (max-width: 380px) {
       .hero h1 {
         font-size: 30px;
@@ -640,7 +800,7 @@
         gap: 12px 10px;
       }
       .thumb {
-        height: 86px;
+        height: 112px;
       }
       .open-btn {
         padding: 10px 16px;
@@ -659,46 +819,45 @@
       </div>
       <div class="topbar-tag" id="topbarTag"><span>金十期货热图库</span></div>
     </header>
+    <section class="search-wrap">
+      <input id="searchInput" class="search-input" type="search" placeholder="按品种找图（如：原油、碳酸锂、生猪、铜）" />
+    </section>
 
     <section class="hero">
       <h1>板块热图，<br><span>一眼看懂</span></h1>
       <p class="desc">产区、产业链、成本、对外依存度，再加上一点期货人的趣图，一屏看懂市场脉络。</p>
-      <p class="slogan">图看结构，快看变化。</p>
 
       <div class="hero-visual" aria-hidden="true">
-        <div class="glass-card">
-          <div class="trend"></div>
-          <div class="bars">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-          </div>
-        </div>
-        <div class="magnifier"></div>
+        <div class="atlas-board"></div>
+        <div class="atlas-map"></div>
+        <div class="chain-link l1"></div>
+        <div class="chain-link l2"></div>
+        <div class="chain-link l3"></div>
+        <div class="chain-node n1"></div>
+        <div class="chain-node n2"></div>
+        <div class="chain-node n3"></div>
+        <div class="chain-node n4"></div>
+        <div class="kline"></div>
+        <div class="commodity-chip">品种联动</div>
       </div>
+    </section>
+
+    <section class="today-hot">
+      <div class="today-hot-head">
+        <div class="today-hot-title"><span class="dot"></span>今日热门图谱</div>
+        <div class="today-hot-time" id="todayHotTime"></div>
+      </div>
+      <div class="today-hot-list" id="todayHotList"></div>
     </section>
 
     <section class="tabs-wrap">
       <div class="tabs" id="tabs"></div>
     </section>
 
-    <section class="carousel">
-      <div class="carousel-track" id="carousel"></div>
-      <div class="dots">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-      </div>
-    </section>
-
-    <section class="recommend">
-      <div class="recommend-label"><span>★</span>编辑推荐</div>
-      <div class="recommend-text">不只看趣图，也看板块图。产区、产业链、成本和对外依存度，都是交易前的线索。</div>
-      <div class="recommend-shield">♧</div>
-    </section>
-
     <main class="grid" id="grid"></main>
+    <div class="load-more-wrap" id="loadMoreWrap">
+      <button class="load-more-btn" id="loadMoreBtn" type="button">查看更多</button>
+    </div>
 
     <div class="risk">内容仅作市场信息展示，不构成投资建议。</div>
   </div>
@@ -719,7 +878,7 @@
 
       <a id="download-btn" class="download-btn" href="https://qihuo.jin10.com/app/index.html" target="_blank" rel="noreferrer">
         <span class="primary">下载金十期货APP</span>
-        <span class="secondary">看更多热图库</span>
+        <span class="secondary">查看更多品种图谱与市场热点</span>
       </a>
     </div>
   </div>
@@ -735,18 +894,18 @@
   </div>
 
   <script>
-    const categories = ["全部", "产区", "产业链", "成本", "对外依存度", "趣图"];
+    const categories = ["全部", "今日热图", "产业链", "产区", "成本利润", "供需库存", "外盘联动", "趣图"];
 
     const cards = [
       {
-        title: "碳酸锂",
+        title: "碳酸锂产区",
         desc: "产区与供需的交汇点",
         category: "产区",
         image: "https://img.jin10.com/news/25/06/IJo_SdelP65n0tHtWuSmf.png",
         longImage: "https://img.jin10.com/news/25/06/IJo_SdelP65n0tHtWuSmf.png"
       },
       {
-        title: "多晶硅",
+        title: "多晶硅产业链",
         desc: "产业链上游，牵动下游预期",
         category: "产业链",
         image: "https://img.jin10.com/news/24/11/zaogdagKcYm1kJ5Q3qwbw.jpg",
@@ -767,21 +926,21 @@
         longImage: "https://flash-scdn.jin10.com/af63d828-4094-4189-b9ee-ad74ccfaf6ed.jpg"
       },
       {
-        title: "硫酸的角色",
+        title: "硫酸产业角色",
         desc: "一个环节的变化，往往会影响整条线",
         category: "产业链",
         image: "https://flash-scdn.jin10.com/d906dbb4-3e9a-43f6-a2de-5cb6f88e80ec.jpg",
         longImage: "https://flash-scdn.jin10.com/d906dbb4-3e9a-43f6-a2de-5cb6f88e80ec.jpg"
       },
       {
-        title: "钢铁行业产业链",
+        title: "钢铁产业链",
         desc: "从原料到成材，链条关系一眼能看懂",
         category: "产业链",
         image: "https://cdn-news.jin10.com/47272655-397b-4184-bc45-768803092d90.jpg",
         longImage: "https://cdn-news.jin10.com/47272655-397b-4184-bc45-768803092d90.jpg"
       },
       {
-        title: "碳酸锂",
+        title: "碳酸锂产业链",
         desc: "产业链变化，往往先体现在预期上",
         category: "产业链",
         image: "https://flash-scdn.jin10.com/7bef59be-eec5-4691-ada8-fcec92a11349.png",
@@ -795,49 +954,112 @@
         longImage: "https://img.jin10.com/news/26/03/PhMJ0DGQBjYZVRFyyt_iC.jpg"
       },
       {
-        title: "生猪",
+        title: "多晶硅与工业硅",
+        desc: "硅系品种联动，先看链条再看节奏",
+        category: "产业链",
+        image: "https://img.jin10.com/news/26/05/PHaISb70LCv_dnrkkTYla.jpg",
+        longImage: "https://img.jin10.com/news/26/05/PHaISb70LCv_dnrkkTYla.jpg"
+      },
+      {
+        title: "原油产业链",
+        desc: "原油上下游传导，是化工定价的基础",
+        category: "产业链",
+        image: "https://flash-scdn.jin10.com/a07a33f8-b75e-4d0d-b610-61ff3da9db6d.jpg",
+        longImage: "https://flash-scdn.jin10.com/a07a33f8-b75e-4d0d-b610-61ff3da9db6d.jpg"
+      },
+      {
+        title: "锡产业链",
+        desc: "看清锡的供给到消费路径，才能看懂波动",
+        category: "产业链",
+        image: "https://flash-scdn.jin10.com/83f173a9-69da-4104-adef-0515efbb08ef.jpg",
+        longImage: "https://flash-scdn.jin10.com/83f173a9-69da-4104-adef-0515efbb08ef.jpg"
+      },
+      {
+        title: "生猪成本",
         desc: "成本端一动，市场就会跟着算账",
         category: "成本",
         image: "https://img.jin10.com/news/26/01/1H5naSxt-EW7pWHyfWsy9.jpg",
         longImage: "https://img.jin10.com/news/26/01/1H5naSxt-EW7pWHyfWsy9.jpg"
       },
       {
-        title: "电解铝",
+        title: "电解铝成本",
         desc: "成本线变化，影响利润空间",
         category: "成本",
         image: "https://img.jin10.com/news/25/12/PF83t0gid7QCLOlet3GG6.jpg",
         longImage: "https://img.jin10.com/news/25/12/PF83t0gid7QCLOlet3GG6.jpg"
       },
       {
-        title: "多晶硅",
+        title: "多晶硅成本",
         desc: "成本压力，最终会传导到价格上",
         category: "成本",
         image: "https://img.jin10.com/news/25/12/cdM5SsuEobGm4RVIIgLbL.jpg",
         longImage: "https://img.jin10.com/news/25/12/cdM5SsuEobGm4RVIIgLbL.jpg"
       },
       {
-        title: "工业品耗电大比拼",
+        title: "工业品耗电",
         desc: "耗电差异，本身就是成本差异",
         category: "成本",
         image: "https://flash-scdn.jin10.com/9e979f37-cff4-4db0-a3b7-befa70099eb0.jpg",
         longImage: "https://flash-scdn.jin10.com/9e979f37-cff4-4db0-a3b7-befa70099eb0.jpg"
       },
       {
-        title: "硫磺成本传导机制",
+        title: "硫磺成本传导",
         desc: "从成本端看，传导路径很关键",
         category: "成本",
         image: "https://flash-scdn.jin10.com/4069fb16-54c9-4671-8320-039dbada6a88.jpg",
         longImage: "https://flash-scdn.jin10.com/4069fb16-54c9-4671-8320-039dbada6a88.jpg"
       },
       {
-        title: "尿素全年作息时间表",
+        title: "尿素年度节奏",
         desc: "节奏和季节性，都会影响交易思路",
         category: "成本",
         image: "https://flash-scdn.jin10.com/064e5612-b99c-48c6-8f78-d9e94e116511.jpg",
         longImage: "https://flash-scdn.jin10.com/064e5612-b99c-48c6-8f78-d9e94e116511.jpg"
       },
       {
-        title: "金属",
+        title: "碳酸锂供需平衡",
+        desc: "供需平衡表，是锂价预期的核心线索",
+        category: "供需",
+        image: "https://flash-scdn.jin10.com/519d7613-9ce3-4411-81e7-a0f82b8a06c1.jpg",
+        longImage: "https://flash-scdn.jin10.com/519d7613-9ce3-4411-81e7-a0f82b8a06c1.jpg"
+      },
+      {
+        title: "生猪供需关键",
+        desc: "供需拐点和库存节奏，决定价格弹性",
+        category: "供需",
+        image: "https://flash-scdn.jin10.com/f89aea6a-0297-46b8-81a5-55ce0028ef6e.png",
+        longImage: "https://flash-scdn.jin10.com/f89aea6a-0297-46b8-81a5-55ce0028ef6e.png"
+      },
+      {
+        title: "锡周期",
+        desc: "周期切换阶段，弹性和波动会放大",
+        category: "周期",
+        image: "https://flash-scdn.jin10.com/c8664832-d4f8-4454-93c2-89894d01a063.jpg",
+        longImage: "https://flash-scdn.jin10.com/c8664832-d4f8-4454-93c2-89894d01a063.jpg"
+      },
+      {
+        title: "铝周期",
+        desc: "供给约束与需求变化共同驱动铝价节奏",
+        category: "周期",
+        image: "https://flash-scdn.jin10.com/135550a2-3590-4a7f-a8b6-80e95085cf4e.jpg",
+        longImage: "https://flash-scdn.jin10.com/135550a2-3590-4a7f-a8b6-80e95085cf4e.jpg"
+      },
+      {
+        title: "锂周期",
+        desc: "产能与需求错配，是锂周期的关键变量",
+        category: "周期",
+        image: "https://flash-scdn.jin10.com/66e601a4-9252-4a50-a469-09d71ad14378.jpg",
+        longImage: "https://flash-scdn.jin10.com/66e601a4-9252-4a50-a469-09d71ad14378.jpg"
+      },
+      {
+        title: "铜周期",
+        desc: "宏观与产业共振时，铜价周期更清晰",
+        category: "周期",
+        image: "https://flash-scdn.jin10.com/78a3967b-f774-4f5f-85f2-978a4fe4bc1d.jpg",
+        longImage: "https://flash-scdn.jin10.com/78a3967b-f774-4f5f-85f2-978a4fe4bc1d.jpg"
+      },
+      {
+        title: "金属依存度",
         desc: "对外依存度越高，越要看外部扰动",
         category: "对外依存度",
         image: "https://img.jin10.com/news/25/09/-sxykzxNuwBGxmwjeOTPw.jpg",
@@ -851,21 +1073,21 @@
         longImage: "https://img.jin10.com/news/26/03/ddvgw3IbnY6I634_9t-TI.jpg"
       },
       {
-        title: "刚果（金）有色金属分布",
+        title: "刚果(金)有色分布",
         desc: "看分布，往往是在看全球供给格局",
         category: "对外依存度",
         image: "https://img.jin10.com/news/25/03/7CKog0bdyg4PqZdjbUsnp.jpg",
         longImage: "https://img.jin10.com/news/25/03/7CKog0bdyg4PqZdjbUsnp.jpg"
       },
       {
-        title: "农产品",
+        title: "农产品依存度",
         desc: "进口依赖变化，会直接影响节奏",
         category: "对外依存度",
         image: "https://img.jin10.com/news/25/09/rUPPRosbChx3vEfix00n8.jpg",
         longImage: "https://img.jin10.com/news/25/09/rUPPRosbChx3vEfix00n8.jpg"
       },
       {
-        title: "能源化工",
+        title: "能源化工依存度",
         desc: "外部扰动一来，波动通常更明显",
         category: "对外依存度",
         image: "https://img.jin10.com/news/25/09/3i6fe2h7dRENfwgNDvuyD.jpg",
@@ -879,7 +1101,7 @@
         longImage: "https://img.jin10.com/news/26/04/dwfZZc8Ssf45dPOGDbCmt.jpg/lite"
       },
       {
-        title: "夜盘",
+        title: "夜盘状态",
         desc: "夜深了，行情还在继续刷新",
         category: "趣图",
         image: "https://img.jin10.com/news/26/04/c5sYYo3tvncAknm21W0mo.jpg",
@@ -900,7 +1122,7 @@
         longImage: "https://img.jin10.com/news/26/04/f5WVjB-V7LR4Cm706BbAz.jpg/lite"
       },
       {
-        title: "普通人热搜",
+        title: "普通人看热搜",
         desc: "别人吃瓜，期货人找影响链",
         category: "趣图",
         image: "https://img.jin10.com/news/26/04/ij7HWGDg_knRJRKUOGjIp.jpg",
@@ -914,7 +1136,7 @@
         longImage: "https://img.jin10.com/news/26/04/z4BOphTwpoA5V2h-g3C7f.jpg/lite"
       },
       {
-        title: "普通人第一反应",
+        title: "第一反应",
         desc: "先问发生了什么，期货人先问影响谁",
         category: "趣图",
         image: "https://img.jin10.com/news/26/04/TO-QHT-LdCyXg4uRE7i-p.jpg",
@@ -949,7 +1171,7 @@
         longImage: "https://img.jin10.com/news/26/04/Ps09pfLZKfgH09OwQ7CfZ.jpg"
       },
       {
-        title: "非农",
+        title: "非农夜",
         desc: "夜里最怕的，不是消息少，是消息太猛",
         category: "趣图",
         image: "https://img.jin10.com/news/26/04/RWSS7IjqkQihR0g17hjnI.jpg",
@@ -957,16 +1179,140 @@
       }
     ];
 
-    const cardItems = cards.map((item, index) => ({
-      ...item,
-      uid: `${item.category}-${index}`,
-    }));
+    const categoryMap = {
+      "成本": "成本利润",
+      "供需": "供需库存",
+      "周期": "外盘联动",
+      "对外依存度": "外盘联动"
+    };
+
+    const todayHotTopics = new Set([
+      "原油产业链", "铜周期", "碳酸锂供需平衡", "生猪供需关键", "电解铝成本", "刚果(金)有色分布"
+    ]);
+
+    const keywordMap = [
+      "原油", "碳酸锂", "多晶硅", "工业硅", "锡", "铜", "铝", "生猪", "尿素", "硫磺",
+      "钢铁", "甲醇", "镍", "能源", "农产品", "天气", "非农", "库存"
+    ];
+
+    const categoryIcons = {
+      "全部": "◎",
+      "今日热图": "🔥",
+      "产业链": "链",
+      "产区": "图",
+      "成本利润": "¥",
+      "供需库存": "库",
+      "外盘联动": "盘",
+      "政策天气": "天",
+      "趣图": "趣",
+    };
+
+    const questionTitleOverrides = {
+      "碳酸锂产区": "碳酸锂产区变化，价格会先反应哪一段？",
+      "多晶硅产业链": "多晶硅链条里，哪一环最容易先出预期差？",
+      "硅铁产业链": "硅铁上下游联动时，先看原料还是需求？",
+      "瓶片产业链": "瓶片价格波动，真正的驱动点在哪一端？",
+      "硫酸产业角色": "硫酸在链条里到底是成本项还是定价锚？",
+      "钢铁产业链": "钢铁链条走弱时，哪一环会先给信号？",
+      "碳酸锂产业链": "碳酸锂产业链里，库存拐点通常出现在何处？",
+      "伊朗甲醇分布": "伊朗甲醇供给分布变化，会先冲击哪个市场？",
+      "多晶硅与工业硅": "多晶硅和工业硅错位波动时，该盯哪个价差？",
+      "原油产业链": "油价一动，产业链利润会先压缩在哪一段？",
+      "锡产业链": "锡链条里，矿端与冶炼端谁更主导节奏？",
+      "生猪成本": "生猪成本线抬升后，现货与期货谁先反应？",
+      "电解铝成本": "电解铝成本变化，利润修复会不会超预期？",
+      "多晶硅成本": "多晶硅成本下移时，价格会同步回落吗？",
+      "工业品耗电": "耗电结构变化，会先影响哪些工业品估值？",
+      "硫磺成本传导": "硫磺成本传导链里，哪一环最容易卡住？",
+      "尿素年度节奏": "尿素全年节奏切换时，哪个窗口最关键？",
+      "碳酸锂供需平衡": "碳酸锂供需表里，最容易被忽略的是哪项？",
+      "生猪供需关键": "看生猪供需，先盯出栏还是二育节奏？",
+      "锡周期": "锡周期到哪一阶段了，交易上该看什么信号？",
+      "铝周期": "铝周期切换临界点，最先动的是库存还是利润？",
+      "锂周期": "锂周期底部确认前，哪些指标最有参考价值？",
+      "铜周期": "铜周期上行前夜，通常先出现哪些共振？",
+      "金属依存度": "金属依存度抬升后，外部冲击会放大多少？",
+      "几内亚铝土矿": "几内亚铝土矿扰动，会如何传导到国内铝链？",
+      "刚果(金)有色分布": "刚果(金)供给变化，会重塑哪些有色定价？",
+      "农产品依存度": "农产品依存度变化，哪些品种弹性更大？",
+      "能源化工依存度": "能源化工外部依赖高时，如何判断风险敞口？",
+      "上班摸鱼": "白天上班还盯盘，期货人都在看什么？",
+      "夜盘状态": "夜盘波动放大时，交易员最怕踩中哪一步？",
+      "最怕五句话": "哪几句快讯，最容易让盘面瞬间变脸？",
+      "普通人看天气": "同样看天气，为什么期货人反应完全不同？",
+      "普通人看热搜": "热搜刷屏背后，哪些题材可能传导到盘面？",
+      "普通人看新闻": "一条新闻出来，如何三步判断能不能交易？",
+      "第一反应": "突发消息第一秒，先看方向还是先控风险？",
+      "一条新闻": "一条新闻落地后，影响链条该怎么快速拆？",
+      "库存数据": "库存增减之外，真正该盯的细节是什么？",
+      "期货品种": "不同品种脾气不同，节奏差异该怎么抓？",
+      "离不开快讯": "为什么快讯慢半拍，交易结果就可能差很多？",
+      "非农夜": "非农夜真正决定行情方向的，往往是哪一拍？"
+    };
+
+    const questionTemplates = [
+      topic => `${topic}现在最该盯哪一个变量？`,
+      topic => `${topic}背后谁在驱动行情？`,
+      topic => `${topic}这一轮波动会传导到哪一环？`,
+      topic => `${topic}出现预期差时，先交易什么？`,
+      topic => `${topic}的关键拐点，如何提前识别？`,
+      topic => `${topic}走到这个位置，还能不能追？`,
+      topic => `${topic}如果反转，第一信号会出现在哪？`,
+      topic => `${topic}的核心矛盾，现在变了吗？`
+    ];
+
+    function asQuestionTitle(topic, index) {
+      if (topic.includes("？")) return topic;
+      if (questionTitleOverrides[topic]) return questionTitleOverrides[topic];
+      return questionTemplates[index % questionTemplates.length](topic);
+    }
+
+    function inferKeywords(item) {
+      const text = `${item.title}${item.desc}`;
+      return keywordMap.filter(word => text.includes(word));
+    }
+
+    function buildIntro(item) {
+      return `这张图重点回答“${item.title}”相关问题。建议结合当日盘面、成交和库存变化交叉验证。`;
+    }
+
+    function buildMoveSignal(item, index) {
+      const basis = ((index * 17 + new Date().getDate() * 7) % 36) / 10;
+      const sign = index % 2 === 0 ? "+" : "-";
+      return `${sign}${basis.toFixed(1)}%`;
+    }
+
+    const cardItems = cards.map((item, index) => {
+      const normalizedCategory = categoryMap[item.category] || item.category;
+      const keywords = inferKeywords(item);
+      return {
+        ...item,
+        topic: item.title,
+        title: asQuestionTitle(item.title, index),
+        category: normalizedCategory,
+        keywords,
+        intro: buildIntro(item),
+        source: "金十数据中心 / 公开资料整理",
+        risk: "图谱仅供研究交流，不构成任何投资建议。请结合实时行情独立判断。",
+        marketMove: buildMoveSignal(item, index),
+        isTodayHot: todayHotTopics.has(item.title) || ["原油", "铜", "碳酸锂", "生猪"].some(k => keywords.includes(k)),
+        uid: `${normalizedCategory}-${index}`,
+      };
+    });
 
     let currentCategory = "全部";
+    let searchQuery = "";
+    const ALL_INITIAL_COUNT = 4;
+    const ALL_INCREMENT_COUNT = 4;
+    let allVisibleCount = ALL_INITIAL_COUNT;
 
     const tabsEl = document.getElementById("tabs");
     const gridEl = document.getElementById("grid");
-    const carouselEl = document.getElementById("carousel");
+    const todayHotListEl = document.getElementById("todayHotList");
+    const todayHotTimeEl = document.getElementById("todayHotTime");
+    const searchInputEl = document.getElementById("searchInput");
+    const loadMoreWrapEl = document.getElementById("loadMoreWrap");
+    const loadMoreBtnEl = document.getElementById("loadMoreBtn");
     const modal = document.getElementById("modal");
     const modalTitle = document.getElementById("modalTitle");
     const modalContent = document.getElementById("modalContent");
@@ -974,22 +1320,39 @@
     function renderTabs() {
       tabsEl.innerHTML = categories.map(cat => `
         <button class="tab ${cat === currentCategory ? "active" : ""}" data-cat="${cat}">
-          ${cat}
+          <span class="tab-icon">${categoryIcons[cat] || "•"}</span>${cat}
         </button>
       `).join("");
 
       document.querySelectorAll(".tab").forEach(btn => {
         btn.addEventListener("click", () => {
           currentCategory = btn.dataset.cat;
+          if (currentCategory === "全部") {
+            allVisibleCount = ALL_INITIAL_COUNT;
+          }
           renderTabs();
+          renderTodayHot();
           renderGrid();
         });
       });
     }
 
     function filteredCards() {
-      if (currentCategory === "全部") return cardItems;
-      return cardItems.filter(item => item.category === currentCategory);
+      let list = cardItems;
+
+      if (currentCategory === "今日热图") {
+        list = list.filter(item => item.isTodayHot);
+      } else if (currentCategory !== "全部") {
+        list = list.filter(item => item.category === currentCategory);
+      }
+
+      const q = searchQuery.trim().toLowerCase();
+      if (!q) return list;
+
+      return list.filter(item => {
+        const blob = `${item.title}${item.topic}${item.desc}${item.keywords.join("|")}`.toLowerCase();
+        return blob.includes(q);
+      });
     }
 
     function imageWithFallback(item, className = "") {
@@ -999,19 +1362,46 @@
       `;
     }
 
-    function renderCarousel() {
-      const featured = cardItems.slice(0, 6);
-      carouselEl.innerHTML = featured.map(item => `
-        <div class="mini-card" onclick="openModal('${item.uid}')">
-          ${imageWithFallback(item)}
-          <div class="mini-title">${item.title}</div>
-        </div>
+    function renderTodayHot() {
+      const now = new Date();
+      const mm = String(now.getMonth() + 1).padStart(2, "0");
+      const dd = String(now.getDate()).padStart(2, "0");
+      const hh = String(now.getHours()).padStart(2, "0");
+      const mi = String(now.getMinutes()).padStart(2, "0");
+      todayHotTimeEl.textContent = `${mm}-${dd} ${hh}:${mi} 更新`;
+
+      const q = searchQuery.trim().toLowerCase();
+      const hotList = cardItems
+        .filter(item => item.isTodayHot)
+        .filter(item => {
+          if (!q) return true;
+          const blob = `${item.title}${item.topic}${item.desc}${item.keywords.join("|")}`.toLowerCase();
+          return blob.includes(q);
+        })
+        .slice(0, 6);
+
+      if (!hotList.length) {
+        todayHotListEl.innerHTML = `<div class="today-hot-empty">当前关键词下暂无今日热图</div>`;
+        return;
+      }
+
+      todayHotListEl.innerHTML = hotList.map(item => `
+        <article class="today-hot-item" onclick="openModal('${item.uid}')">
+          <div class="today-hot-item-title">${item.title}</div>
+          <div class="today-hot-meta">
+            <span class="today-hot-chip">${item.category}</span>
+            <span class="today-hot-move">${item.marketMove}</span>
+          </div>
+        </article>
       `).join("");
     }
 
     function renderGrid() {
       const list = filteredCards();
-      gridEl.innerHTML = list.map(item => `
+      const isAllCategory = currentCategory === "全部";
+      const renderList = isAllCategory ? list.slice(0, allVisibleCount) : list;
+
+      gridEl.innerHTML = renderList.map(item => `
         <article class="card">
           <div class="thumb">
             ${imageWithFallback(item)}
@@ -1019,10 +1409,16 @@
           <div class="card-body">
             <div class="card-title">${item.title}</div>
             <div class="card-desc">${item.desc}</div>
-            <button class="view-btn" onclick="openModal('${item.uid}')">查看长图</button>
+            <button class="view-btn" onclick="openModal('${item.uid}')">查看长图 →</button>
           </div>
         </article>
       `).join("");
+
+      if (isAllCategory && allVisibleCount < list.length) {
+        loadMoreWrapEl.classList.add("show");
+      } else {
+        loadMoreWrapEl.classList.remove("show");
+      }
     }
 
     function openModal(uid) {
@@ -1090,7 +1486,48 @@
       }
     }
 
+    function shareCurrentChart(uid) {
+      const item = cardItems.find(card => card.uid === uid);
+      const text = item ? `${item.title}｜金十期货热图库` : "金十期货热图库";
+
+      if (typeof window.Jin10JSBridge !== "undefined") {
+        try {
+          const bridge = new window.Jin10JSBridge();
+          if (bridge.isApp) {
+            bridge.dispatch("appShare", { url: location.href, title: text });
+            return;
+          }
+        } catch (e) {}
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(`${text} ${location.href}`).then(() => {
+          alert("链接已复制，可直接分享给好友。");
+        }).catch(() => {
+          alert("当前环境不支持自动复制，可手动复制链接分享。");
+        });
+        return;
+      }
+
+      alert("当前环境不支持自动复制，可手动复制链接分享。");
+    }
+
     document.addEventListener("DOMContentLoaded", initAppEnvironment);
+
+    searchInputEl.addEventListener("input", e => {
+      searchQuery = e.target.value || "";
+      if (currentCategory === "全部") {
+        allVisibleCount = ALL_INITIAL_COUNT;
+      }
+      renderTodayHot();
+      renderGrid();
+    });
+
+    loadMoreBtnEl.addEventListener("click", () => {
+      if (currentCategory !== "全部") return;
+      allVisibleCount += ALL_INCREMENT_COUNT;
+      renderGrid();
+    });
 
     function preloadGalleryImages() {
       cardItems.forEach(item => {
@@ -1101,7 +1538,7 @@
     }
 
     renderTabs();
-    renderCarousel();
+    renderTodayHot();
     renderGrid();
     preloadGalleryImages();
   </script>
